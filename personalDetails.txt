@@ -1,0 +1,6 @@
+c id  password userName email phoneNumber birthDate freeTxt
+e id  password userName email phoneNumber birthDate
+c id  password userName email phoneNumber birthDate freeTxt
+e id  password userName email phoneNumber birthDate
+c id  password userName email phoneNumber birthDate freeTxt
+e id  password userName email phoneNumber birthDate
