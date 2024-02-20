@@ -24,7 +24,10 @@ public:
 
     char *getPassword() const;
 
-    ~Employer();
+    void print() const;
+
+
+        ~Employer();
 private:
     char *userName;
     char* id;

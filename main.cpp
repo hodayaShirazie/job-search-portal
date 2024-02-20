@@ -93,14 +93,15 @@ using std::fstream;
 
 
 int main() {
-//    Candidate c;
-//CV c("hodaya s", "hoddaya.sh@.com");
-//Administrator A;
-//A.enterSystem();
 
-fstream g;
-//g.open("C:\\ObjectOrientedProgramming\\jobSearch\\personalDetails.txt",ios::out);
-//g << "lkjhg";
+//    char s [80] = "\0";
+//    cout <<"s= "<<s<<endl;
+//    strcat(s," uuu");
+//    strcat(s," tttttt");
+
+
+
+
     Administrator a;
 //    a.enterSystem();
 
@@ -109,5 +110,7 @@ fstream g;
 
     return 0;
 }
+
+
 
 

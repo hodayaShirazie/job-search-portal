@@ -47,13 +47,16 @@ Administrator :: Administrator() : candidate_arr(NULL), employers_arr(NULL), can
                 Candidate *candidate = new Candidate(id, password, userName, email, phoneNumber, birthDate, freeTxt);
                 Candidate **candidate_tmp = new Candidate *[candidate_arr_size + 1];
 
-                for (int i = 0; i < candidate_arr_size; ++i)
+
+                for (int i = 0; i < candidate_arr_size; ++i) {
                     candidate_tmp[i] = candidate_arr[i];
+                }
 
                 candidate_tmp[candidate_arr_size] = candidate;
                 delete[] candidate_arr;
                 candidate_arr = candidate_tmp;
                 ++candidate_arr_size;
+
 
             } else//copy as employer
             {
@@ -63,11 +66,13 @@ Administrator :: Administrator() : candidate_arr(NULL), employers_arr(NULL), can
                 Employer *employer = new Employer(id, password, userName, email, phoneNumber, birthDate);
                 Employer **employer_tmp = new Employer *[employers_arr_size + 1];
 
-                for (int i = 0; i < employers_arr_size; ++i)
-                    employer_tmp[i] = employers_arr[i];
 
-                employer_tmp[candidate_arr_size] = employer;
-                delete[] employers_arr;
+                for (int i = 0; i < employers_arr_size; ++i) {
+                    employer_tmp[i] = employers_arr[i];
+                }
+
+                employer_tmp[employers_arr_size] = employer;
+                delete [] employers_arr;
                 employers_arr = employer_tmp;
                 ++employers_arr_size;
 
@@ -75,8 +80,167 @@ Administrator :: Administrator() : candidate_arr(NULL), employers_arr(NULL), can
 
             }
         }
+        file_personal_details.close();
+
+
+
+        //TODO personal details is copied perfectly
 
     }
+
+    //after coping personal details, copy CV's
+    file_cv.open("C:\\ObjectOrientedProgramming\\jobSearch\\CV.txt", ios::in);
+    if(!file_cv.is_open())
+        cout << "file could not be opened, check error" << endl;
+    else
+    {
+        char file_content[30];
+        while(!file_cv.eof()) {
+            file_cv >> file_content;
+            for (int i = 0; i < candidate_arr_size; ++i) {
+                if(strcmp(file_content, candidate_arr[i]->getId()) == 0)//if cv belongs to current candidate-
+                {
+                    char summary [80] = "\0";
+                    char experience [80] = "\0";
+                    char education [80] = "\0";
+                    char licenses [80] = "\0";
+                    char skills [80] = "\0";
+                    char awards [80] = "\0";
+                    char name [80] = "\0";
+                    char email [80] = "\0";
+                    file_cv >> file_content >> file_content;//the word summary
+
+                    //copy summary from file
+                    while(!strcmp(file_content, "experience") == 0)
+                    {
+                        strcat(summary, file_content);
+                        strcat(summary, " ");
+                        file_cv >> file_content;
+                    }
+                    file_cv >> file_content;
+                    //summary is done-send to constructor
+
+                    //copy experience from file
+                    while(!strcmp(file_content, "education") == 0)
+                    {
+                        strcat(experience, file_content);
+                        strcat(experience, " ");
+                        file_cv >> file_content;
+                    }
+                    file_cv >> file_content;
+                    //experience is done-send to constructor
+
+                    //copy education from file
+                    while(!strcmp(file_content, "licenses") == 0)
+                    {
+                        strcat(education, file_content);
+                        strcat(education, " ");
+                        file_cv >> file_content;
+                    }
+                    file_cv >> file_content;
+                    //education is done-send to constructor
+
+                    //copy licenses from file
+                    while(!strcmp(file_content, "skills") == 0)
+                    {
+                        strcat(licenses, file_content);
+                        strcat(licenses, " ");
+                        file_cv >> file_content;
+                    }
+                    file_cv >> file_content;
+
+                    //licenses is done-send to constructor
+
+                    //copy skills from file
+                    while(!strcmp(file_content, "awards") == 0)
+                    {
+                        strcat(skills, file_content);
+                        strcat(skills, " ");
+                        file_cv >> file_content;
+                    }
+                    file_cv >> file_content;
+                    //skills is done-send to constructor
+
+                    //copy awards from file
+                    while(!strcmp(file_content, "name") == 0)
+                    {
+                        strcat(awards, file_content);
+                        strcat(awards, " ");
+                        file_cv >> file_content;
+                    }
+                    file_cv >> file_content;
+                    //awards is done-send to constructor
+
+                    //copy name from file
+                    while(!strcmp(file_content, "email") == 0)
+                    {
+                        strcat(name, file_content);
+                        strcat(name, " ");
+                        file_cv >> file_content;
+                    }
+                    file_cv >> file_content;
+                    //name is done-send to constructor
+
+                    //copy email from file
+                    while(!strcmp(file_content, "endl") == 0 && !file_cv.eof())
+                    {
+                        strcat(email, file_content);
+                        strcat(email, " ");
+                        file_cv >> file_content;
+                    }
+                    file_cv >> file_content;
+                    //email is done-send to constructor
+
+                    //create cv object
+
+                    CV *cv = new CV(summary, experience, education, licenses, skills, awards, name, email);
+
+                    //set cv in cv field
+                    candidate_arr[i]->set_cv(cv);
+
+
+//                    cout <<"-----------------------------------------------\n";
+//                    candidate_arr[i]->print();
+
+                    file_cv >> file_content;
+
+
+
+
+
+
+
+
+
+
+
+
+                }
+
+
+            }
+        }
+
+
+
+
+        file_cv.close();
+    }
+
+//    for (int i = 0; i < employers_arr_size; ++i) {
+//        cout << "\n printing emp--\n";
+//        employers_arr[i]->print();
+//        cout << "end printing emp-------\n\n";
+//    }
+
+//    for (int i = 0; i < candidate_arr_size; ++i) {
+//        cout << "\n printing candidates--\n";
+//        candidate_arr[i]->print();
+//        cout << "end printing can-------\n\n";
+//    }
+
+
+
 
 
 

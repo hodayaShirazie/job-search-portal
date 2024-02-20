@@ -27,7 +27,7 @@ Candidate :: ~Candidate()
         {
             file_cv << id << " summary " << cv->getSummary() << " experience " << cv->getExperience() << " education " << cv->getEducation() << " licenses " <<
             cv->getLicenses() << " skills " << cv->getSkills() << " awards " << cv->getAwards() << " name " <<
-                                        cv->getName() << " email " << cv->getEmail()  << endl;
+                                        cv->getName() << " email " << cv->getEmail()  << " endl " << endl;
 
             file_cv.close();
         }
@@ -57,6 +57,9 @@ Candidate :: Candidate(char* id, char* password, char* userName, char* email, ch
 
     this->id = new char[strlen(id) + 1];
     strcpy(this->id,id);
+
+    this->password = new char[strlen(password) + 1];
+    strcpy(this->password,password);
 
     this->userName = new char[strlen(userName) + 1];
     strcpy(this->userName,userName);
@@ -184,7 +187,7 @@ Candidate :: Candidate(char* id, char* password, char* userName, char* email, ch
      strcpy(freeTxt, tempFt);
 
      //add cv
-     cv= new CV(userName,email);
+     cv = new CV(userName,email);
 
 
 //     //save registeration details in txt file
@@ -421,6 +424,12 @@ void Candidate::set_password()
 
 }
 
+void Candidate:: set_cv(CV *cv)
+{
+    this->cv = cv;
+}
+
+
 char *Candidate::getUserName() const {
     return userName;
 }
@@ -447,5 +456,30 @@ char *Candidate::getPassword() const {
 
 CV *Candidate::getCv() const {
     return cv;
+}
+
+
+void Candidate:: print() const
+{
+    cout << "user name: " << userName <<endl;
+
+    cout << "id: " << id <<endl;
+
+    cout << "email: " << email <<endl;
+
+    cout << "phoneNumber: " << phoneNumber <<endl;
+
+    cout << "birthDate: " << birthDate <<endl;
+
+    cout << "password: " << password <<endl;
+
+    cout << "freeTxt: " << freeTxt <<endl;
+
+    //printing CV's
+    cout << "printing CV's \n";
+    cv->print();
+
+
+
 }
 

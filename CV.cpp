@@ -20,12 +20,41 @@ void setConsoleColor(WORD c)
 
 CV::CV(){}
 
+CV :: CV(char* summary, char* experience, char* education, char* licenses, char* skills, char* awards, char* name, char* email)
+{
+    this->summary = new char[strlen(summary) + 1];
+    strcpy(this->summary,summary);
+
+    this->experience = new char[strlen(experience) + 1];
+    strcpy(this->experience,experience);
+
+    this->education = new char[strlen(education) + 1];
+    strcpy(this->education,education);
+
+    this->licenses = new char[strlen(licenses) + 1];
+    strcpy(this->licenses,licenses);
+
+    this->skills = new char[strlen(skills) + 1];
+    strcpy(this->skills,skills);
+
+    this->awards = new char[strlen(awards) + 1];
+    strcpy(this->awards,awards);
+
+    this->name = new char[strlen(name) + 1];
+    strcpy(this->name,name);
+
+    this->email = new char[strlen(email) + 1];
+    strcpy(this->email,email);
+
+}
+
 //constructor
 CV::CV(char* name, char*email) {
 
     //initialize name and email
     this->name = new char[strlen(name) + 1];
     strcpy(this->name,name);
+
     this->email = new char[strlen(email) + 1];
     strcpy(this->email,email);
 
@@ -45,7 +74,7 @@ CV::~CV()
 {
     //dis-allocating memory
    delete [] summary;
-   delete [] experience;//TODO fix signal here
+   delete [] experience;
    delete [] education;
    delete [] licenses;
    delete [] skills;

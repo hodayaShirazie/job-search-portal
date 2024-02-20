@@ -14,6 +14,8 @@ class CV {
 public:
     CV();
 
+    CV(char* summary, char* experience, char* education, char* licenses, char* skills, char* awards, char* name, char* email);
+
     CV(char* name, char*email);
 
     ~CV();

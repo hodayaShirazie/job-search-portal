@@ -18,6 +18,9 @@ Employer :: Employer(char* id, char* password, char* userName, char* email, char
     this->id = new char[strlen(id) + 1];
     strcpy(this->id,id);
 
+    this->password = new char[strlen(password) + 1];
+    strcpy(this->password,password);
+
     this->userName = new char[strlen(userName) + 1];
     strcpy(this->userName,userName);
 
@@ -196,5 +199,22 @@ char *Employer::getBirthDate() const {
 
 char *Employer::getPassword() const {
     return password;
+}
+
+
+void Employer:: print() const {
+
+    cout << "user name: " << userName << endl;
+
+    cout << "id: " << id << endl;
+
+    cout << "email: " << email << endl;
+
+    cout << "phoneNumber: " << phoneNumber << endl;
+
+    cout << "birthDate: " << birthDate << endl;
+
+    cout << "password: " << password << endl;
+
 }
 

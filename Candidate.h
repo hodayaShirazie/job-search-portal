@@ -59,6 +59,11 @@ public:
 
     void set_password();
 
+    void set_cv(CV *cv);
+
+    void print() const;
+
+
 
 
 
