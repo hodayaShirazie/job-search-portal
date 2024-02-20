@@ -34,9 +34,6 @@ Candidate :: ~Candidate()
             file_cv.close();
         }
 
-
-
-
     }
 
 
@@ -97,6 +94,7 @@ Candidate :: Candidate(char* id, char* password, char* userName, char* email, ch
         cout << "user name is up to 20 letters, try again" << endl;
         cin.getline(buffer,80);
     }
+
     userName = new char[strlen(buffer) + 1];
     strcpy(userName,buffer);
 
@@ -191,17 +189,6 @@ Candidate :: Candidate(char* id, char* password, char* userName, char* email, ch
 
      //add cv
      cv = new CV(userName,email);
-
-
-//     //save registeration details in txt file
-//     fstream file;
-//     file.open("C:\\ObjectOrientedProgramming\\jobSearch\\logIn.txt",ios::app);
-//     if(!file.is_open()) {
-//         cout << "file could not be opened, check error" << endl;
-//     }else{
-//         file << id << " " << password << " " << userName << " " << email << " " << phoneNumber << " " << birthDate <<endl;
-//         file.close();
-//     }
 
 
      cout << "create account" << endl;

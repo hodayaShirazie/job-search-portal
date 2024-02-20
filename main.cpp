@@ -104,8 +104,8 @@ int main() {
 
     Administrator a;
 //    a.print();
-//    a.enterSystem();
-
+    a.enterSystem();
+//TODO fix none in cv
 /*
 
 e idemp1 password1 userName email phoneNumber birthDatee
@@ -115,6 +115,11 @@ c id3 password4 userName email phoneNumber birthDate freeTxt
 e idemp3 password4 userName email phoneNumber birthDate
 c id9 password6 userName email phoneNumber birthDate freeTxt
 c id8 password6 userName email phoneNumber birthDate freeTxt
+
+id1 summary ppp ppp pppppp  experience oo oooo oooooo  education llll llll llllll  licenses iii iii iiiiiiii  skills bbbbbb bbb bbbb  awards mmmmmmm mmm mmmm  name pppppp ppp ppp  email oooooo ooo ooo  endl
+id3 summary tttttttttttttttttt  experience rrrrrrrrrrrrrrrrrrrrrrr  education wwwwwwwwwwwwwwwwwwwwwww  licenses qqqqqqqqqqqqqqqqqqqqqqq  skills ggggg gggggggg  awards jjjjjj jjjjjjj  name ttttt ttttttt  email rrrrr rrrrrrrrrrrr  endl
+id9 summary ppp ppp pppppp  experience oo oooo oooooo  education llll llll llllll  licenses iii iii iiiiiiii  skills bbbbbb bbb bbbb  awards mmmmmmm mmm mmmm  name pppppp ppp ppp  email oooooo ooo ooo  endl
+
 
 
 

@@ -49,7 +49,7 @@ CV :: CV(char* summary, char* experience, char* education, char* licenses, char*
 }
 
 //constructor
-CV::CV(char* name, char*email) {
+CV::CV(char* name, char* email) {
 
     //initialize name and email
     this->name = new char[strlen(name) + 1];
@@ -154,67 +154,54 @@ void CV:: createCV()
     delete[] licenses;
     delete[] skills;
     delete[] awards;
-    delete[] name;
-    delete[] email;
 
     char tmp [SIZE_STRING];
     cout << "enter the following requests, if you dont want to- enter none"<<endl;
 
     cout << "summary" << endl;
     cin.getline(tmp,SIZE_STRING);
-    if(strcmp(tmp, "none") != 0)
-    {
-        summary = new char[strlen(tmp) + 1];
-        strcpy(summary, tmp);
-    }
+    summary = new char[strlen(tmp) + 1];
+    strcpy(summary, tmp);
+
 
 
     cout << "experience" << endl;
     cin.getline(tmp,SIZE_STRING);
-    if(strcmp(tmp, "none") != 0)
-    {
-        experience = new char[strlen(tmp) + 1];
-        strcpy(experience, tmp);
-    }
+    experience = new char[strlen(tmp) + 1];
+    strcpy(experience, tmp);
+
 
 
     cout << "education" << endl;
     cin.getline(tmp,SIZE_STRING);
-    if(strcmp(tmp, "none") != 0)
-    {
-        education = new char[strlen(tmp) + 1];
-        strcpy(education, tmp);
-    }
+    education = new char[strlen(tmp) + 1];
+    strcpy(education, tmp);
+
 
 
     cout << "licenses" << endl;
     cin.getline(tmp,SIZE_STRING);
-    if(strcmp(tmp, "none") != 0)
-    {
-        licenses = new char[strlen(tmp) + 1];
-        strcpy(licenses, tmp);
-    }
+    licenses = new char[strlen(tmp) + 1];
+    strcpy(licenses, tmp);
+
 
     cout << "skills" << endl;
     cin.getline(tmp,SIZE_STRING);
-    if(strcmp(tmp, "none") != 0)
-    {
-        skills = new char[strlen(tmp) + 1];
-        strcpy(skills, tmp);
-    }
+    skills = new char[strlen(tmp) + 1];
+    strcpy(skills, tmp);
+
 
     cout << "awards" << endl;
     cin.getline(tmp,SIZE_STRING);
-    if(strcmp(tmp, "none") != 0)
-    {
-        awards = new char[strlen(tmp) + 1];
-        strcpy(awards, tmp);
-    }
+    awards = new char[strlen(tmp) + 1];
+    strcpy(awards, tmp);
+
 }
 
-
+//print cv
 void CV:: print ()const
 {
+    //print only if field is not "none"
 
     setConsoleColor( FOREGROUND_BLUE );
     cout << "name " << endl;
@@ -226,35 +213,46 @@ void CV:: print ()const
     setConsoleColor(7);
     cout << email << endl << endl << endl;
 
-    setConsoleColor( FOREGROUND_BLUE);
-    cout << "summary " << endl;
-    setConsoleColor(7);
-    cout << summary << endl << endl;
+    if(strcmp(summary, "none") != 0) {
+        setConsoleColor(FOREGROUND_BLUE);
+        cout << "summary " << endl;
+        setConsoleColor(7);
+        cout << summary << endl << endl;
+    }
 
-    setConsoleColor( FOREGROUND_BLUE);
-    cout << "experience " << endl;
-    setConsoleColor(7);
-    cout << experience << endl << endl;
+    if(strcmp(experience, "none") != 0) {
+        setConsoleColor(FOREGROUND_BLUE);
+        cout << "experience " << endl;
+        setConsoleColor(7);
+        cout << experience << endl << endl;
+    }
+    if(strcmp(education, "none") != 0) {
+        setConsoleColor(FOREGROUND_BLUE);
+        cout << "education " << endl;
+        setConsoleColor(7);
+        cout << education << endl << endl;
+    }
 
-    setConsoleColor( FOREGROUND_BLUE);
-    cout << "education " << endl;
-    setConsoleColor(7);
-    cout << education << endl << endl;
+    if(strcmp(licenses, "none") != 0) {
+        setConsoleColor(FOREGROUND_BLUE);
+        cout << "licenses " << endl;
+        setConsoleColor(7);
+        cout << licenses << endl << endl;
+    }
 
-    setConsoleColor( FOREGROUND_BLUE);
-    cout << "licenses " << endl;
-    setConsoleColor(7);
-    cout << licenses << endl << endl;
+    if(strcmp(skills, "none") != 0) {
+        setConsoleColor(FOREGROUND_BLUE);
+        cout << "skills " << endl;
+        setConsoleColor(7);
+        cout << skills << endl << endl;
+    }
 
-    setConsoleColor( FOREGROUND_BLUE);
-    cout << "skills " << endl;
-    setConsoleColor(7);
-    cout << skills << endl << endl;
-
-    setConsoleColor( FOREGROUND_BLUE);
-    cout << "awards " << endl;
-    setConsoleColor(7);
-    cout << awards << endl << endl;
+    if(strcmp(awards, "none") != 0) {
+        setConsoleColor(FOREGROUND_BLUE);
+        cout << "awards " << endl;
+        setConsoleColor(7);
+        cout << awards << endl << endl;
+    }
 
 
 

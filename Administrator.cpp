@@ -59,7 +59,7 @@ Administrator :: Administrator() : candidate_arr(NULL), employers_arr(NULL), can
 
 
             }
-            else//copy as employer
+            else if(strcmp(readFile, "e") == 0)//copy as employer
             {
                 file_personal_details >> id >> password >> userName >> email >> phoneNumber >> birthDate;
 
@@ -83,18 +83,10 @@ Administrator :: Administrator() : candidate_arr(NULL), employers_arr(NULL), can
         }
         file_personal_details.close();
 
-//        cout<<"kkkkkkkkkkkkkkkkkkkkkkk----------\n";
-//        for(int i=0; i<candidate_arr_size; ++i)
-//            candidate_arr[i]->print();
-
-
-
-        //TODO personal details is copied perfectly
 
     }
 
     //after coping personal details, copy CV's
-
     char file_content[30];
 
     for (int i = 0; i < candidate_arr_size; ++i) {
@@ -104,8 +96,7 @@ Administrator :: Administrator() : candidate_arr(NULL), employers_arr(NULL), can
         else {
             while (!file_cv.eof()) {
                  file_cv >> file_content;
-//                cout <<"\ncandidate before cv----------------\n\n";
-//                candidate_arr[i]->print();
+
                 if (strcmp(file_content, candidate_arr[i]->getId()) == 0)//if cv belongs to current candidate-
                 {
                     char summary[80] = "\0";
@@ -225,7 +216,6 @@ void Administrator :: print() const
 
     for (int i = 0; i < candidate_arr_size; ++i)
     {
-        cout << "i=" <<i<<endl;
         candidate_arr[i]->print();
     }
 
@@ -263,7 +253,7 @@ Administrator :: ~Administrator()
     else
         file_cv.close();
 
-    print();
+//    print();
 
     for (int i = 0; i < candidate_arr_size; ++i)
     {
@@ -306,35 +296,55 @@ void Administrator :: enterSystem()
             cin.getline(temp_id, 20);
             cout << "password" << endl;
             cin.getline(temp_password, 20);
-
-            //verify login details exists in txt file
-            fstream file;
-            file.open("C:\\ObjectOrientedProgramming\\jobSearch\\personalDetails.txt\\",ios::in);
-            if(!file.is_open()) {
-                cout << "file could not be opened, check error" << endl;
-            }else{
-                bool verified_user = false;
-                char system_id[10];
-                char system_password[20];
-                while (!file.eof() || !verified_user)
+            char user_type = '\0';
+            while(user_type == '\0') {
+                //check if id and password belong to the same user
+                for (int i = 0; i < candidate_arr_size; ++i)//if user is candidate--
                 {
-                    //TODO maybe check that password is right after id in file
-                    file >> system_id >> system_password;
-                    if(strcmp(system_id,temp_id) == 0 && strcmp(system_password,temp_password) == 0 )
-                        verified_user = true;
-                }
-                if(verified_user){
-                    cout << "can log in- verified user" << endl;
-
-
+                    if (strcmp(candidate_arr[i]->getId(), temp_id) == 0 &&
+                        strcmp(candidate_arr[i]->getPassword(), temp_password) == 0)
+                        user_type = 'c';
                 }
 
-                else
-                    cout << "account was not created, try register" << endl;
-
-
-                file.close();
+                for (int i = 0; i < employers_arr_size; ++i)//if user is employer--
+                {
+                    if (strcmp(employers_arr[i]->getId(), temp_id) == 0 &&
+                        strcmp(employers_arr[i]->getPassword(), temp_password) == 0)
+                        user_type = 'e';
+                }
+                if (user_type == '\0')//if user is not in system--
+                    cout << "1 or more details are incorrect, please try again" << endl;
             }
+
+
+//            //verify login details exists in txt file
+//            fstream file;
+//            file.open("C:\\ObjectOrientedProgramming\\jobSearch\\personalDetails.txt\\",ios::in);
+//            if(!file.is_open()) {
+//                cout << "file could not be opened, check error" << endl;
+//            }else{
+//                bool verified_user = false;
+//                char system_id[10];
+//                char system_password[20];
+//                while (!file.eof() || !verified_user)
+//                {
+//                    //TODO maybe check that password is right after id in file
+//                    file >> system_id >> system_password;
+//                    if(strcmp(system_id,temp_id) == 0 && strcmp(system_password,temp_password) == 0 )
+//                        verified_user = true;
+//                }
+//                if(verified_user){
+//                    cout << "can log in- verified user" << endl;
+//
+//
+//                }
+//
+//                else
+//                    cout << "account was not created, try register" << endl;
+//
+//
+//                file.close();
+//            }
 
 
 
@@ -351,11 +361,11 @@ void Administrator :: enterSystem()
             switch (typeChoice){
                 case CANDIDATE:
                 {
-                    Candidate candidate;
+                    Candidate *candidate = new Candidate();
                     //add to candidate arr
                     Candidate** temp_candidates = new Candidate*[candidate_arr_size + 1];
                     for(int i = 0; i< candidate_arr_size; i++){temp_candidates[i] = candidate_arr[i];}
-                    temp_candidates[candidate_arr_size] = &candidate;
+                    temp_candidates[candidate_arr_size] = candidate;
                     ++candidate_arr_size;
                     delete [] candidate_arr;
                     candidate_arr = temp_candidates;
@@ -364,12 +374,12 @@ void Administrator :: enterSystem()
                 }
                 case EMPLOYER:
                 {
-                    Employer employer;
+                    Employer* employer = new Employer();
 
                     //add to candidate arr
                     Employer** temp_employers = new Employer*[employers_arr_size + 1];
                     for(int i = 0; i< employers_arr_size; i++){temp_employers[i] = employers_arr[i];}
-                    temp_employers[employers_arr_size] = &employer;
+                    temp_employers[employers_arr_size] = employer;
                     ++employers_arr_size;
                     delete [] employers_arr;
                     employers_arr = temp_employers;
