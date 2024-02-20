@@ -163,7 +163,7 @@ Employer :: ~Employer()
     if(!file.is_open()) {
         cout << "file could not be opened, check error" << endl;
     }else{
-        file << "e " << id << " " << password << " " << userName << " " << email << " " << phoneNumber << " " << birthDate << endl;
+        file  << endl << "e " << id << " " << password << " " << userName << " " << email << " " << phoneNumber << " " << birthDate;
         file.close();
     }
 

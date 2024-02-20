@@ -103,9 +103,22 @@ int main() {
 
 
     Administrator a;
+//    a.print();
 //    a.enterSystem();
 
+/*
 
+e idemp1 password1 userName email phoneNumber birthDatee
+c id1 password4 userName email phoneNumber birthDate freeTxt
+e idemp2 password6 userName email phoneNumber birthDate
+c id3 password4 userName email phoneNumber birthDate freeTxt
+e idemp3 password4 userName email phoneNumber birthDate
+c id9 password6 userName email phoneNumber birthDate freeTxt
+c id8 password6 userName email phoneNumber birthDate freeTxt
+
+
+
+ */
 
 
     return 0;

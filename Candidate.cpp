@@ -18,7 +18,9 @@ Candidate :: ~Candidate()
     else
     {
         //copy all candidate details to "personalDetails" file
-        file_personal_details << "c " << id << " " << password << " " << userName << " " << email << " " << phoneNumber << " " << birthDate << freeTxt << endl;
+        file_personal_details << endl << "c " << id << " " << password << " " << userName << " " << email << " " << phoneNumber << " " << birthDate << " " << freeTxt;
+        file_personal_details.close();
+
         //copy CV to
         file_cv.open("C:\\ObjectOrientedProgramming\\jobSearch\\CV.txt",ios::app);
         if(!file_cv.is_open())
@@ -34,7 +36,7 @@ Candidate :: ~Candidate()
 
 
 
-    file_personal_details.close();
+
     }
 
 
@@ -46,6 +48,7 @@ Candidate :: ~Candidate()
     delete [] birthDate;
     delete [] password;
     delete [] freeTxt;
+    delete cv;
 
 
 }

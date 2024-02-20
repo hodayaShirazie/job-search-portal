@@ -13,6 +13,8 @@ public:
 
     void enterSystem();
 
+    void print() const;
+
     ~Administrator();
 
 

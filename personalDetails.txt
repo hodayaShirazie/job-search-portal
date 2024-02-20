@@ -1,9 +1,8 @@
-e id  password1 userName email phoneNumber birthDatee
-c id1  password2 userName email phoneNumber birthDate freeTxt
-c id  password3 userName email phoneNumber birthDate freeTxt
-e id  password4 userName email phoneNumber birthDate
-c id3  password5 userName email phoneNumber birthDate freeTxt
-e id  password6 userName email phoneNumber birthDate
-c id  password7 userName email phoneNumber birthDate freeTxt
-e id  password8 userName email phoneNumber birthDate
-c id  password9 userName email phoneNumber birthDate freeTxt
+
+c id1 password4 userName email phoneNumber birthDate freeTxt
+c id3 password4 userName email phoneNumber birthDate freeTxt
+c id9 password6 userName email phoneNumber birthDate freeTxt
+e idemp1 password1 userName email phoneNumber birthDatee
+e idemp2 password6 userName email phoneNumber birthDate
+e idemp3 password4 userName email phoneNumber birthDate
+e id8 password6 userName email phoneNumber birthDate

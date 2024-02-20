@@ -43,7 +43,7 @@ Administrator :: Administrator() : candidate_arr(NULL), employers_arr(NULL), can
 
                 file_personal_details >> id >> password >> userName >> email >> phoneNumber >> birthDate >> freeTxt;
 
-                //copy details from file and creat candidate object
+                //copy details from file and create candidate object
                 Candidate *candidate = new Candidate(id, password, userName, email, phoneNumber, birthDate, freeTxt);
                 Candidate **candidate_tmp = new Candidate *[candidate_arr_size + 1];
 
@@ -58,7 +58,8 @@ Administrator :: Administrator() : candidate_arr(NULL), employers_arr(NULL), can
                 ++candidate_arr_size;
 
 
-            } else//copy as employer
+            }
+            else//copy as employer
             {
                 file_personal_details >> id >> password >> userName >> email >> phoneNumber >> birthDate;
 
@@ -82,6 +83,10 @@ Administrator :: Administrator() : candidate_arr(NULL), employers_arr(NULL), can
         }
         file_personal_details.close();
 
+//        cout<<"kkkkkkkkkkkkkkkkkkkkkkk----------\n";
+//        for(int i=0; i<candidate_arr_size; ++i)
+//            candidate_arr[i]->print();
+
 
 
         //TODO personal details is copied perfectly
@@ -89,30 +94,32 @@ Administrator :: Administrator() : candidate_arr(NULL), employers_arr(NULL), can
     }
 
     //after coping personal details, copy CV's
-    file_cv.open("C:\\ObjectOrientedProgramming\\jobSearch\\CV.txt", ios::in);
-    if(!file_cv.is_open())
-        cout << "file could not be opened, check error" << endl;
-    else
-    {
-        char file_content[30];
-        while(!file_cv.eof()) {
-            file_cv >> file_content;
-            for (int i = 0; i < candidate_arr_size; ++i) {
-                if(strcmp(file_content, candidate_arr[i]->getId()) == 0)//if cv belongs to current candidate-
+
+    char file_content[30];
+
+    for (int i = 0; i < candidate_arr_size; ++i) {
+        file_cv.open("C:\\ObjectOrientedProgramming\\jobSearch\\CV.txt", ios::in);
+        if (!file_cv.is_open())
+            cout << "file could not be opened, check error" << endl;
+        else {
+            while (!file_cv.eof()) {
+                 file_cv >> file_content;
+//                cout <<"\ncandidate before cv----------------\n\n";
+//                candidate_arr[i]->print();
+                if (strcmp(file_content, candidate_arr[i]->getId()) == 0)//if cv belongs to current candidate-
                 {
-                    char summary [80] = "\0";
-                    char experience [80] = "\0";
-                    char education [80] = "\0";
-                    char licenses [80] = "\0";
-                    char skills [80] = "\0";
-                    char awards [80] = "\0";
-                    char name [80] = "\0";
-                    char email [80] = "\0";
+                    char summary[80] = "\0";
+                    char experience[80] = "\0";
+                    char education[80] = "\0";
+                    char licenses[80] = "\0";
+                    char skills[80] = "\0";
+                    char awards[80] = "\0";
+                    char name[80] = "\0";
+                    char email[80] = "\0";
                     file_cv >> file_content >> file_content;//the word summary
 
                     //copy summary from file
-                    while(!strcmp(file_content, "experience") == 0)
-                    {
+                    while (!strcmp(file_content, "experience") == 0) {
                         strcat(summary, file_content);
                         strcat(summary, " ");
                         file_cv >> file_content;
@@ -121,8 +128,7 @@ Administrator :: Administrator() : candidate_arr(NULL), employers_arr(NULL), can
                     //summary is done-send to constructor
 
                     //copy experience from file
-                    while(!strcmp(file_content, "education") == 0)
-                    {
+                    while (!strcmp(file_content, "education") == 0) {
                         strcat(experience, file_content);
                         strcat(experience, " ");
                         file_cv >> file_content;
@@ -131,8 +137,7 @@ Administrator :: Administrator() : candidate_arr(NULL), employers_arr(NULL), can
                     //experience is done-send to constructor
 
                     //copy education from file
-                    while(!strcmp(file_content, "licenses") == 0)
-                    {
+                    while (!strcmp(file_content, "licenses") == 0) {
                         strcat(education, file_content);
                         strcat(education, " ");
                         file_cv >> file_content;
@@ -141,8 +146,7 @@ Administrator :: Administrator() : candidate_arr(NULL), employers_arr(NULL), can
                     //education is done-send to constructor
 
                     //copy licenses from file
-                    while(!strcmp(file_content, "skills") == 0)
-                    {
+                    while (!strcmp(file_content, "skills") == 0) {
                         strcat(licenses, file_content);
                         strcat(licenses, " ");
                         file_cv >> file_content;
@@ -152,8 +156,7 @@ Administrator :: Administrator() : candidate_arr(NULL), employers_arr(NULL), can
                     //licenses is done-send to constructor
 
                     //copy skills from file
-                    while(!strcmp(file_content, "awards") == 0)
-                    {
+                    while (!strcmp(file_content, "awards") == 0) {
                         strcat(skills, file_content);
                         strcat(skills, " ");
                         file_cv >> file_content;
@@ -162,8 +165,7 @@ Administrator :: Administrator() : candidate_arr(NULL), employers_arr(NULL), can
                     //skills is done-send to constructor
 
                     //copy awards from file
-                    while(!strcmp(file_content, "name") == 0)
-                    {
+                    while (!strcmp(file_content, "name") == 0) {
                         strcat(awards, file_content);
                         strcat(awards, " ");
                         file_cv >> file_content;
@@ -172,8 +174,7 @@ Administrator :: Administrator() : candidate_arr(NULL), employers_arr(NULL), can
                     //awards is done-send to constructor
 
                     //copy name from file
-                    while(!strcmp(file_content, "email") == 0)
-                    {
+                    while (!strcmp(file_content, "email") == 0) {
                         strcat(name, file_content);
                         strcat(name, " ");
                         file_cv >> file_content;
@@ -182,8 +183,7 @@ Administrator :: Administrator() : candidate_arr(NULL), employers_arr(NULL), can
                     //name is done-send to constructor
 
                     //copy email from file
-                    while(!strcmp(file_content, "endl") == 0 && !file_cv.eof())
-                    {
+                    while (!strcmp(file_content, "endl") == 0 && !file_cv.eof()) {
                         strcat(email, file_content);
                         strcat(email, " ");
                         file_cv >> file_content;
@@ -195,21 +195,9 @@ Administrator :: Administrator() : candidate_arr(NULL), employers_arr(NULL), can
 
                     CV *cv = new CV(summary, experience, education, licenses, skills, awards, name, email);
 
+
                     //set cv in cv field
                     candidate_arr[i]->set_cv(cv);
-
-
-//                    cout <<"-----------------------------------------------\n";
-//                    candidate_arr[i]->print();
-
-                    file_cv >> file_content;
-
-
-
-
-
-
-
 
 
 
@@ -219,43 +207,86 @@ Administrator :: Administrator() : candidate_arr(NULL), employers_arr(NULL), can
 
 
             }
+            file_cv.close();
+
         }
 
 
-
-
-        file_cv.close();
     }
-
-//    for (int i = 0; i < employers_arr_size; ++i) {
-//        cout << "\n printing emp--\n";
-//        employers_arr[i]->print();
-//        cout << "end printing emp-------\n\n";
-//    }
-
-//    for (int i = 0; i < candidate_arr_size; ++i) {
-//        cout << "\n printing candidates--\n";
-//        candidate_arr[i]->print();
-//        cout << "end printing can-------\n\n";
-//    }
-
-
-
-
-
-
-
-
-
-
-
 
 
 
 }
 
+
+void Administrator :: print() const
+{
+    cout <<"------------------candidate-----------------------------\n";
+
+    for (int i = 0; i < candidate_arr_size; ++i)
+    {
+        cout << "i=" <<i<<endl;
+        candidate_arr[i]->print();
+    }
+
+
+    cout <<"------------------employer-----------------------------\n";
+
+    for (int i = 0; i < employers_arr_size; ++i) {
+        employers_arr[i]->print();
+        cout <<endl;
+    }
+}
+
 Administrator :: ~Administrator()
 {
+
+//    cout <<"cand---------------\n";
+//    for (int i = 0; i < candidate_arr_size; ++i)
+//    {
+//        candidate_arr[i]->print();
+//    }
+
+
+
+    //open and close files to delete history
+    fstream file_personal_details, file_cv;
+    file_personal_details.open("C:\\ObjectOrientedProgramming\\jobSearch\\personalDetails.txt",ios::out);
+    if(!file_personal_details.is_open())
+        cout << "file could not be opened, check error" << endl;
+    else
+        file_personal_details.close();
+
+    file_cv.open("C:\\ObjectOrientedProgramming\\jobSearch\\CV.txt",ios::out);
+    if(!file_cv.is_open())
+        cout << "file could not be opened, check error" << endl;
+    else
+        file_cv.close();
+
+    print();
+
+    for (int i = 0; i < candidate_arr_size; ++i)
+    {
+        delete candidate_arr[i];
+    }
+
+
+
+    for (int i = 0; i < employers_arr_size; ++i)
+    {
+        delete employers_arr[i];
+    }
+    cout << "done coping to files\n";
+
+
+
+
+
+
+
+
+
+
 
 }
 
