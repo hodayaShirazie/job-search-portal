@@ -89,7 +89,7 @@ CV::~CV()
    awards = NULL;
    name = NULL;
    email = NULL;
-   cout <<"dis CV" <<endl;
+//   cout <<"dis CV" <<endl;
 
 }
 

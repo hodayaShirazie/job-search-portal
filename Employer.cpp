@@ -2,18 +2,10 @@
 // Created by Student on 14/02/2024.
 //
 #include "Employer.h"
-#include <iostream>
-#include <cstring>
-#include <fstream>
-using std::string;
-using std::cout;
-using std::cin;
-using std::endl;
-using std::fstream;
-using std::ios;
 
 
-Employer :: Employer(char* id, char* password, char* userName, char* email, char* phoneNumber, char* birthDate)
+
+Employer :: Employer(char* id, char* password, char* userName, char* email, char* phoneNumber, char* birthDate):published_jobs_arr(NULL), published_jobs_arr_size(0)
 {
     this->id = new char[strlen(id) + 1];
     strcpy(this->id,id);
@@ -37,7 +29,7 @@ Employer :: Employer(char* id, char* password, char* userName, char* email, char
 }
 
 //TODO check that name includes space, valid pass, valid date
-Employer::Employer()
+Employer::Employer(): published_jobs_arr(NULL), published_jobs_arr_size(0)
 {
 
     char buffer[80];
@@ -138,17 +130,6 @@ Employer::Employer()
     strcpy(password, buffer);
 
 
-//    //save registeration details in txt file
-//    fstream file;
-//    file.open("C:\\ObjectOrientedProgramming\\jobSearch\\personalDetails.txt\\",ios::app);
-//    if(!file.is_open()) {
-//        cout << "file could not be opened, check error" << endl;
-//    }else{
-//        file << "e " << id << " " << password << " " << userName << " " << email << " " << phoneNumber << " " << birthDate << endl;
-//        file.close();
-//    }
-
-
     cout << "create account" << endl;
 
 
@@ -216,5 +197,54 @@ void Employer:: print() const {
 
     cout << "password: " << password << endl;
 
+    //printing published jobs
+    cout << "--------------printing published jobs-----------------------\n";
+    for (int i = 0; i < published_jobs_arr_size; ++i) {
+        published_jobs_arr[i]->print();
+
+    }
+
+}
+
+
+void Employer :: personalArea()
+{
+    char nav_personal_area;
+    cout << "1- submission history \n";
+    cout << "2- candidate submission\n";
+    cout << "3- publish a job \n";
+    ;
+    cin >> nav_personal_area;
+
+    switch(nav_personal_area){
+        case SUBMISSION_HISTORY_E: {
+
+
+            break;
+        }
+        case CANDIDTE_SUBMISSION: {
+
+            break;
+        }
+        case PUBLISH_JOB: {
+
+            addNewJob();
+
+            break;
+        }
+
+    }
+}
+
+void Employer :: addNewJob()
+{
+    Job* job = new Job();
+    Job** tempArr = new Job*[published_jobs_arr_size+1];
+    for(int i=0; i<published_jobs_arr_size; ++i)
+        tempArr[i] = published_jobs_arr[i];
+    tempArr[published_jobs_arr_size] = job;
+    delete [] published_jobs_arr;
+    published_jobs_arr = tempArr;
+    ++published_jobs_arr_size;
 }
 

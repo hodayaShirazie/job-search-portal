@@ -5,8 +5,10 @@
 #include <stdlib.h>
 #include <cstring>
 #include "Employer.h"
+#include "Job.h"
 
-//got link: https://github.com/hodayaShirazie/job-search-portal.git
+
+//git link: https://github.com/hodayaShirazie/job-search-portal.git
 
 void draftColor()
 {
@@ -30,9 +32,9 @@ void draftColor()
 }
 
 void checkCV(){
-    CV cv("rina","hodaya.sh2003@gmail.com");
-    cv.createCV();
-    cv.print();
+//    CV cv("rina","hodaya.sh2003@gmail.com");
+//    cv.createCV();
+//    cv.print();
 
 }
 
@@ -89,23 +91,43 @@ void validemailC(){
 #include <fstream>
 using std::ios;
 using std::fstream;
+using std::to_string;
 
+void today(int d,int m,int y) {
 
+    time_t rawtime;
+    tm *timeinfo;
+    time(&rawtime);
+    timeinfo = localtime(&rawtime);
+    d = timeinfo->tm_mday;
+    m = timeinfo->tm_mon + 1;
+    y = timeinfo->tm_year + 1900;
+
+    char buffer[10] = "";
+    strcat(buffer, to_string(d).c_str());
+    strcat(buffer, "/");
+    strcat(buffer, to_string(m).c_str());
+    strcat(buffer, "/");
+    strcat(buffer, to_string(y).c_str());
+    cout << buffer;
+}
 
 int main() {
 
-//    char s [80] = "\0";
-//    cout <<"s= "<<s<<endl;
-//    strcat(s," uuu");
-//    strcat(s," tttttt");
 
+
+
+
+//Job j;
+//Job j1;
 
 
 
     Administrator a;
-//    a.print();
     a.enterSystem();
-//TODO fix none in cv
+    a.print();
+
+
 /*
 
 e idemp1 password1 userName email phoneNumber birthDatee

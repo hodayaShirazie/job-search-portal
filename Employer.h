@@ -5,6 +5,18 @@
 #ifndef JOBSEARCH_EMPLOYER_H
 #define JOBSEARCH_EMPLOYER_H
 
+#include <iostream>
+#include <cstring>
+#include <fstream>
+#include "Job.h"
+using std::cout;
+using std::cin;
+using std::endl;
+using std::fstream;
+using std::ios;
+
+enum personalAreaEmployer{SUBMISSION_HISTORY_E = '1', CANDIDTE_SUBMISSION = '2', PUBLISH_JOB = '3'};
+
 
 class Employer {
 public:
@@ -26,8 +38,12 @@ public:
 
     void print() const;
 
+    ~Employer();
 
-        ~Employer();
+    void personalArea();
+
+    void addNewJob();
+
 private:
     char *userName;
     char* id;
@@ -35,6 +51,12 @@ private:
     char* phoneNumber;
     char* birthDate;
     char* password;
+
+    Job** published_jobs_arr;
+    int published_jobs_arr_size;
+
+
+
 
 };
 

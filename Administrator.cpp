@@ -12,7 +12,6 @@ using std::endl;
 
 
 
-enum personalAreaEmployer{SUBMISSION_HISTORY_E = '1', CANDIDTE_SUBMISSION = '2', PUBLISH_JOB = '3'};
 enum userType{CANDIDATE = '1', EMPLOYER = '2'};
 enum navEnter {LOGIN = 'A'   ,REGISTER = 'B'};
 
@@ -231,12 +230,6 @@ void Administrator :: print() const
 Administrator :: ~Administrator()
 {
 
-//    cout <<"cand---------------\n";
-//    for (int i = 0; i < candidate_arr_size; ++i)
-//    {
-//        candidate_arr[i]->print();
-//    }
-
 
 
     //open and close files to delete history
@@ -266,15 +259,7 @@ Administrator :: ~Administrator()
     {
         delete employers_arr[i];
     }
-    cout << "done coping to files\n";
-
-
-
-
-
-
-
-
+//    cout << "done coping to files\n";
 
 
 
@@ -301,54 +286,33 @@ void Administrator :: enterSystem()
                 //check if id and password belong to the same user
                 for (int i = 0; i < candidate_arr_size; ++i)//if user is candidate--
                 {
-                    if (strcmp(candidate_arr[i]->getId(), temp_id) == 0 &&
-                        strcmp(candidate_arr[i]->getPassword(), temp_password) == 0)
+                    if (strcmp(candidate_arr[i]->getId(), temp_id) == 0 && strcmp(candidate_arr[i]->getPassword(), temp_password) == 0) {
                         user_type = 'c';
+
+                        //send user to personal area
+                        candidate_arr[i]->personalArea();
+                    }
+
                 }
 
                 for (int i = 0; i < employers_arr_size; ++i)//if user is employer--
                 {
-                    if (strcmp(employers_arr[i]->getId(), temp_id) == 0 &&
-                        strcmp(employers_arr[i]->getPassword(), temp_password) == 0)
+                    if (strcmp(employers_arr[i]->getId(), temp_id) == 0 && strcmp(employers_arr[i]->getPassword(), temp_password) == 0) {
                         user_type = 'e';
+
+                        //send user to personal area
+                        employers_arr[i]->personalArea();
+
+                    }
                 }
-                if (user_type == '\0')//if user is not in system--
+                if (user_type == '\0') {//if user is not in system--
                     cout << "1 or more details are incorrect, please try again" << endl;
+                    cout << "id" << endl;
+                    cin.getline(temp_id, 20);
+                    cout << "password" << endl;
+                    cin.getline(temp_password, 20);
+                }
             }
-
-
-//            //verify login details exists in txt file
-//            fstream file;
-//            file.open("C:\\ObjectOrientedProgramming\\jobSearch\\personalDetails.txt\\",ios::in);
-//            if(!file.is_open()) {
-//                cout << "file could not be opened, check error" << endl;
-//            }else{
-//                bool verified_user = false;
-//                char system_id[10];
-//                char system_password[20];
-//                while (!file.eof() || !verified_user)
-//                {
-//                    //TODO maybe check that password is right after id in file
-//                    file >> system_id >> system_password;
-//                    if(strcmp(system_id,temp_id) == 0 && strcmp(system_password,temp_password) == 0 )
-//                        verified_user = true;
-//                }
-//                if(verified_user){
-//                    cout << "can log in- verified user" << endl;
-//
-//
-//                }
-//
-//                else
-//                    cout << "account was not created, try register" << endl;
-//
-//
-//                file.close();
-//            }
-
-
-
-
 
 
             break;
@@ -387,18 +351,17 @@ void Administrator :: enterSystem()
                     break;
 
                 }
+                default:
+                    cout <<"invalid input- try again";
 
             }
-
-
-
 
 
             break;
         }
         default:
-            cout <<"do";
-            //TODO HDERE
+            cout <<"invalid input- try again";
+
     }
 
 }

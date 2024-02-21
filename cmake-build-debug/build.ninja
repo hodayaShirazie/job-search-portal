@@ -85,6 +85,12 @@ build CMakeFiles/jobSearch.dir/Administrator.cpp.obj: CXX_COMPILER__jobSearch_De
   OBJECT_DIR = CMakeFiles\jobSearch.dir
   OBJECT_FILE_DIR = CMakeFiles\jobSearch.dir
 
+build CMakeFiles/jobSearch.dir/Job.cpp.obj: CXX_COMPILER__jobSearch_Debug C$:/ObjectOrientedProgramming/jobSearch/Job.cpp || cmake_object_order_depends_target_jobSearch
+  DEP_FILE = CMakeFiles\jobSearch.dir\Job.cpp.obj.d
+  FLAGS = -g -std=gnu++23
+  OBJECT_DIR = CMakeFiles\jobSearch.dir
+  OBJECT_FILE_DIR = CMakeFiles\jobSearch.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target jobSearch
@@ -93,7 +99,7 @@ build CMakeFiles/jobSearch.dir/Administrator.cpp.obj: CXX_COMPILER__jobSearch_De
 #############################################
 # Link the executable jobSearch.exe
 
-build jobSearch.exe: CXX_EXECUTABLE_LINKER__jobSearch_Debug CMakeFiles/jobSearch.dir/main.cpp.obj CMakeFiles/jobSearch.dir/Employer.cpp.obj CMakeFiles/jobSearch.dir/Candidate.cpp.obj CMakeFiles/jobSearch.dir/Date.cpp.obj CMakeFiles/jobSearch.dir/CV.cpp.obj CMakeFiles/jobSearch.dir/Administrator.cpp.obj
+build jobSearch.exe: CXX_EXECUTABLE_LINKER__jobSearch_Debug CMakeFiles/jobSearch.dir/main.cpp.obj CMakeFiles/jobSearch.dir/Employer.cpp.obj CMakeFiles/jobSearch.dir/Candidate.cpp.obj CMakeFiles/jobSearch.dir/Date.cpp.obj CMakeFiles/jobSearch.dir/CV.cpp.obj CMakeFiles/jobSearch.dir/Administrator.cpp.obj CMakeFiles/jobSearch.dir/Job.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\jobSearch.dir
