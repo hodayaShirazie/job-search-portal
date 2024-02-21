@@ -24,6 +24,10 @@ public:
 
     Employer(char* id, char* password, char* userName, char* email, char* phoneNumber, char* birthDate);
 
+    void addJobToPublishJobs(Job* job);
+
+    void copyJobsFromFile();
+
     char *getUserName() const;
 
     char *getId() const;

@@ -3,6 +3,7 @@
 //
 
 #include "Job.h"
+//#include <cstdlib>
 
 int Job :: general_id = 0;
 int Job :: max_id = general_id + 1;
@@ -24,7 +25,7 @@ Job :: Job()
     //getting company name
     cout << "company name" << endl;
     cin.ignore();
-    cin.getline(buffer,80);
+    cin.getline(buffer,102);
     company_name = new char[strlen(buffer)+1];
     strcpy(company_name, buffer);
 
@@ -70,12 +71,59 @@ Job :: Job()
     today();
 
     //job id
-    id = max_id;
+    int int_id = max_id; //save int value in temp var
+    id = to_string(int_id);
 
 
-//    print();
+
+    print();
 
 
+
+
+}
+
+Job :: Job(char *company_name, char* role, char* job_description, char* job_requirements,
+    char* job_type, char* job_condition, char* location, char* date, string id )
+{
+
+//    char *;
+//    char* ;
+//    char* ;
+//    char* ;
+//    char* ;
+//    char* ;
+//    char* ;
+//    char* date;
+//    int id;
+
+
+
+    this->company_name = new char[strlen(company_name) + 1];
+    strcpy(this->company_name,company_name);
+
+    this->role = new char[strlen(role) + 1];
+    strcpy(this->role,role);
+
+    this->job_description = new char[strlen(job_description) + 1];
+    strcpy(this->job_description,job_description);
+
+    this->job_requirements = new char[strlen(job_requirements) + 1];
+    strcpy(this->job_requirements,job_requirements);
+
+    this->job_type = new char[strlen(job_type) + 1];
+    strcpy(this->job_type,job_type);
+
+    this->job_condition = new char[strlen(job_condition) + 1];
+    strcpy(this->job_condition,job_condition);
+
+    this->location = new char[strlen(location) + 1];
+    strcpy(this->location,location);
+
+    this->date = new char[strlen(date) + 1];
+    strcpy(this->date,date);
+
+    this->id = id;
 
 
 }
@@ -92,6 +140,7 @@ Job :: ~Job()
     delete [] location;
     delete [] date;
 
+
 }
 
 
@@ -106,6 +155,7 @@ Job& Job :: operator=(const Job& job)
     delete [] job_condition;
     delete [] location;
     delete [] date;
+
 
     company_name = new char[strlen(job.company_name)+1];
     strcpy(company_name, job.company_name);
@@ -127,6 +177,8 @@ Job& Job :: operator=(const Job& job)
 
     date = new char[strlen(job.date)+1];
     strcpy(date, job.date);
+
+    id = job.id;
 
 }
 
@@ -346,7 +398,7 @@ void Job :: print() const
 //    setConsoleColor(7);
     cout << date << endl << endl;
 
-//    cout << "id: " << id << endl;
+    cout << "id: " << id << endl;
 //
 //    cout << "max id: " << max_id << endl;
 
@@ -379,7 +431,47 @@ void Job :: today() {
     strcpy(date, buffer);
 }
 
-int Job::getId() const {
+string Job::getId() const {
     return id;
+}
+
+char *Job::getCompanyName() const {
+    return company_name;
+}
+
+char *Job::getRole() const {
+    return role;
+}
+
+char *Job::getJobDescription() const {
+    return job_description;
+}
+
+char *Job::getJobRequirements() const {
+    return job_requirements;
+}
+
+char *Job::getJobType() const {
+    return job_type;
+}
+
+char *Job::getJobCondition() const {
+    return job_condition;
+}
+
+char *Job::getLocation() const {
+    return location;
+}
+
+char *Job::getDate() const {
+    return date;
+}
+
+int Job::getGeneralId() {
+    return general_id;
+}
+
+int Job::getMaxId() {
+    return max_id;
 }
 

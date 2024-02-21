@@ -11,6 +11,14 @@ class Administrator {
 public:
     Administrator();
 
+    void copyJobsFromFile();
+
+    void emptyFiles();
+
+    void copyPersonalDetailsFromFile();
+
+    void copyCVfromFile();
+
     void enterSystem();
 
     void print() const;

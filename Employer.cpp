@@ -139,14 +139,34 @@ Employer :: ~Employer()
 {
 
     //copy all candidate details to "personalDetails" file
-    fstream file;
-    file.open("C:\\ObjectOrientedProgramming\\jobSearch\\personalDetails.txt",ios::app);
-    if(!file.is_open()) {
+    fstream file_personal_details, file_jobs;
+    file_personal_details.open("C:\\ObjectOrientedProgramming\\jobSearch\\personalDetails.txt",ios::app);
+    if(!file_personal_details.is_open()) {
         cout << "file could not be opened, check error" << endl;
     }else{
-        file  << endl << "e " << id << " " << password << " " << userName << " " << email << " " << phoneNumber << " " << birthDate;
-        file.close();
+        file_personal_details  << endl << "e " << id << " " << password << " " << userName << " " << email << " " << phoneNumber << " " << birthDate;
+        file_personal_details.close(); //TODO correct that name include spaces
     }
+
+    file_jobs.open("C:\\ObjectOrientedProgramming\\jobSearch\\jobs.txt", ios::app);
+    if(!file_jobs.is_open()) {
+        cout << "file could not be opened, check error" << endl;
+    }else
+    {
+        for (int i = 0; i < published_jobs_arr_size; ++i) {
+            file_jobs << endl << id;
+            file_jobs << " companyName " << published_jobs_arr[i]->getCompanyName() <<  " role " << published_jobs_arr[i]->getRole()
+            <<  " jobDescription " << published_jobs_arr[i]->getJobDescription() <<  " jobRequirements " << published_jobs_arr[i]->getJobRequirements() <<
+            " jobType " << published_jobs_arr[i]->getJobType() <<  " jobCondition " << published_jobs_arr[i]->getJobCondition() <<
+            " location " << published_jobs_arr[i]->getLocation() << " date " << published_jobs_arr[i]->getDate() <<
+            " id " << published_jobs_arr[i]->getId() << " endl";
+
+        }
+        file_jobs.close();
+    }
+
+
+
 
 
 
@@ -185,7 +205,7 @@ char *Employer::getPassword() const {
 
 void Employer:: print() const {
 
-    cout << "user name: " << userName << endl;
+    cout << "\nuser name: " << userName << endl;
 
     cout << "id: " << id << endl;
 
@@ -195,7 +215,7 @@ void Employer:: print() const {
 
     cout << "birthDate: " << birthDate << endl;
 
-    cout << "password: " << password << endl;
+    cout << "password: " << password << endl << endl;
 
     //printing published jobs
     cout << "--------------printing published jobs-----------------------\n";
@@ -247,4 +267,135 @@ void Employer :: addNewJob()
     published_jobs_arr = tempArr;
     ++published_jobs_arr_size;
 }
+
+
+void Employer ::copyJobsFromFile()
+{
+    fstream file_jobs;
+
+    //TODO copy list of jobs
+    file_jobs.open("C:\\ObjectOrientedProgramming\\jobSearch\\jobs.txt",ios::in);
+    if(!file_jobs.is_open())
+        cout << "file could not be opened, check error" << endl;
+    else
+    {
+        char company_name[200] = "\0";
+        char role[200] = "\0";
+        char job_description[200] = "\0";
+        char job_requirements[200] = "\0";
+        char job_type[200] = "\0";
+        char job_condition[200] = "\0";
+        char location[200] = "\0";
+        char date[200] = "\0";
+        char id_j[5] =  "\0";
+
+        while(!file_jobs.eof()) {
+            char read_file_jobs[200];
+            file_jobs >> read_file_jobs;
+            if (strcmp(read_file_jobs, id) == 0)
+            {
+                //coping company name
+//                            char temp_str[101] = "";
+                file_jobs >> read_file_jobs >> read_file_jobs;
+                while(!strcmp(read_file_jobs, "role") == 0)
+                {
+                    strcat(company_name,read_file_jobs);
+                    strcat(company_name, " ");
+                    file_jobs >> read_file_jobs;
+                }
+                file_jobs >> read_file_jobs;
+                //
+                while(!strcmp(read_file_jobs, "jobDescription") == 0)
+                {
+                    strcat(role,read_file_jobs);
+                    strcat(role, " ");
+                    file_jobs >> read_file_jobs;
+                }
+                file_jobs >> read_file_jobs;
+
+                while(!strcmp(read_file_jobs, "jobRequirements") == 0)
+                {
+                    strcat(job_description,read_file_jobs);
+                    strcat(job_description, " ");
+                    file_jobs >> read_file_jobs;
+
+                }
+                file_jobs >> read_file_jobs;
+
+                while(!strcmp(read_file_jobs, "jobType") == 0)
+                {
+                    strcat(job_requirements,read_file_jobs);
+                    strcat(job_requirements, " ");
+                    file_jobs >> read_file_jobs;
+                }
+                file_jobs >> read_file_jobs;
+
+                while(!strcmp(read_file_jobs, "jobCondition") == 0)
+                {
+                    strcat(job_type,read_file_jobs);
+                    strcat(job_type, " ");
+                    file_jobs >> read_file_jobs;
+                }
+                file_jobs >> read_file_jobs;
+
+                while(!strcmp(read_file_jobs, "location") == 0)
+                {
+                    strcat(job_condition,read_file_jobs);
+                    strcat(job_condition, " ");
+                    file_jobs >> read_file_jobs;
+                }
+                file_jobs >> read_file_jobs;
+
+                while(!strcmp(read_file_jobs, "date") == 0)
+                {
+                    strcat(location,read_file_jobs);
+                    strcat(location, " ");
+                    file_jobs >> read_file_jobs;
+                }
+                file_jobs >> read_file_jobs;
+
+                while(!strcmp(read_file_jobs, "id") == 0)
+                {
+                    strcat(date,read_file_jobs);
+                    strcat(date, " ");
+                    file_jobs >> read_file_jobs;
+                }
+
+                while(!strcmp(read_file_jobs, "endl") == 0)
+                {
+                    strcat(id_j,read_file_jobs);
+                    strcat(id_j, " ");
+                    file_jobs >> read_file_jobs;
+                }
+                file_jobs >> read_file_jobs;
+
+//                            create new Job with details from file
+                Job* job = new Job(company_name, role, job_description, job_requirements, job_type, job_condition, location, date, id);
+                cout<<"printing job from filee-------\n";
+                job->print();
+
+
+
+            }
+        }
+
+        file_jobs.close();
+    }
+
+
+
+
+}
+
+
+void Employer :: addJobToPublishJobs(Job* job) {
+    Job **temp_jobs_arr = new Job *[published_jobs_arr_size + 1];
+    for (int i = 0; i < published_jobs_arr_size; ++i)
+        temp_jobs_arr[i] = published_jobs_arr[i];
+    temp_jobs_arr[published_jobs_arr_size] = job;
+    delete [] published_jobs_arr;
+    published_jobs_arr = temp_jobs_arr;
+    ++published_jobs_arr_size;
+}
+
 

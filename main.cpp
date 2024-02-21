@@ -111,9 +111,9 @@ void today(int d,int m,int y) {
     strcat(buffer, to_string(y).c_str());
     cout << buffer;
 }
+#include <typeinfo>
 
 int main() {
-
 
 
 
@@ -123,9 +123,11 @@ int main() {
 
 
 
+
+
     Administrator a;
-    a.enterSystem();
-    a.print();
+//    a.enterSystem();
+//    a.print();
 
 
 /*
@@ -142,6 +144,8 @@ id1 summary ppp ppp pppppp  experience oo oooo oooooo  education llll llll lllll
 id3 summary tttttttttttttttttt  experience rrrrrrrrrrrrrrrrrrrrrrr  education wwwwwwwwwwwwwwwwwwwwwww  licenses qqqqqqqqqqqqqqqqqqqqqqq  skills ggggg gggggggg  awards jjjjjj jjjjjjj  name ttttt ttttttt  email rrrrr rrrrrrrrrrrr  endl
 id9 summary ppp ppp pppppp  experience oo oooo oooooo  education llll llll llllll  licenses iii iii iiiiiiii  skills bbbbbb bbb bbbb  awards mmmmmmm mmm mmmm  name pppppp ppp ppp  email oooooo ooo ooo  endl
 
+
+ //job txt
 
 
 

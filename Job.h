@@ -14,6 +14,9 @@ using std::cout;
 using std::cin;
 using std::endl;
 using std::to_string;
+using std::string;
+
+//using std::stoi;
 
 
 enum role_of_job{TEACHING = '1', ENGINEERING = '2', LAW = '3', MEDICINE = '4', RESEARCH = '5', SALES = '6', RESTAURANTS = '7', CLEANING = '8', ECONOMY = '9'};
@@ -28,11 +31,14 @@ public:
 
     Job();
 
+    Job(char *company_name, char* role, char* job_description, char* job_requirements,
+        char* job_type, char* job_condition, char* location, char* date, string id );
+
     ~Job();
 
     Job& operator=(const Job& job);
 
-    int getId() const;
+    string getId() const;
 
     void get_role_input();
 
@@ -44,14 +50,27 @@ public:
 
     void today();
 
+    char *getCompanyName() const;
 
+    char *getRole() const;
 
+    char *getJobDescription() const;
 
+    char *getJobRequirements() const;
 
+    char *getJobType() const;
 
+    char *getJobCondition() const;
+
+    char *getLocation() const;
+
+    char *getDate() const;
+
+    static int getGeneralId();
+
+    static int getMaxId();
 
 private:
-
     char *company_name;
     char* role;
     char* job_description;
@@ -60,7 +79,7 @@ private:
     char* job_condition;
     char* location;
     char* date;
-    int id;
+    string id;
     static int general_id;
     static int max_id; //TODO  write max id in file
 
