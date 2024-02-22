@@ -7,6 +7,8 @@
 #include <cstring>
 #include <windows.h>
 
+enum editCV{SUMMARY = '1', EXPERIENCE = '2', EDUCATION = '3', LICENSES = '4', SKILLS = '5', AWARDS = '6', BACK_E_P = '7'};
+
 
 //using std::string;
 using std::cout;
@@ -148,6 +150,7 @@ CV& CV:: operator=(const CV& cv) {
 
 void CV:: createCV()
 {
+    //TODO call setters instead of this code
     delete[] summary;
     delete[] experience;
     delete[] education;
@@ -288,4 +291,157 @@ char *CV::getName() const {
 
 char *CV::getEmail() const {
     return email;
+}
+
+
+
+
+void CV:: setName(char* name)
+{
+    delete [] this->name;
+    this->name = new char[strlen(name) + 1];
+    strcpy(this->name, name);
+
+}
+
+void CV:: setEmail(char* email)
+{
+    delete [] this->email;
+    this->email = new char[strlen(email) + 1];
+    strcpy(this->email,email);
+}
+
+
+void CV::  change_cv()
+{
+
+    char nav_edit_cv;
+    do {
+        cout << "1- summary \n";
+        cout << "2- experience \n";
+        cout << "3- education \n";
+        cout << "4- licenses \n";
+        cout << "5- skills \n";
+        cout << "6- awards \n";
+        cout << "7- back to edit profile \n";
+
+
+        cin >> nav_edit_cv;
+
+        switch (nav_edit_cv) {
+            case SUMMARY: {
+                setSummary();
+                break;
+
+            }
+            case EXPERIENCE: {
+                setExperience();
+                break;
+
+            }
+            case EDUCATION: {
+                setEducation();
+                break;
+
+            }
+            case LICENSES: {
+                setLicenses();
+                break;
+
+            }
+            case SKILLS: {
+                setSkills();
+                break;
+
+            }
+            case AWARDS: {
+                setAwards();
+                break;
+
+            }
+            case BACK_E_P: {
+                break;
+
+            }
+            default:
+                cout << "choose from the option above \n";
+
+        }
+    }while (nav_edit_cv != BACK_E_P);
+
+
+
+}
+
+
+
+void CV::setSummary() {
+    char tmp [SIZE_STRING];
+    delete[] summary;
+    cin.ignore();
+
+    cout << "summary" << endl;
+    cin.getline(tmp,SIZE_STRING);
+    summary = new char[strlen(tmp) + 1];
+    strcpy(summary, tmp);
+
+}
+
+void CV::setExperience() {
+    char tmp [SIZE_STRING];
+    delete[] experience;
+    cin.ignore();
+
+    cout << "experience" << endl;
+    cin.getline(tmp,SIZE_STRING);
+    experience = new char[strlen(tmp) + 1];
+    strcpy(experience, tmp);
+
+}
+
+void CV::setEducation() {
+    char tmp [SIZE_STRING];
+    delete[] education;
+    cin.ignore();
+
+    cout << "education" << endl;
+    cin.getline(tmp,SIZE_STRING);
+    education = new char[strlen(tmp) + 1];
+    strcpy(education, tmp);
+
+}
+
+void CV::setLicenses() {
+    char tmp [SIZE_STRING];
+    delete[] licenses;
+    cin.ignore();
+
+    cout << "licenses" << endl;
+    cin.getline(tmp,SIZE_STRING);
+    licenses = new char[strlen(tmp) + 1];
+    strcpy(licenses, tmp);
+
+}
+
+void CV::setSkills() {
+    char tmp [SIZE_STRING];
+    delete[] skills;
+    cin.ignore();
+
+    cout << "skills" << endl;
+    cin.getline(tmp,SIZE_STRING);
+    skills = new char[strlen(tmp) + 1];
+    strcpy(skills, tmp);
+
+}
+
+void CV::setAwards() {
+    char tmp [SIZE_STRING];
+    delete[] awards;
+    cin.ignore();
+
+    cout << "awards" << endl;
+    cin.getline(tmp,SIZE_STRING);
+    awards = new char[strlen(tmp) + 1];
+    strcpy(awards, tmp);
 }

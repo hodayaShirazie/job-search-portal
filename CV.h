@@ -16,6 +16,7 @@
 
 class CV {
 public:
+
     CV();
 
     CV(char* summary, char* experience, char* education, char* licenses, char* skills, char* awards, char* name, char* email);
@@ -44,9 +45,29 @@ public:
 
     char *getEmail() const;
 
+    void setName(char* name);
+
+    void setEmail(char* email);
+
+    void change_cv();
+
     void createCV();
 
     void print () const;
+
+    void setSummary();
+
+    void setExperience();
+
+    void setEducation();
+
+    void setLicenses();
+
+    void setSkills();
+
+    void setAwards();
+
+
 
 
 

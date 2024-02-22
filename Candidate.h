@@ -37,7 +37,6 @@ public:
 
     void personalArea();
 
-    void set_user_name();
 
     char *getUserName() const;
 
@@ -52,6 +51,8 @@ public:
     char *getPassword() const;
 
     CV *getCv() const;
+
+    void set_user_name();
 
     void set_email();
 

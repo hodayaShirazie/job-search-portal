@@ -23,7 +23,7 @@ Administrator :: Administrator() : candidate_arr(NULL), employers_arr(NULL), can
     copyCVfromFile(); //build cv field to candidate array
     copyJobsFromFile(); //build published job field to employer array
 
-    print();
+//    print();
 
 
 }
@@ -86,6 +86,7 @@ void Administrator :: enterSystem()
     switch (enteringChoice) {
         case LOGIN: {
             cin.ignore();
+            bool userExists = false;
             char temp_id[10];
             char temp_password[20];
             cout << "id" << endl;
@@ -93,12 +94,13 @@ void Administrator :: enterSystem()
             cout << "password" << endl;
             cin.getline(temp_password, 20);
             char user_type = '\0';
-            while(user_type == '\0') {
+            while(user_type == '\0' && !userExists) {
                 //check if id and password belong to the same user
-                for (int i = 0; i < candidate_arr_size; ++i)//if user is candidate--
+                for (int i = 0; i < candidate_arr_size && !userExists; ++i)//if user is candidate--
                 {
                     if (strcmp(candidate_arr[i]->getId(), temp_id) == 0 && strcmp(candidate_arr[i]->getPassword(), temp_password) == 0) {
                         user_type = 'c';
+                        userExists = true;
 
                         //send user to personal area
                         candidate_arr[i]->personalArea();
@@ -106,22 +108,24 @@ void Administrator :: enterSystem()
 
                 }
 
-                for (int i = 0; i < employers_arr_size; ++i)//if user is employer--
+                for (int i = 0; i < employers_arr_size && !userExists; ++i)//if user is employer--
                 {
                     if (strcmp(employers_arr[i]->getId(), temp_id) == 0 && strcmp(employers_arr[i]->getPassword(), temp_password) == 0) {
                         user_type = 'e';
+                        userExists = true;
 
                         //send user to personal area
                         employers_arr[i]->personalArea();
 
                     }
                 }
-                if (user_type == '\0') {//if user is not in system--
+                if (!userExists) {//if user is not in system--
                     cout << "1 or more details are incorrect, please try again" << endl;
                     cout << "id" << endl;
                     cin.getline(temp_id, 20);
                     cout << "password" << endl;
                     cin.getline(temp_password, 20);
+
                 }
             }
 
@@ -450,10 +454,10 @@ void Administrator ::copyCVfromFile() {
                     char awards[80] = "\0";
                     char name[80] = "\0";
                     char email[80] = "\0";
-                    file_cv >> file_content >> file_content;//the word summary
+                    file_cv >> file_content >> file_content;//the word #summary#
 
                     //copy summary from file
-                    while (!strcmp(file_content, "experience") == 0) {
+                    while (!strcmp(file_content, "#experience#") == 0) {
                         strcat(summary, file_content);
                         strcat(summary, " ");
                         file_cv >> file_content;
@@ -462,7 +466,7 @@ void Administrator ::copyCVfromFile() {
                     //summary is done-send to constructor
 
                     //copy experience from file
-                    while (!strcmp(file_content, "education") == 0) {
+                    while (!strcmp(file_content, "#education#") == 0) {
                         strcat(experience, file_content);
                         strcat(experience, " ");
                         file_cv >> file_content;
@@ -471,7 +475,7 @@ void Administrator ::copyCVfromFile() {
                     //experience is done-send to constructor
 
                     //copy education from file
-                    while (!strcmp(file_content, "licenses") == 0) {
+                    while (!strcmp(file_content, "#licenses#") == 0) {
                         strcat(education, file_content);
                         strcat(education, " ");
                         file_cv >> file_content;
@@ -480,7 +484,7 @@ void Administrator ::copyCVfromFile() {
                     //education is done-send to constructor
 
                     //copy licenses from file
-                    while (!strcmp(file_content, "skills") == 0) {
+                    while (!strcmp(file_content, "#skills#") == 0) {
                         strcat(licenses, file_content);
                         strcat(licenses, " ");
                         file_cv >> file_content;
@@ -490,7 +494,7 @@ void Administrator ::copyCVfromFile() {
                     //licenses is done-send to constructor
 
                     //copy skills from file
-                    while (!strcmp(file_content, "awards") == 0) {
+                    while (!strcmp(file_content, "#awards#") == 0) {
                         strcat(skills, file_content);
                         strcat(skills, " ");
                         file_cv >> file_content;
@@ -499,7 +503,7 @@ void Administrator ::copyCVfromFile() {
                     //skills is done-send to constructor
 
                     //copy awards from file
-                    while (!strcmp(file_content, "name") == 0) {
+                    while (!strcmp(file_content, "#name#") == 0) {
                         strcat(awards, file_content);
                         strcat(awards, " ");
                         file_cv >> file_content;
@@ -508,7 +512,7 @@ void Administrator ::copyCVfromFile() {
                     //awards is done-send to constructor
 
                     //copy name from file
-                    while (!strcmp(file_content, "email") == 0) {
+                    while (!strcmp(file_content, "#email#") == 0) {
                         strcat(name, file_content);
                         strcat(name, " ");
                         file_cv >> file_content;
@@ -517,7 +521,7 @@ void Administrator ::copyCVfromFile() {
                     //name is done-send to constructor
 
                     //copy email from file
-                    while (!strcmp(file_content, "endl") == 0 && !file_cv.eof()) {
+                    while (!strcmp(file_content, "#endl#") == 0 && !file_cv.eof()) {
                         strcat(email, file_content);
                         strcat(email, " ");
                         file_cv >> file_content;

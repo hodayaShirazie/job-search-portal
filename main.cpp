@@ -126,7 +126,7 @@ int main() {
 
 
     Administrator a;
-//    a.enterSystem();
+    a.enterSystem();
 //    a.print();
 
 

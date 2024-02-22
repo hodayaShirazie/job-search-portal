@@ -4,8 +4,8 @@
 
 #include "Candidate.h"
 
-enum personalAreaCandidate{EDIT_PROFILE = '1', ALL_JOBS = '2', FILTER_JOBS = '3', JOBS_I_LIKED = '4', SUBMISSION_HISTORY_C = '5'};
-enum editProfileCandidate{USER_NAME_C = '1', EMAIL_C = '2', PHONE_NUMBER_C = '3', PASSWORD_C = '4', CV_C = '5'};
+enum personalAreaCandidate{EDIT_PROFILE = '1', ALL_JOBS = '2', FILTER_JOBS = '3', JOBS_I_LIKED = '4', SUBMISSION_HISTORY_C = '5', Exit_PERSONAL_AREA = '6'};
+enum editProfileCandidate{USER_NAME_C = '1', EMAIL_C = '2', PHONE_NUMBER_C = '3', PASSWORD_C = '4', CV_C = '5', BACK_P_A_C = '6'};
 
 
 Candidate :: ~Candidate()
@@ -27,9 +27,9 @@ Candidate :: ~Candidate()
             cout << "file could not be opened, check error" << endl;
         else
         {
-            file_cv << id << " summary " << cv->getSummary() << " experience " << cv->getExperience() << " education " << cv->getEducation() << " licenses " <<
-            cv->getLicenses() << " skills " << cv->getSkills() << " awards " << cv->getAwards() << " name " <<
-                                        cv->getName() << " email " << cv->getEmail()  << " endl " << endl;
+            file_cv << id << " #summary# " << cv->getSummary() << " #experience# " << cv->getExperience() << " #education# " << cv->getEducation() << " #licenses# " <<
+            cv->getLicenses() << " #skills# " << cv->getSkills() << " #awards# " << cv->getAwards() << " #name# " <<
+                                        cv->getName() << " #email# " << cv->getEmail()  << " #endl# " << endl;
 
             file_cv.close();
         }
@@ -247,69 +247,92 @@ Candidate& Candidate :: operator=(const Candidate& candidate)
 
 void Candidate :: personalArea()
 {
-    char nav_personal_area;
-    cout << "1- edit profile \n";
-    cout << "2- all jobs \n";
-    cout << "3- filter jobs \n";
-    cout << "4- jobs i liked \n";
-    cout << "5- submission history \n";
-    cin >> nav_personal_area;
-    
-    switch(nav_personal_area){
-        case EDIT_PROFILE: {
-            char nav_edit_profile;
-            cout << "1- user name \n";
-            cout << "2- email \n";
-            cout << "3- phone number \n";
-            cout << "4- password \n";
-            cout << "5- cv \n";
-            cin >> nav_personal_area;
+    char nav_personal_area = '\0';
 
-            switch (nav_edit_profile) {
-                case USER_NAME_C:
-                {
-                    set_user_name();
-                }
-                case EMAIL_C:
-                {
-                    set_email();
-                }
-                case PHONE_NUMBER_C:
-                {
-                    set_phone_number();
-                }
-                case PASSWORD_C:
-                {
-                    set_password();
-                }
-                case CV_C:
-                {
+    while(nav_personal_area != Exit_PERSONAL_AREA) {
+        cout << "1- edit profile \n";
+        cout << "2- all jobs \n";
+        cout << "3- filter jobs \n";
+        cout << "4- jobs i liked \n";
+        cout << "5- submission history \n";
+        cout << "6- exit \n";
+        cin >> nav_personal_area;
 
 
-                }
-                
+        switch (nav_personal_area) {
+            case EDIT_PROFILE: {
+                char nav_edit_profile;
+
+                do {
+                    cout << "1- user name \n";
+                    cout << "2- email \n";
+                    cout << "3- phone number \n";
+                    cout << "4- password \n";
+                    cout << "5- cv \n";
+                    cout << "6- back to personal area \n";
+
+                    cin >> nav_edit_profile;
+
+                    switch (nav_edit_profile) {
+                        case USER_NAME_C: {
+                            set_user_name();
+                            cv->setName(userName); //change name in cv
+                            break;
+                        }
+                        case EMAIL_C: {
+                            set_email();
+                            cv->setEmail(email); //change email in cv
+                            break;
+
+                        }
+                        case PHONE_NUMBER_C: {
+                            set_phone_number();
+                            break;
+
+                        }
+                        case PASSWORD_C: {
+                            set_password();
+                            break;
+
+                        }
+                        case CV_C: {
+                            cv->change_cv();
+                            break;
+
+                        }
+                        case BACK_P_A_C: {
+                            break;
+
+                        }
+
+                    }
+                }while (nav_edit_profile != BACK_P_A_C);
+
+                print();
+
+
+                break;
             }
-            
-            
 
-            break;
-        }
-        case ALL_JOBS: {
 
-            break;
-        }
-        case FILTER_JOBS: {
+            case ALL_JOBS: {
 
-            break;
-        }
-        case JOBS_I_LIKED: {
+                break;
+            }
+            case FILTER_JOBS: {
 
-            break;
-        }
-        case SUBMISSION_HISTORY_C: {
+                break;
+            }
+            case JOBS_I_LIKED: {
 
-            break;
+                break;
+            }
+            case SUBMISSION_HISTORY_C: {
+
+                break;
+            }
         }
+
     }
 }
 
@@ -387,10 +410,10 @@ void Candidate::set_email()
 void Candidate :: set_phone_number()
 {
     char buffer[80];
-    cin.ignore();
+//    cin.ignore();
 
     delete [] phoneNumber;
-    //getting phone number
+    cin.ignore();
     cout << "phone number" << endl;
     cin.getline(buffer, 80);
     while(strlen(buffer) != 10 || buffer[0] != '0')
@@ -403,19 +426,22 @@ void Candidate :: set_phone_number()
 }
 
 
-void Candidate::set_password()
+void Candidate:: set_password()
 {
     char buffer[80];
-    cin.ignore();
-
     delete [] password;
+    cin.ignore();
+    cout << "password" << endl;
+    cin.getline(buffer, 80);
     password = new char[strlen(buffer) + 1];
     strcpy(password, buffer);
 
 }
 
+
 void Candidate:: set_cv(CV *cv)
 {
+    //TODO change cv fields
     this->cv = cv;
 }
 
