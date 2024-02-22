@@ -7,6 +7,7 @@
 #include "CV.h"
 #include <fstream>
 #include <cstring>
+#include "Job.h"
 
 
 using std::string;
@@ -64,6 +65,12 @@ public:
 
     void print() const;
 
+    void copyAllJobsFromFile();
+
+    void addJobToJobArr(Job* job);
+
+    void printAllJobsArr() const;
+
 
 
 
@@ -79,6 +86,8 @@ private:
     char* password;
     char* freeTxt;
     CV *cv;
+    Job** all_jobs_arr;
+    int all_jobs_arr_size;
 
 };
 

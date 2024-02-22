@@ -5,6 +5,7 @@
 #include "Candidate.h"
 #include "Employer.h"
 #include <iostream>
+#include "Job.h"
 
 using std::cout;
 using std::cin;
@@ -18,6 +19,8 @@ enum navEnter {LOGIN = 'A'   ,REGISTER = 'B'};
 //constructor to initialize fields
 Administrator :: Administrator() : candidate_arr(NULL), employers_arr(NULL), candidate_arr_size(0),employers_arr_size(0)
 {
+
+//    Job::getMaxIdFromFiles();
 
     copyPersonalDetailsFromFile(); //build candidate and employer arrays without cv and published job fields(respectively)
     copyCVfromFile(); //build cv field to candidate array
@@ -183,14 +186,14 @@ void Administrator :: enterSystem()
 
 void Administrator :: copyJobsFromFile() {
 
-    fstream file_jobs;
+
     //
 //    cout<<"printing before jobs \n";
 //    for(int r=0; r<employers_arr_size; ++r)
 //        employers_arr[r]->print();
     //
 
-
+    fstream file_jobs;
 
         for(int i=0; i<employers_arr_size; ++i) {
 

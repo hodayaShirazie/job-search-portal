@@ -5,8 +5,8 @@
 #include "Job.h"
 //#include <cstdlib>
 
-int Job :: general_id = 0;
-int Job :: max_id = general_id + 1;
+//int Job :: general_id = 0;
+//int Job :: max_id = general_id + 1;
 
 
 
@@ -19,7 +19,8 @@ int Job :: max_id = general_id + 1;
 
 Job :: Job()
 {
-    ++general_id;
+    getMaxIdFromFiles();
+    ++max_id;
     char buffer[80];
 
     //getting company name
@@ -71,8 +72,8 @@ Job :: Job()
     today();
 
     //job id
-    int int_id = max_id; //save int value in temp var
-    id = to_string(int_id);
+    //convert max id to string and save in id of job
+    id = to_string(max_id);
 
 
 
@@ -86,17 +87,6 @@ Job :: Job()
 Job :: Job(char *company_name, char* role, char* job_description, char* job_requirements,
     char* job_type, char* job_condition, char* location, char* date, string id )
 {
-
-//    char *;
-//    char* ;
-//    char* ;
-//    char* ;
-//    char* ;
-//    char* ;
-//    char* ;
-//    char* date;
-//    int id;
-
 
 
     this->company_name = new char[strlen(company_name) + 1];
@@ -139,6 +129,8 @@ Job :: ~Job()
     delete [] job_condition;
     delete [] location;
     delete [] date;
+
+    insertMaxIdToFiles(); //save id of last job in file
 
 
 }
@@ -467,11 +459,37 @@ char *Job::getDate() const {
     return date;
 }
 
-int Job::getGeneralId() {
-    return general_id;
+//int Job::getGeneralId() {
+//    return general_id;
+//}
+
+//int Job::getMaxId() {
+//    return max_id;
+//}
+
+
+void Job:: getMaxIdFromFiles() {
+
+
+    fstream file_general;
+    file_general.open("C:\\ObjectOrientedProgramming\\jobSearch\\general.txt", ios::in);
+    if (!file_general.is_open())
+        cout << "file could not be opened, check error" << endl;
+    else {
+        file_general >> max_id;
+    }
+
 }
 
-int Job::getMaxId() {
-    return max_id;
+void Job:: insertMaxIdToFiles() {
+
+    fstream file_general;
+    file_general.open("C:\\ObjectOrientedProgramming\\jobSearch\\general.txt", ios::out);
+    if (!file_general.is_open())
+        cout << "file could not be opened, check error" << endl;
+    else {
+        file_general << max_id;
+    }
+
 }
 

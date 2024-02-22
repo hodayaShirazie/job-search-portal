@@ -52,8 +52,9 @@ Candidate :: ~Candidate()
 
 
 //constructor
-Candidate :: Candidate(char* id, char* password, char* userName, char* email, char* phoneNumber, char* birthDate, char* freeTxt):cv(NULL)
+Candidate :: Candidate(char* id, char* password, char* userName, char* email, char* phoneNumber, char* birthDate, char* freeTxt):cv(NULL),all_jobs_arr(NULL), all_jobs_arr_size(0)
 {
+    copyAllJobsFromFile();
 
     this->id = new char[strlen(id) + 1];
     strcpy(this->id,id);
@@ -80,8 +81,8 @@ Candidate :: Candidate(char* id, char* password, char* userName, char* email, ch
 
 
 //constructor
- Candidate :: Candidate() : userName(NULL), id(NULL), email(NULL), phoneNumber(NULL), birthDate(NULL), password(NULL),freeTxt(NULL)
-{
+ Candidate :: Candidate() : userName(NULL), id(NULL), email(NULL), phoneNumber(NULL), birthDate(NULL), password(NULL),freeTxt(NULL),all_jobs_arr_size(0), all_jobs_arr(NULL) {
+    copyAllJobsFromFile();
 
 
     char buffer[80];
@@ -89,110 +90,110 @@ Candidate :: Candidate(char* id, char* password, char* userName, char* email, ch
 
     //getting user-name
     cout << "username" << endl;
-    cin.getline(buffer,80);
-    while(strlen(buffer) > 20) {
+    cin.getline(buffer, 80);
+    while (strlen(buffer) > 20) {
         cout << "user name is up to 20 letters, try again" << endl;
-        cin.getline(buffer,80);
+        cin.getline(buffer, 80);
     }
 
     userName = new char[strlen(buffer) + 1];
-    strcpy(userName,buffer);
+    strcpy(userName, buffer);
 
-     //getting user id
-     cout << "id" << endl;
-     cin.getline(buffer,80);
-     while(strlen(buffer) != 9) {
-         cout << "invalid id, try again" << endl;
-         cin.getline(buffer,80);
-     }
-     id = new char[strlen(buffer) + 1];
-     strcpy(id,buffer);
-
-
-     //getting user email
-     cout << "email" << endl;
-     cin.getline(buffer, 80);
-
-     bool existsSign = false;
-     bool validChar = true;
-     bool invalidProfix = false;
-     while (!validChar || !invalidProfix || !existsSign) {
-
-         int lenEmail = strlen(buffer);
-
-         //if email does not end with .org/.com/.il
-         if ((buffer[lenEmail - 1] == 'm' && buffer[lenEmail - 2] == 'o' && buffer[lenEmail - 3] == 'c' &&
-              buffer[lenEmail - 4] == '.')
-             || (buffer[lenEmail - 1] == 'g' && buffer[lenEmail - 2] == 'r' && buffer[lenEmail - 3] == 'o' &&
-                 buffer[lenEmail - 4] == '.') ||
-             (buffer[lenEmail - 1] == 'l' && buffer[lenEmail - 2] == 'i' && buffer[lenEmail - 3] == '.'))
-             invalidProfix = true;
+    //getting user id
+    cout << "id" << endl;
+    cin.getline(buffer, 80);
+    while (strlen(buffer) != 9) {
+        cout << "invalid id, try again" << endl;
+        cin.getline(buffer, 80);
+    }
+    id = new char[strlen(buffer) + 1];
+    strcpy(id, buffer);
 
 
-         //if email contains invalid characters
-         for (int i = 0; buffer[i] != '\0' && validChar && invalidProfix; ++i)
-         {
-             if (!(buffer[i] >= 'a' && buffer[i] <= 'z' || buffer[i] >= 'A' && buffer[i] <= 'Z'))
-                 if (!(buffer[i] >= '0' && buffer[i] <= '9'))
-                     if (!(buffer[i] == '-' || buffer[i] == '.'))
-                         if (!(buffer[i] == '@')) {
-                             validChar = false; //email is not valid
-                         }else
-                             existsSign = true;
+    //getting user email
+    cout << "email" << endl;
+    cin.getline(buffer, 80);
 
-         }
-         if (!validChar || !invalidProfix || !existsSign) {
-             cout << "invalid email, enter again" << endl;
-             cin.getline(buffer, 80);
-         }
+    bool existsSign = false;
+    bool validChar = true;
+    bool invalidProfix = false;
+    while (!validChar || !invalidProfix || !existsSign) {
 
-     }
+        int lenEmail = strlen(buffer);
 
-     email = new char[strlen(buffer) + 1];
-     strcpy(email, buffer);
+        //if email does not end with .org/.com/.il
+        if ((buffer[lenEmail - 1] == 'm' && buffer[lenEmail - 2] == 'o' && buffer[lenEmail - 3] == 'c' &&
+             buffer[lenEmail - 4] == '.')
+            || (buffer[lenEmail - 1] == 'g' && buffer[lenEmail - 2] == 'r' && buffer[lenEmail - 3] == 'o' &&
+                buffer[lenEmail - 4] == '.') ||
+            (buffer[lenEmail - 1] == 'l' && buffer[lenEmail - 2] == 'i' && buffer[lenEmail - 3] == '.'))
+            invalidProfix = true;
 
 
-     //getting phone number
-     cout << "phone number" << endl;
-     cin.getline(buffer, 80);
-     while(strlen(buffer) != 10 || buffer[0] != '0')
-     {
-         cout << "invalid phone number, enter again" << endl;
-         cin.getline(buffer, 80);
-     }
-     phoneNumber = new char[strlen(buffer) + 1];
-     strcpy(phoneNumber, buffer);
+        //if email contains invalid characters
+        for (int i = 0; buffer[i] != '\0' && validChar && invalidProfix; ++i) {
+            if (!(buffer[i] >= 'a' && buffer[i] <= 'z' || buffer[i] >= 'A' && buffer[i] <= 'Z'))
+                if (!(buffer[i] >= '0' && buffer[i] <= '9'))
+                    if (!(buffer[i] == '-' || buffer[i] == '.'))
+                        if (!(buffer[i] == '@')) {
+                            validChar = false; //email is not valid
+                        } else
+                            existsSign = true;
 
-     //getting birth date
-     cout << "birthDate" << endl;
-     cin.getline(buffer,80);
+        }
+        if (!validChar || !invalidProfix || !existsSign) {
+            cout << "invalid email, enter again" << endl;
+            cin.getline(buffer, 80);
+        }
 
-     //TODO check validation
+    }
 
-     birthDate = new char[strlen(buffer) + 1];
-     strcpy(birthDate, buffer);
-
-     //getting password
-     cout << "password" << endl;
-     cin.getline(buffer,80);
-
-     //TODO check validation
-
-     password = new char[strlen(buffer) + 1];
-     strcpy(password, buffer);
-
-     char tempFt[501];
-     cout << "add free text to tell about yourself, if you dont want- enter none" << endl;
-     cin.getline(tempFt,501);
-     freeTxt = new char[strlen(tempFt) + 1];
-     strcpy(freeTxt, tempFt);
-
-     //add cv
-     cv = new CV(userName,email);
+    email = new char[strlen(buffer) + 1];
+    strcpy(email, buffer);
 
 
-     cout << "create account" << endl;
+    //getting phone number
+    cout << "phone number" << endl;
+    cin.getline(buffer, 80);
+    while (strlen(buffer) != 10 || buffer[0] != '0') {
+        cout << "invalid phone number, enter again" << endl;
+        cin.getline(buffer, 80);
+    }
+    phoneNumber = new char[strlen(buffer) + 1];
+    strcpy(phoneNumber, buffer);
 
+    //getting birth date
+    cout << "birthDate" << endl;
+    cin.getline(buffer, 80);
+
+    //TODO check validation
+
+    birthDate = new char[strlen(buffer) + 1];
+    strcpy(birthDate, buffer);
+
+    //getting password
+    cout << "password" << endl;
+    cin.getline(buffer, 80);
+
+    //TODO check validation
+
+    password = new char[strlen(buffer) + 1];
+    strcpy(password, buffer);
+
+    char tempFt[501];
+    cout << "add free text to tell about yourself, if you dont want- enter none" << endl;
+    cin.getline(tempFt, 501);
+    freeTxt = new char[strlen(tempFt) + 1];
+    strcpy(freeTxt, tempFt);
+
+    //add cv
+    cv = new CV(userName, email);
+
+
+    cout << "create account" << endl;
+    cout << "-----------------------printing all copied jobs------------------------" << endl;
+
+    printAllJobsArr();
 
 
 }
@@ -499,3 +500,145 @@ void Candidate:: print() const
 
 }
 
+void Candidate :: copyAllJobsFromFile() {
+
+
+    fstream file_jobs;
+
+    char company_name[200] = "\0";
+    char role[200] = "\0";
+    char job_description[200] = "\0";
+    char job_requirements[200] = "\0";
+    char job_type[200] = "\0";
+    char job_condition[200] = "\0";
+    char location[200] = "\0";
+    char date[200] = "\0";
+    char id_j[5] = "\0";
+
+    file_jobs.open("C:\\ObjectOrientedProgramming\\jobSearch\\jobs.txt", ios::in);
+    if (!file_jobs.is_open())
+        cout << "file could not be opened, check error" << endl;
+    else {
+
+        while (!file_jobs.eof()) {
+            char read_file_jobs[200];
+            file_jobs >> read_file_jobs;
+
+            //coping company name
+            file_jobs >> read_file_jobs >> read_file_jobs;
+            while (!strcmp(read_file_jobs, "role") == 0) {
+                strcat(company_name, read_file_jobs);
+                strcat(company_name, " ");
+                file_jobs >> read_file_jobs;
+            }
+            file_jobs >> read_file_jobs;
+
+            while (!strcmp(read_file_jobs, "jobDescription") == 0) {
+                strcat(role, read_file_jobs);
+                strcat(role, " ");
+                file_jobs >> read_file_jobs;
+            }
+            file_jobs >> read_file_jobs;
+
+            while (!strcmp(read_file_jobs, "jobRequirements") == 0) {
+                strcat(job_description, read_file_jobs);
+                strcat(job_description, " ");
+                file_jobs >> read_file_jobs;
+
+            }
+            file_jobs >> read_file_jobs;
+
+            while (!strcmp(read_file_jobs, "jobType") == 0) {
+                strcat(job_requirements, read_file_jobs);
+                strcat(job_requirements, " ");
+                file_jobs >> read_file_jobs;
+            }
+            file_jobs >> read_file_jobs;
+
+            while (!strcmp(read_file_jobs, "jobCondition") == 0) {
+                strcat(job_type, read_file_jobs);
+                strcat(job_type, " ");
+                file_jobs >> read_file_jobs;
+            }
+            file_jobs >> read_file_jobs;
+
+            while (!strcmp(read_file_jobs, "location") == 0) {
+                strcat(job_condition, read_file_jobs);
+                strcat(job_condition, " ");
+                file_jobs >> read_file_jobs;
+            }
+            file_jobs >> read_file_jobs;
+
+            while (!strcmp(read_file_jobs, "date") == 0) {
+                strcat(location, read_file_jobs);
+                strcat(location, " ");
+                file_jobs >> read_file_jobs;
+            }
+            file_jobs >> read_file_jobs;
+
+            while (!strcmp(read_file_jobs, "id") == 0) {
+                strcat(date, read_file_jobs);
+                strcat(date, " ");
+                file_jobs >> read_file_jobs;
+            }
+            file_jobs >> read_file_jobs;
+
+
+            while (!strcmp(read_file_jobs, "endl") == 0) {
+                strcat(id_j, read_file_jobs);
+                strcat(id_j, " ");
+                file_jobs >> read_file_jobs;
+            }
+
+            //create new Job with details from file
+            Job *job = new Job(company_name, role, job_description, job_requirements, job_type,
+                               job_condition,
+                               location, date, id_j);
+//                        cout << "printing job from filee-------\n";
+//            job->print();
+
+            //add job to all_jobs array
+            addJobToJobArr(job);
+
+
+
+            company_name[0] = '\0';
+            role[0] = '\0';
+            job_description[0] = '\0';
+            job_requirements[0] = '\0';
+            job_type[0] = '\0';
+            job_condition[0] = '\0';
+            location[0] = '\0';
+            date[0] = '\0';
+            id_j[0] = '\0';
+        }
+
+        file_jobs.close();
+    }
+
+
+}
+
+
+
+void Candidate :: addJobToJobArr(Job* job) {
+
+    Job **temp_jobs_arr = new Job *[all_jobs_arr_size + 1];
+    for (int i = 0; i < all_jobs_arr_size; ++i)
+        temp_jobs_arr[i] = all_jobs_arr[i];
+
+    temp_jobs_arr[all_jobs_arr_size] = job;
+    delete [] all_jobs_arr;
+    all_jobs_arr = temp_jobs_arr;
+    ++all_jobs_arr_size;
+}
+
+
+void Candidate :: printAllJobsArr() const
+{
+    for (int i = 0; i < all_jobs_arr_size; ++i) {
+        all_jobs_arr[i]->print();
+
+    }
+
+}

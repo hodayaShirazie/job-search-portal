@@ -7,6 +7,8 @@
 
 #include <iostream>
 #include <cstring>
+#include <fstream>
+
 
 
 
@@ -15,6 +17,10 @@ using std::cin;
 using std::endl;
 using std::to_string;
 using std::string;
+using std::ios;
+using std::fstream;
+
+
 
 //using std::stoi;
 
@@ -66,9 +72,14 @@ public:
 
     char *getDate() const;
 
-    static int getGeneralId();
+    void getMaxIdFromFiles();
 
-    static int getMaxId();
+    void insertMaxIdToFiles();
+
+
+//    static int getGeneralId();
+
+//    static int getMaxId();
 
 private:
     char *company_name;
@@ -80,8 +91,9 @@ private:
     char* location;
     char* date;
     string id;
-    static int general_id;
-    static int max_id; //TODO  write max id in file
+    int max_id;
+//    static int general_id;
+//    static int max_id; //TODO  write max id in file
 
 
 

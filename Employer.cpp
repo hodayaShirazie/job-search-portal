@@ -166,16 +166,16 @@ Employer :: ~Employer()
     }
 
 
-
-
-
-
     delete [] userName;
     delete [] id;
     delete [] email;
     delete [] phoneNumber;
     delete [] birthDate;
     delete [] password;
+
+    for (int i = 0; i < Employer::published_jobs_arr_size; ++i)
+        delete published_jobs_arr[i];
+
 }
 
 char *Employer::getUserName() const {
