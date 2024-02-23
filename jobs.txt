@@ -1,5 +1,6 @@
 
-098765432 companyName milan JUlary  role engineering  jobDescription none  jobRequirements not req  jobType partTime  jobCondition none  location center  date 22/2/2024  id 1  endl
-098765432 companyName lorern shake  role restaurants  jobDescription none  jobRequirements nknknknk knknk jn  jobType specialNeeds  jobCondition none  location haifa  date 22/2/2024  id 1  endl
-098765432 companyName holas  role restaurants  jobDescription none  jobRequirements skiii  jobType student  jobCondition noooooooo ben  location center  date 22/2/2024  id 2  endl
-098765432 companyName koldem  role sales  jobDescription none  jobRequirements 3 yeers seniority  jobType student  jobCondition none  location haifa  date 22/2/2024  id 1  endl
+098765432 companyName CONM K  role research  jobDescription KLKL JJ  jobRequirements TTT YYY  jobType student  jobCondition FFR CEN  location judeaAndSamaria  date 22/2/2024  id 1  endl
+098765432 companyName lorern shake  role restaurants  jobDescription none  jobRequirements VVIV V jobType specialNeeds  jobCondition none  location haifa  date 22/2/2024  id 2  endl
+098765432 companyName holas  role restaurants  jobDescription none  jobRequirements skiii  jobType student  jobCondition noooooooo ben  location center  date 22/2/2024  id 3  endl
+098765432 companyName koldem  role sales  jobDescription none  jobRequirements 3 yeers seniority  jobType student  jobCondition none  location haifa  date 22/2/2024  id 4  endl
+098765432 companyName aslon  role restaurants  jobDescription none  jobRequirements poiuy  jobType specialNeeds  jobCondition none  location center  date 23/2/2024  id 5  endl

@@ -28,6 +28,7 @@ using std::fstream;
 enum role_of_job{TEACHING = '1', ENGINEERING = '2', LAW = '3', MEDICINE = '4', RESEARCH = '5', SALES = '6', RESTAURANTS = '7', CLEANING = '8', ECONOMY = '9'};
 enum type_of_job{FULL_TIME = '1', PART_TIME = '2', STUDENT = '3', SPECIAL_NEEDS = '4'};
 enum location_of_job{NORTH = '1', SOUTH = '2', CENTER = '3', HAIFA = '4', TEL_AVIV = '5', JUDEA_AND_SAMARIA = '6'};
+enum update_job_fields{COMPANY_NAME = '1', ROLE = '2', JOB_DESCRIPTION = '3', JOB_REQUIREMENTS = '4', JOB_TYPE = '5', JOB_CONDITION = '6', LOCATION = '7', BACK_ALL_SUB_J = '8'};
 
 
 
@@ -68,6 +69,20 @@ public:
 
     char *getJobCondition() const;
 
+    void setCompanyName();
+
+    void setRole();
+
+    void setJobDescription();
+
+    void setJobRequirements();
+
+    void setJobType();
+
+    void setJobCondition();
+
+    void setLocation();
+
     char *getLocation() const;
 
     char *getDate() const;
@@ -76,10 +91,7 @@ public:
 
     void insertMaxIdToFiles();
 
-
-//    static int getGeneralId();
-
-//    static int getMaxId();
+    void  updateJob();
 
 private:
     char *company_name;
@@ -92,8 +104,7 @@ private:
     char* date;
     string id;
     int max_id;
-//    static int general_id;
-//    static int max_id; //TODO  write max id in file
+    bool submitted;
 
 
 

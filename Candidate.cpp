@@ -4,8 +4,6 @@
 
 #include "Candidate.h"
 
-enum personalAreaCandidate{EDIT_PROFILE = '1', ALL_JOBS = '2', FILTER_JOBS = '3', JOBS_I_LIKED = '4', SUBMISSION_HISTORY_C = '5', Exit_PERSONAL_AREA = '6'};
-enum editProfileCandidate{USER_NAME_C = '1', EMAIL_C = '2', PHONE_NUMBER_C = '3', PASSWORD_C = '4', CV_C = '5', BACK_P_A_C = '6'};
 
 
 Candidate :: ~Candidate()
@@ -248,9 +246,9 @@ Candidate& Candidate :: operator=(const Candidate& candidate)
 
 void Candidate :: personalArea()
 {
-    char nav_personal_area = '\0';
+    char nav_personal_area = '\0'; //TODO change to do-while
 
-    while(nav_personal_area != Exit_PERSONAL_AREA) {
+    while(nav_personal_area != Exit_C) {
         cout << "1- edit profile \n";
         cout << "2- all jobs \n";
         cout << "3- filter jobs \n";

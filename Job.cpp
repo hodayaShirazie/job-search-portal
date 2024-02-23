@@ -1,7 +1,7 @@
 //
 // Created by Student on 21/02/2024.
 //
-
+#include <limits> // Include for std::numeric_limits
 #include "Job.h"
 //#include <cstdlib>
 
@@ -17,7 +17,7 @@
 
 
 
-Job :: Job()
+Job :: Job():submitted(false)
 {
     getMaxIdFromFiles();
     ++max_id;
@@ -85,7 +85,7 @@ Job :: Job()
 }
 
 Job :: Job(char *company_name, char* role, char* job_description, char* job_requirements,
-    char* job_type, char* job_condition, char* location, char* date, string id )
+    char* job_type, char* job_condition, char* location, char* date, string id ):submitted(false)
 {
 
 
@@ -184,7 +184,6 @@ void Job :: get_job_location_input()
     cout << "4- haifa \n";
     cout << "5- Tel aviv \n";
     cout << "6- Judea and Samaria \n";
-//    cin.ignore();
     cin >> nav_location;
     switch (nav_location) {
         case NORTH:
@@ -236,7 +235,6 @@ void Job ::get_job_type_input()
     cout << "2- part time \n";
     cout << "3- student \n";
     cout << "4- special needs \n";
-//    cin.ignore();
     cin >> nav_type;
     switch (nav_type) {
         case FULL_TIME:
@@ -394,8 +392,75 @@ void Job :: print() const
 //
 //    cout << "max id: " << max_id << endl;
 
+    cout << "is submitted: " << submitted << endl;
 
 
+
+}
+
+void Job :: updateJob()
+{
+    char nav_update_job;
+
+    do {
+
+
+        cout << "1- company name \n";
+        cout << "2- role\n";
+        cout << "3- job description \n";
+        cout << "4- job requirements \n";
+        cout << "5- job type\n";
+        cout << "6- job condition \n";
+        cout << "7- location \n";
+        cout << "8- back to all submitted jobs \n";
+
+
+        cin >> nav_update_job;
+        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+
+        switch (nav_update_job) {
+            case COMPANY_NAME: {
+                delete [] company_name;
+                setCompanyName();
+                break;
+            }
+            case ROLE: {
+                delete [] role;
+                setRole();
+                break;
+            }
+            case JOB_DESCRIPTION: {
+                delete [] job_description;
+                setJobDescription();
+                break;
+            }
+            case JOB_REQUIREMENTS: {
+                delete [] job_requirements;
+                setJobRequirements();
+                break;
+            }
+            case JOB_TYPE: {
+                delete [] job_type;
+                setJobType();
+                break;
+            }
+            case JOB_CONDITION: {
+                delete [] job_condition;
+                setJobCondition();
+                break;
+            }
+            case LOCATION: {
+                delete [] location;
+                setLocation();
+                break;
+            }
+            case BACK_ALL_SUB_J: {
+                //navigate user to all submitted jobs
+                break;
+            }
+        }
+    } while (nav_update_job != BACK_ALL_SUB_J); //keep showing options for adaptation until user back in all submitted jobs
 
 
 
@@ -490,6 +555,83 @@ void Job:: insertMaxIdToFiles() {
     else {
         file_general << max_id;
     }
+
+}
+
+
+
+
+
+
+
+
+void Job::setCompanyName() {
+
+    char buffer[80];
+
+    cout << "company name" << endl;
+    cin.getline(buffer,80);
+    company_name = new char[strlen(buffer)+1];
+    strcpy(company_name, buffer);
+    cout<<"comp name in field: " << company_name<<endl;
+}
+
+void Job::setRole() {//TODO delete multiple function(do the same thing)
+
+    get_role_input();
+
+}
+
+void Job::setJobDescription() {
+    char buffer[80];
+
+    cout << "job description. to skip, enter \"none\"" << endl;
+    cin.getline(buffer,101);
+    job_description = new char[strlen(buffer)+1];
+    strcpy(job_description, buffer);
+    cout<<"job description in field: " << job_description<<endl;
+
+
+
+}
+
+void Job::setJobRequirements() {
+    char buffer[80];
+
+    cout << "job requirements. you might want to include the following suggestions: degree, languages, "
+            "experience,\n valid licence holder, personal skills...\n -to skip, enter \"none\"-" << endl;
+    cin.getline(buffer,101);
+    job_requirements = new char[strlen(buffer)+1];
+    strcpy(job_requirements, buffer);
+    cout<<"job_requirements in field: " << job_requirements<<endl;
+
+
+}
+
+void Job::setJobType() {
+
+    get_job_type_input();
+
+}
+
+void Job::setJobCondition() {
+    char buffer[80];
+
+
+    cout << "job conditions. you might want to include the following suggestions: wage, transportation, "
+            " car job, \"TenBis \" discount. -to skip, enter \"none\"" << endl;
+    cin.getline(buffer,51);
+    job_condition = new char[strlen(buffer)+1];
+    strcpy(job_condition, buffer);
+
+    cout<<"job_condition in field: " << job_condition<<endl;
+
+
+}
+
+void Job::setLocation() {
+
+    get_job_location_input();
 
 }
 

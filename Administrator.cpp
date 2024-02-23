@@ -2,7 +2,7 @@
 // Created by Student on 15/02/2024.
 //
 #include "Administrator.h"
-#include "Candidate.h"
+//#include "Candidate.h"
 #include "Employer.h"
 #include <iostream>
 #include "Job.h"
@@ -551,7 +551,6 @@ void Administrator ::copyCVfromFile() {
 
         }
 
-        ///for (int i = 0; i < candidate_arr_size; ++i)
 
 
     }

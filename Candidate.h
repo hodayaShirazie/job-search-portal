@@ -17,6 +17,8 @@ using std::endl;
 using std::fstream;
 using std::ios;
 
+enum personalAreaCandidate{EDIT_PROFILE = '1', ALL_JOBS = '2', FILTER_JOBS = '3', JOBS_I_LIKED = '4', SUBMISSION_HISTORY_C = '5', Exit_C = '6'};
+enum editProfileCandidate{USER_NAME_C = '1', EMAIL_C = '2', PHONE_NUMBER_C = '3', PASSWORD_C = '4', CV_C = '5', BACK_P_A_C = '6'};
 
 
 #ifndef JOBSEARCH_CANDIDATE_H

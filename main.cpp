@@ -1,6 +1,6 @@
 #include <iostream>
 #include "CV.h"
-#include "Candidate.h"
+//#include "Candidate.h"
 #include "Administrator.h"
 #include <stdlib.h>
 #include <cstring>

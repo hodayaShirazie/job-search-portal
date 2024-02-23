@@ -1,7 +1,6 @@
 //
 // Created by Student on 14/02/2024.
 //
-
 #ifndef JOBSEARCH_EMPLOYER_H
 #define JOBSEARCH_EMPLOYER_H
 
@@ -15,7 +14,11 @@ using std::endl;
 using std::fstream;
 using std::ios;
 
-enum personalAreaEmployer{SUBMISSION_HISTORY_E = '1', CANDIDTE_SUBMISSION = '2', PUBLISH_JOB = '3'};
+//TODO WHEN employer delete a gob, add it as usual to files but add it to another file as deleted
+
+
+enum personalAreaEmployer{SUBMISSION_HISTORY_E = '1', CANDIDTE_SUBMISSION = '2', PUBLISH_JOB = '3', Exit_E = '4'};
+enum submission_history_e{ALL_SUBMITTED_JOBS = '1', EDIT_JOBS = '2', DELETE_JOBS = '3', BACK_P_A_E = '4'};
 
 
 class Employer {
@@ -42,9 +45,16 @@ public:
 
     void print() const;
 
-    ~Employer();
+    void printPublishedJobs() const;
+
+    void edit_job();
 
     void personalArea();
+
+
+
+    ~Employer();
+
 
     void addNewJob();
 

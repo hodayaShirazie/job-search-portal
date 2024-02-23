@@ -219,10 +219,35 @@ void Employer:: print() const {
 
     //printing published jobs
     cout << "--------------printing published jobs-----------------------\n";
+    printPublishedJobs();
+
+}
+
+void Employer :: printPublishedJobs() const
+{
+    cout << "--------------printing published jobs in function-----------------------\n";
+
     for (int i = 0; i < published_jobs_arr_size; ++i) {
         published_jobs_arr[i]->print();
 
     }
+}
+
+void Employer :: edit_job()
+{
+    cout <<"inside edit job"<<endl;
+    //getting input of job to update
+    char jobId[500];
+    cin.ignore();
+    cout << "enter id of job you want to update \n";
+    cin.getline(jobId,500);
+    strcat(jobId," ");//id in field is a string that consist of a number and space in end
+
+    //update job
+    for (int i = 0; i < published_jobs_arr_size; ++i)
+        if(jobId == published_jobs_arr[i]->getId())//if job is in array - update its details
+            published_jobs_arr[i]->updateJob();
+
 
 }
 
@@ -230,30 +255,76 @@ void Employer:: print() const {
 void Employer :: personalArea()
 {
     char nav_personal_area;
-    cout << "1- submission history \n";
-    cout << "2- candidate submission\n";
-    cout << "3- publish a job \n";
-    ;
-    cin >> nav_personal_area;
-
-    switch(nav_personal_area){
-        case SUBMISSION_HISTORY_E: {
+    do {
 
 
-            break;
+        cout << "1- submission history \n";
+        cout << "2- candidate submission\n";
+        cout << "3- publish a job \n";
+        cout << "4- exit \n";
+
+        cin >> nav_personal_area;
+
+        switch (nav_personal_area) {
+            case SUBMISSION_HISTORY_E: {
+                char nav_submission_history;
+
+                do {
+                    cout << "\n1- all submitted jobs \n";
+                    cout << "2- update a job \n";
+                    cout << "3- delete a job\n";
+                    cout << "4- back to personal area \n";
+
+                    cin >> nav_submission_history;
+
+                    switch (nav_submission_history) {
+                        case ALL_SUBMITTED_JOBS: {
+
+                            //print array of published jobs
+                            printPublishedJobs();
+
+                            break;
+                        }
+                        case EDIT_JOBS: {
+
+                            edit_job();
+                            break;
+                        }
+                        case DELETE_JOBS: {
+
+
+                            break;
+                        }
+
+                        case BACK_P_A_E: {
+                            //navigate user to all submission history
+                            break;
+                        }
+                    }
+
+
+                } while (nav_submission_history != BACK_P_A_E);
+
+                break;
+            }
+            case CANDIDTE_SUBMISSION: {
+
+                break;
+            }
+            case PUBLISH_JOB: {
+
+                addNewJob();
+
+                break;
+            }
+            case Exit_E: {
+                //exit program
+                break;
+            }
+
+
         }
-        case CANDIDTE_SUBMISSION: {
-
-            break;
-        }
-        case PUBLISH_JOB: {
-
-            addNewJob();
-
-            break;
-        }
-
-    }
+    } while (nav_personal_area != Exit_E);
 }
 
 void Employer :: addNewJob()
