@@ -21,6 +21,7 @@ using std::ios;
 
 enum personalAreaCandidate{EDIT_PROFILE = '1', ALL_JOBS = '2', FILTER_JOBS = '3', SUBMIT_JOB = '4', LIKE_A_JOB = '5',  JOBS_I_LIKED = '6', SUBMISSION_HISTORY_C = '7',Exit_C = '8'};
 enum editProfileCandidate{USER_NAME_C = '1', EMAIL_C = '2', PHONE_NUMBER_C = '3', PASSWORD_C = '4', CV_C = '5', BACK_P_A_C = '6'};
+enum filterJobs_c{LOCATION_F = '1', JOB_TYPE_F = '2', ROLE_F = '3'};
 
 
 #ifndef JOBSEARCH_CANDIDATE_H
@@ -42,6 +43,8 @@ public:
 
     void personalArea();
 
+
+    void filterJobsByFeatures();
 
     char *getUserName() const;
 

@@ -313,7 +313,7 @@ void Candidate :: personalArea()
                 break;
             }
             case FILTER_JOBS: {
-
+                filterJobsByFeatures();
                 break;
             }
             case SUBMIT_JOB: {
@@ -855,7 +855,7 @@ void Candidate :: copySubmittedJobsToFile()
 
 }
 
-void Candidate ::copyLikedJobsToFile() {
+void Candidate :: copyLikedJobsToFile() {
 
 //TODO open and close file
     fstream file_liked_jobs;
@@ -890,9 +890,232 @@ void Candidate ::copyLikedJobsToFile() {
 }
 
 
+void Candidate :: filterJobsByFeatures() {
+
+    bool north = false, south = false, center = false, haifa = false, telAviv = false, judeaAndSamaria = false;
+
+    bool full_time = false, part_time = false, student = false, special_needs = false;
+
+    bool teaching = false, engineering = false, law = false, medicine = false,
+            research = false, sales = false ,restaurants = false, cleaning = false, economy = false;
+
+
+    char nav_filter_job = '\0';
+
+
+    cout << "1- location \n";
+    cout << "2- job type \n";
+    cout << "3- role \n";
+//        cout << "4- back to  \n";
+
+    cin >> nav_filter_job;
+
+
+    switch (nav_filter_job) {
+
+        case LOCATION_F: {
+
+
+            char nav_location;
+            do {
+
+                cout << "job location" << endl << "choose from the following:" << endl;
+                cout << "1- north \n";
+                cout << "2- south \n";
+                cout << "3- center \n";
+                cout << "4- haifa \n";
+                cout << "5- Tel aviv \n";
+                cout << "6- Judea and Samaria \n";
+                cout << "7- to filter chosen location \n";
+
+                cin >> nav_location;
+
+                switch (nav_location) {
+                    case NORTH: {
+                        north = true;
+                        break;
+                    }
+                    case SOUTH: {
+                        south = true;
+                        break;
+                    }
+                    case CENTER: {
+                        center = true;
+                        break;
+                    }
+                    case HAIFA: {
+                        haifa = true;
+                        break;
+                    }
+                    case TEL_AVIV: {
+                        telAviv = true;
+                        break;
+                    }
+                    case JUDEA_AND_SAMARIA: {
+                        judeaAndSamaria = true;
+                        break;
+                    }
+                }
+
+
+            }while (nav_location != '7');
+
+//            break;
+        }
+        case JOB_TYPE_F: {
+
+
+            char nav_job_type;
+            do {
+
+                cout << "job type" << endl << "choose from the following:" << endl;
+                cout << "1- full time \n";
+                cout << "2- part time \n";
+                cout << "3- student \n";
+                cout << "4- special needs \n";
+                cout << "5- to filter chosen job type \n";
+
+                cin >> nav_job_type;
+                switch (nav_job_type) {
+                    case FULL_TIME: {
+                        full_time = true;
+                        break;
+                    }
+                    case PART_TIME: {
+                        part_time = true;
+                        break;
+                    }
+                    case STUDENT: {
+                        student = true;
+                        break;
+                    }
+                    case SPECIAL_NEEDS: {
+                        special_needs = true;
+                        break;
+                    }
+                }
+            }
+            while (nav_job_type != '5');
+//            break;
+
+        }
+
+        case ROLE_F: {
+
+
+            char nav_role;
+
+            do {
+
+                cout << "role" << endl << "choose from the following:" << endl;
+                cout << "1- teaching \n";
+                cout << "2- engineering \n";
+                cout << "3- law \n";
+                cout << "4- medicine \n";
+                cout << "5- research \n";
+                cout << "6- sales \n";
+                cout << "7- restaurants \n";
+                cout << "8- cleaning \n";
+                cout << "9- economy \n";
+                cout << "0- to filter chosen job type \n";
+
+                cin >> nav_role;
+
+                switch (nav_role) {
+                    case TEACHING: {
+                        teaching = true;
+                        break;
+                    }
+                    case ENGINEERING: {
+                        engineering = true;
+                        break;
+                    }
+                    case LAW: {
+                        law = true;
+                        break;
+                    }
+                    case MEDICINE: {
+                        medicine = true;
+                        break;
+                    }
+                    case RESEARCH: {
+                        research = true;
+                        break;
+                    }
+                    case SALES: {
+                        sales = true;
+                        break;
+                    }
+                    case RESTAURANTS: {
+                        restaurants = true;
+                        break;
+                    }
+                    case CLEANING: {
+                        cleaning = true;
+                        break;
+                    }
+                    case ECONOMY: {
+                        economy = true;
+                        break;
+                    }
+
+
+                }
+            } while (nav_role != '0');
+
+
+
+//            break;
+        }
+    }
+
+
+    //print jobs who meet user selections
+
+
+    for (int i = 0; i < all_jobs_arr_size; ++i) {
+        bool match = true;
+
+
+        if (north && strcmp(all_jobs_arr[i]->getLocation(), "north ") != 0) match = false;
+        else if (south && strcmp(all_jobs_arr[i]->getLocation(), "south ") != 0) match = false;
+        else if (center && strcmp(all_jobs_arr[i]->getLocation(), "center ") != 0) match = false;
+        else if (haifa && strcmp(all_jobs_arr[i]->getLocation(), "haifa ") != 0) match = false;
+        else if (telAviv && strcmp(all_jobs_arr[i]->getLocation(), "telAviv ") != 0) match = false;
+        else if (judeaAndSamaria && strcmp(all_jobs_arr[i]->getLocation(),"judeaAndSamaria ") != 0) match = false;
+
+
+        if (full_time && strcmp(all_jobs_arr[i]->getJobType(), "fullTime ")) match = false;
+        else if (part_time && strcmp(all_jobs_arr[i]->getJobType(), "partTime ")) match = false;
+        else if (student && strcmp(all_jobs_arr[i]->getJobType(), "student ")) match = false;
+        else if (special_needs && strcmp(all_jobs_arr[i]->getJobType(), "specialNeeds ")) match = false;
+
+
+        if (teaching && strcmp(all_jobs_arr[i]->getJobType(), "teaching ")) match = false;
+        else if (engineering && strcmp(all_jobs_arr[i]->getJobType(), "engineering ")) match = false;
+        else if (law && strcmp(all_jobs_arr[i]->getJobType(), "law ")) match = false;
+        else if (medicine && strcmp(all_jobs_arr[i]->getJobType(), "medicine ")) match = false;
+        else if (research && strcmp(all_jobs_arr[i]->getJobType(), "research ")) match = false;
+        else if (sales && strcmp(all_jobs_arr[i]->getJobType(), "sales ")) match = false;
+        else if (restaurants && strcmp(all_jobs_arr[i]->getJobType(), "restaurants ")) match = false;
+        else if (cleaning && strcmp(all_jobs_arr[i]->getJobType(), "cleaning ")) match = false;
+        else if (economy && strcmp(all_jobs_arr[i]->getJobType(), "economy ")) match = false;
+
+
+        //print job after filtration
+        if (match)
+            all_jobs_arr[i]->print();
+
+
+    }
 
 
 
 
 
+
+
+
+
+}
 
