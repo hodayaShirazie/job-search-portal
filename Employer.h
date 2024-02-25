@@ -55,6 +55,8 @@ public:
 
     ~Employer();
 
+    void viewCandidateSubmission();
+
 
     void addNewJob();
 

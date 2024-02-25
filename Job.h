@@ -55,6 +55,8 @@ public:
 
     void print() const;
 
+    bool isLiked() const;
+
     void today();
 
     char *getCompanyName() const;
@@ -70,6 +72,8 @@ public:
     char *getJobCondition() const;
 
     void setSubmitted();
+
+    void setLiked();
 
     void setCompanyName();
 
@@ -112,6 +116,7 @@ private:
     string id;
     int max_id;
     bool submitted;
+    bool liked;
 
 
 

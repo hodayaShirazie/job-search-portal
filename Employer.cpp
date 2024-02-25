@@ -470,3 +470,16 @@ void Employer :: addJobToPublishJobs(Job* job) {
 }
 
 
+//void Employer :: viewCandidateSubmission()
+//{
+//    for (int i = 0; i < published_jobs_arr_size; ++i)
+//    {
+//        cout << "candidate submission to job id " << published_jobs_arr[i]->getId() << ":\n";
+//        //
+//    }
+//
+////TODO contin hereeeeeeeee
+//
+//}
+
+

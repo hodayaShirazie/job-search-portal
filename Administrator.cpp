@@ -11,7 +11,7 @@ using std::cout;
 using std::cin;
 using std::endl;
 
-
+//TODO update a job not working when i update right after register/////fixx
 
 enum userType{CANDIDATE = '1', EMPLOYER = '2'};
 enum navEnter {LOGIN = 'A'   ,REGISTER = 'B'};
@@ -328,30 +328,36 @@ void Administrator :: copyJobsFromFile() {
 void Administrator :: emptyFiles()
 {
     //open and close files to delete history
-    fstream file_personal_details, file_cv,file_jobs;
-    file_personal_details.open("C:\\ObjectOrientedProgramming\\jobSearch\\personalDetails.txt",ios::out);
-    if(!file_personal_details.is_open())
+    fstream file;
+    file.open("C:\\ObjectOrientedProgramming\\jobSearch\\personalDetails.txt",ios::out);
+    if(!file.is_open())
         cout << "file could not be opened, check error" << endl;
     else
-        file_personal_details.close();
+        file.close();
 
-    file_cv.open("C:\\ObjectOrientedProgramming\\jobSearch\\CV.txt",ios::out);
-    if(!file_cv.is_open())
+    file.open("C:\\ObjectOrientedProgramming\\jobSearch\\CV.txt",ios::out);
+    if(!file.is_open())
         cout << "file could not be opened, check error" << endl;
     else
-        file_cv.close();
+        file.close();
 
-    file_jobs.open("C:\\ObjectOrientedProgramming\\jobSearch\\jobs.txt",ios::out);
-    if(!file_jobs.is_open())
+    file.open("C:\\ObjectOrientedProgramming\\jobSearch\\jobs.txt",ios::out);
+    if(!file.is_open())
         cout << "file could not be opened, check error" << endl;
     else
-        file_jobs.close();
+        file.close();
 
-    file_jobs.open("C:\\ObjectOrientedProgramming\\jobSearch\\submittedJobs",ios::out);
-    if(!file_jobs.is_open())
+    file.open("C:\\ObjectOrientedProgramming\\jobSearch\\submittedJobs",ios::out);
+    if(!file.is_open())
         cout << "file could not be opened, check error" << endl;
     else
-        file_jobs.close();
+        file.close();
+
+    file.open("C:\\ObjectOrientedProgramming\\jobSearch\\likedJobs",ios::out);
+    if(!file.is_open())
+        cout << "file could not be opened, check error" << endl;
+    else
+        file.close();
 }
 
 

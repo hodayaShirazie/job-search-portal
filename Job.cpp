@@ -17,7 +17,7 @@
 
 
 
-Job :: Job():submitted(false)
+Job :: Job():submitted(false),liked(false)
 {
     getMaxIdFromFiles();
     ++max_id;
@@ -87,7 +87,7 @@ Job :: Job():submitted(false)
 }
 
 Job :: Job(char *company_name, char* role, char* job_description, char* job_requirements,
-    char* job_type, char* job_condition, char* location, char* date, string id ):submitted(false)
+    char* job_type, char* job_condition, char* location, char* date, string id ):submitted(false),liked(false)
 {
 
 
@@ -396,7 +396,9 @@ void Job :: print() const
 //
 //    cout << "max id: " << max_id << endl;
 
-    cout << "is submitted: " << submitted << endl << endl;
+    cout << "is submitted: " << submitted << endl;
+
+    cout << "is LIKED: " << liked << endl << endl;
 
 
 
@@ -567,7 +569,12 @@ void Job:: insertMaxIdToFiles() {
 
 void Job:: setSubmitted()
 {
-    submitted = true; //chane field submitted
+    submitted = true; //change field submitted
+}
+
+void Job:: setLiked()
+{
+  liked = true;  //change field liked
 }
 
 
@@ -644,6 +651,10 @@ void Job::setLocation() {
 
 bool Job::isSubmitted() const {
     return submitted;
+}
+
+bool Job::isLiked() const {
+    return liked;
 }
 
 ////if id exists in
