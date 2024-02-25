@@ -69,6 +69,8 @@ public:
 
     char *getJobCondition() const;
 
+    void setSubmitted();
+
     void setCompanyName();
 
     void setRole();
@@ -81,6 +83,8 @@ public:
 
     void setJobCondition();
 
+    bool isSubmitted() const;
+
     void setLocation();
 
     char *getLocation() const;
@@ -92,6 +96,9 @@ public:
     void insertMaxIdToFiles();
 
     void  updateJob();
+
+//    void updateSubmittedStatusFromFile();
+
 
 private:
     char *company_name;

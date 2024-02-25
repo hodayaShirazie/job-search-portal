@@ -75,6 +75,8 @@ Job :: Job():submitted(false)
     //convert max id to string and save in id of job
     id = to_string(max_id);
 
+    insertMaxIdToFiles(); //save id of last job ID in file
+
 
 
     print();
@@ -115,6 +117,8 @@ Job :: Job(char *company_name, char* role, char* job_description, char* job_requ
 
     this->id = id;
 
+//    updateSubmittedStatusFromFile(); //update submitted field
+
 
 }
 
@@ -130,7 +134,7 @@ Job :: ~Job()
     delete [] location;
     delete [] date;
 
-    insertMaxIdToFiles(); //save id of last job in file
+//    insertMaxIdToFiles(); //save id of last job ID in file
 
 
 }
@@ -392,7 +396,7 @@ void Job :: print() const
 //
 //    cout << "max id: " << max_id << endl;
 
-    cout << "is submitted: " << submitted << endl;
+    cout << "is submitted: " << submitted << endl << endl;
 
 
 
@@ -561,7 +565,10 @@ void Job:: insertMaxIdToFiles() {
 
 
 
-
+void Job:: setSubmitted()
+{
+    submitted = true; //chane field submitted
+}
 
 
 
@@ -634,4 +641,14 @@ void Job::setLocation() {
     get_job_location_input();
 
 }
+
+bool Job::isSubmitted() const {
+    return submitted;
+}
+
+////if id exists in
+//void Job:: updateSubmittedStatusFromFile()
+//{
+//
+//}
 

@@ -151,6 +151,9 @@ void Administrator :: enterSystem()
                     ++candidate_arr_size;
                     delete [] candidate_arr;
                     candidate_arr = temp_candidates;
+
+                    candidate_arr[candidate_arr_size-1]->personalArea();
+
                     break;
 
                 }
@@ -165,6 +168,8 @@ void Administrator :: enterSystem()
                     ++employers_arr_size;
                     delete [] employers_arr;
                     employers_arr = temp_employers;
+
+                    employers_arr[employers_arr_size-1]->personalArea();
 
                     break;
 
@@ -341,7 +346,18 @@ void Administrator :: emptyFiles()
         cout << "file could not be opened, check error" << endl;
     else
         file_jobs.close();
+
+    file_jobs.open("C:\\ObjectOrientedProgramming\\jobSearch\\submittedJobs",ios::out);
+    if(!file_jobs.is_open())
+        cout << "file could not be opened, check error" << endl;
+    else
+        file_jobs.close();
 }
+
+
+
+
+
 
 void Administrator ::copyPersonalDetailsFromFile() {
     //copy personal details of employer + candidate to file "personal employer

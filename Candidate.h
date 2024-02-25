@@ -8,6 +8,7 @@
 #include <fstream>
 #include <cstring>
 #include "Job.h"
+#include <limits>
 
 
 using std::string;
@@ -17,7 +18,7 @@ using std::endl;
 using std::fstream;
 using std::ios;
 
-enum personalAreaCandidate{EDIT_PROFILE = '1', ALL_JOBS = '2', FILTER_JOBS = '3', JOBS_I_LIKED = '4', SUBMISSION_HISTORY_C = '5', Exit_C = '6'};
+enum personalAreaCandidate{EDIT_PROFILE = '1', ALL_JOBS = '2', FILTER_JOBS = '3', SUBMIT_JOB = '4', JOBS_I_LIKED = '5', SUBMISSION_HISTORY_C = '6', Exit_C = '7'};
 enum editProfileCandidate{USER_NAME_C = '1', EMAIL_C = '2', PHONE_NUMBER_C = '3', PASSWORD_C = '4', CV_C = '5', BACK_P_A_C = '6'};
 
 
@@ -72,6 +73,12 @@ public:
     void addJobToJobArr(Job* job);
 
     void printAllJobsArr() const;
+
+    void submit_job();
+
+    void updateSubmittedStatusFromFile();
+
+    void viewSubmissionHistory();
 
 
 
