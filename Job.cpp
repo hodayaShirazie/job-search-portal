@@ -5,8 +5,6 @@
 #include "Job.h"
 //#include <cstdlib>
 
-//int Job :: general_id = 0;
-//int Job :: max_id = general_id + 1;
 
 
 
@@ -17,7 +15,7 @@
 
 
 
-Job :: Job():submitted(false),liked(false)
+Job :: Job():submitted(false),liked(false),jobApplicants(NULL),jobApplicantsSize(0)
 {
     getMaxIdFromFiles();
     ++max_id;
@@ -43,7 +41,6 @@ Job :: Job():submitted(false),liked(false)
     job_description = new char[strlen(buffer)+1];
     strcpy(job_description, buffer);
 
-//    cin.ignore();
     //job requirements
     cout << "job requirements. you might want to include the following suggestions: degree, languages, "
             "experience,\n valid licence holder, personal skills...\n -to skip, enter \"none\"-" << endl;
@@ -87,9 +84,10 @@ Job :: Job():submitted(false),liked(false)
 }
 
 Job :: Job(char *company_name, char* role, char* job_description, char* job_requirements,
-    char* job_type, char* job_condition, char* location, char* date, string id ):submitted(false),liked(false)
+    char* job_type, char* job_condition, char* location, char* date, string id ):submitted(false),liked(false),jobApplicants(NULL),jobApplicantsSize(0)
 {
 
+    //TODO copy jobApplicants arr
 
     this->company_name = new char[strlen(company_name) + 1];
     strcpy(this->company_name,company_name);
@@ -352,6 +350,8 @@ void Job:: get_role_input()
 
 void Job :: print() const
 {
+    cout << "----------------------------------------------------------------------------------------------------------- " << endl;
+
 //    setConsoleColor( FOREGROUND_BLUE );
     cout << "\ncompany name: " << endl;
 //    setConsoleColor(7);
@@ -401,6 +401,7 @@ void Job :: print() const
     cout << "is LIKED: " << liked << endl << endl;
 
 
+    cout << "----------------------------------------------------------------------------------------------------------- " << endl;
 
 }
 
@@ -657,9 +658,5 @@ bool Job::isLiked() const {
     return liked;
 }
 
-////if id exists in
-//void Job:: updateSubmittedStatusFromFile()
-//{
-//
-//}
+
 

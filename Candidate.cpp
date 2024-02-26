@@ -665,7 +665,7 @@ void Candidate :: submit_job()
     }
     if (!is_job_found_in_file)
         cout <<"----------coul NOT find jobb--------\n";
-////////////////////////////////////
+
 
 
 }
@@ -692,7 +692,6 @@ void Candidate :: updateSubmittedStatusFromFile()
 
                         if (all_jobs_arr[i]->getId().compare(readFile) == 0) {
                             all_jobs_arr[i]->setSubmitted();
-                            cout << "chaned field sub _-------------" << endl;
 
                         }
                     }
@@ -731,7 +730,6 @@ void Candidate :: updateLikedtedStatusFromFile()
 
                         if (all_jobs_arr[i]->getId().compare(readFile) == 0) {
                             all_jobs_arr[i]->setLiked();
-                            cout << "chaned field LIKED _-------------" << endl;
 
                         }
                     }
@@ -840,9 +838,9 @@ void Candidate :: copySubmittedJobsToFile()
             file_submitted_jobs << id << " ";
             for (int i = 0; i < all_jobs_arr_size; ++i) {
                 if (all_jobs_arr[i]->isSubmitted()) { //if job was submitted, add its id to file
-                    cout << "GET ID=" << all_jobs_arr[i]->getId() << endl;
+//                    cout << "GET ID=" << all_jobs_arr[i]->getId() << endl;
                     file_submitted_jobs << all_jobs_arr[i]->getId() << " ";
-                    cout << "coping sub job-----------\n";
+//                    cout << "coping sub job-----------\n";
                 }
 
             }
@@ -877,7 +875,7 @@ void Candidate :: copyLikedJobsToFile() {
                 if (all_jobs_arr[i]->isLiked()) { //if job was submitted, add its id to file
 //                    cout << "GET ID=" << all_jobs_arr[i]->getId() << endl;
                     file_liked_jobs << all_jobs_arr[i]->getId() << " ";
-                    cout << "coping liked job-----------\n";
+//                    cout << "coping liked job-----------\n";
                 }
 
             }
@@ -886,7 +884,7 @@ void Candidate :: copyLikedJobsToFile() {
         file_liked_jobs.close();
 
     }
-    ////////////////////check if work
+
 }
 
 

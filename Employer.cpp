@@ -135,11 +135,11 @@ Employer::Employer(): published_jobs_arr(NULL), published_jobs_arr_size(0)
 
 }
 
-Employer :: ~Employer()
-{
+void Employer ::copyPersonalDetailsToFile() {
 
-    //copy all candidate details to "personalDetails" file
-    fstream file_personal_details, file_jobs;
+
+    //copy all employer details to "personalDetails" file
+    fstream file_personal_details;
     file_personal_details.open("C:\\ObjectOrientedProgramming\\jobSearch\\personalDetails.txt",ios::app);
     if(!file_personal_details.is_open()) {
         cout << "file could not be opened, check error" << endl;
@@ -148,6 +148,14 @@ Employer :: ~Employer()
         file_personal_details.close(); //TODO correct that name include spaces
     }
 
+
+
+}
+
+void Employer :: copyAllJobsToFiles()
+{
+    //copy all job details to "jobSearch" file
+    fstream file_jobs;
     file_jobs.open("C:\\ObjectOrientedProgramming\\jobSearch\\jobs.txt", ios::app);
     if(!file_jobs.is_open()) {
         cout << "file could not be opened, check error" << endl;
@@ -156,16 +164,27 @@ Employer :: ~Employer()
         for (int i = 0; i < published_jobs_arr_size; ++i) {
             file_jobs << endl << id;
             file_jobs << " companyName " << published_jobs_arr[i]->getCompanyName() <<  " role " << published_jobs_arr[i]->getRole()
-            <<  " jobDescription " << published_jobs_arr[i]->getJobDescription() <<  " jobRequirements " << published_jobs_arr[i]->getJobRequirements() <<
-            " jobType " << published_jobs_arr[i]->getJobType() <<  " jobCondition " << published_jobs_arr[i]->getJobCondition() <<
-            " location " << published_jobs_arr[i]->getLocation() << " date " << published_jobs_arr[i]->getDate() <<
-            " id " << published_jobs_arr[i]->getId() << " endl";
+                      <<  " jobDescription " << published_jobs_arr[i]->getJobDescription() <<  " jobRequirements " << published_jobs_arr[i]->getJobRequirements() <<
+                      " jobType " << published_jobs_arr[i]->getJobType() <<  " jobCondition " << published_jobs_arr[i]->getJobCondition() <<
+                      " location " << published_jobs_arr[i]->getLocation() << " date " << published_jobs_arr[i]->getDate() <<
+                      " id " << published_jobs_arr[i]->getId() << " endl";
 
         }
         file_jobs.close();
     }
 
 
+}
+
+Employer :: ~Employer()
+{
+    //saving data in files
+    copyPersonalDetailsToFile();
+
+    copyAllJobsToFiles();
+
+
+    //dis-allocating memory
     delete [] userName;
     delete [] id;
     delete [] email;
@@ -252,6 +271,49 @@ void Employer :: edit_job()
 }
 
 
+void Employer :: delete_a_job()
+{
+    //getting input of job to delete
+    char jobId[500];
+    cin.ignore();
+    cout << "enter id of job you want to delete \n";
+    cin.getline(jobId,500);
+    strcat(jobId," ");//id in field is a string that consist of a number and space in end
+
+    //update job
+    for (int i = 0; i < published_jobs_arr_size; ++i)
+        if(jobId == published_jobs_arr[i]->getId())//if job is in array - remove from array
+        {
+            Job** tmpArr = new Job*[published_jobs_arr_size-1];
+            for (int k = 0; k < i; ++k)
+                tmpArr[k] = published_jobs_arr[k];
+            for (int m = i+1; m < published_jobs_arr_size; ++m)
+                tmpArr[m-1] = published_jobs_arr[m];
+
+            delete [] published_jobs_arr;
+            published_jobs_arr = tmpArr;
+            published_jobs_arr_size --;
+
+            //TODO delete jon in array of job in candidates
+
+
+
+
+
+
+
+
+
+
+
+
+        }
+
+
+
+}
+
+
 void Employer :: personalArea()
 {
     char nav_personal_area;
@@ -292,7 +354,7 @@ void Employer :: personalArea()
                         }
                         case DELETE_JOBS: {
 
-
+                            delete_a_job();
                             break;
                         }
 
@@ -470,16 +532,16 @@ void Employer :: addJobToPublishJobs(Job* job) {
 }
 
 
-//void Employer :: viewCandidateSubmission()
-//{
-//    for (int i = 0; i < published_jobs_arr_size; ++i)
-//    {
-//        cout << "candidate submission to job id " << published_jobs_arr[i]->getId() << ":\n";
-//        //
-//    }
-//
-////TODO contin hereeeeeeeee
-//
-//}
+void Employer :: viewCandidateSubmission()
+{
+    for (int i = 0; i < published_jobs_arr_size; ++i)
+    {
+        cout << "candidate submission to job id " << published_jobs_arr[i]->getId() << ":\n";
+        //
+    }
+
+//TODO contin hereeeeeeeee
+
+}
 
 

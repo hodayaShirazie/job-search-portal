@@ -47,7 +47,13 @@ public:
 
     void printPublishedJobs() const;
 
+    void copyPersonalDetailsToFile();
+
+    void copyAllJobsToFiles();
+
     void edit_job();
+
+    void delete_a_job();
 
     void personalArea();
 
@@ -56,7 +62,6 @@ public:
     ~Employer();
 
     void viewCandidateSubmission();
-
 
     void addNewJob();
 

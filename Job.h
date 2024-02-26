@@ -8,8 +8,10 @@
 #include <iostream>
 #include <cstring>
 #include <fstream>
+class Candidate; //forward declaration
+//#include "Candidate.h"
 
-
+//TODO maintain array of applicants here for candidate submissions in employer
 
 
 using std::cout;
@@ -101,8 +103,6 @@ public:
 
     void  updateJob();
 
-//    void updateSubmittedStatusFromFile();
-
 
 private:
     char *company_name;
@@ -118,6 +118,8 @@ private:
     bool submitted;
     bool liked;
 
+    Candidate **jobApplicants;
+    int jobApplicantsSize;
 
 
 
