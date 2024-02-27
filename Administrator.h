@@ -9,23 +9,30 @@
 
 class Administrator {
 public:
+
     Administrator();
 
-    void copyJobsFromFile();
-
-    void emptyFiles();
-
-    void copyPersonalDetailsFromFile();
-
-    void copySubFromSUBFILE();
-
-    void copyCVfromFile();
+    ~Administrator();
 
     void enterSystem();
 
     void print() const;
 
-    ~Administrator();
+    void emptyFiles();
+
+    void copyJobsFromFile();
+
+    void copyPersonalDetailsFromFile();
+
+    void copySubFromFile();
+
+    void copyCVfromFile();
+
+
+
+
+
+
 
 
 private:

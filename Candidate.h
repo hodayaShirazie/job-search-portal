@@ -5,14 +5,13 @@
 #ifndef JOBSEARCH_CANDIDATE_H
 #define JOBSEARCH_CANDIDATE_H
 
-//#include <string>
 #include <iostream>
-#include "Date.h"
 #include "CV.h"
 #include <fstream>
 #include <cstring>
-//#include "Job.h"
 #include <limits>
+#include "Colors.h"
+
 class Job; //forward declaration
 
 
@@ -25,7 +24,7 @@ using std::ios;
 
 
 enum personalAreaCandidate{EDIT_PROFILE = '1', ALL_JOBS = '2', FILTER_JOBS = '3', SUBMIT_JOB = '4', LIKE_A_JOB = '5',  JOBS_I_LIKED = '6', SUBMISSION_HISTORY_C = '7',Exit_C = '8'};
-enum editProfileCandidate{USER_NAME_C = '1', EMAIL_C = '2', PHONE_NUMBER_C = '3', PASSWORD_C = '4', CV_C = '5', BACK_P_A_C = '6'};
+enum editProfileCandidate{USER_NAME_C = '1', EMAIL_C = '2', PHONE_NUMBER_C = '3', PASSWORD_C = '4', CV_C = '5', UPDATE_P_C = '6'};
 enum filterJobs_c{LOCATION_F = '1', JOB_TYPE_F = '2', ROLE_F = '3'};
 
 
@@ -35,39 +34,20 @@ enum filterJobs_c{LOCATION_F = '1', JOB_TYPE_F = '2', ROLE_F = '3'};
 class Candidate {
 public:
 
-    Candidate();
-
     Candidate(char* id, char* password, char* userName, char* email, char* phoneNumber, char* birthDate, char* freeTxt);
+
+    Candidate();
 
     ~Candidate();
 
-    Candidate& operator=(const Candidate& candidate);
-
     Candidate(const Candidate& candidate);
+
+    Candidate& operator=(const Candidate& candidate);
 
     void personalArea();
 
 
-    void filterJobsByFeatures();
-
-    char *getUserName() const;
-
-    char *getId() const;
-
-    char *getEmail() const;
-
-    Job **getAllJobsArr() const;
-
-    int getAllJobsArrSize() const;
-
-    char *getPhoneNumber() const;
-
-    char *getBirthDate() const;
-
-    char *getPassword() const;
-
-    CV *getCv() const;
-
+    //setters
     void set_user_name();
 
     void set_email();
@@ -78,7 +58,20 @@ public:
 
     void set_cv(CV *cv);
 
+
+    //getters
+    char *getId() const;
+
+    Job **getAllJobsArr() const;
+
+    int getAllJobsArrSize() const;
+
+    char *getPassword() const;
+
+
+
     void print() const;
+
 
     void copyAllJobsFromFile();
 
@@ -88,9 +81,9 @@ public:
 
     void submit_job();
 
-    void updateLikedStatusFromFile();
+    void filterJobsByFeatures();
 
-    void updateSubmittedStatusFromFile();
+    void updateLikedStatusFromFile();
 
     void viewSubmissionHistory();
 
@@ -107,6 +100,18 @@ public:
     void copyLikedJobsToFile();
 
 //    void addCandidateToJobApllicantsArr(Candidate* candidate, Job* job);
+
+//    char *getPhoneNumber() const;
+
+//    char *getBirthDate() const;
+
+//    CV *getCv() const;
+
+//    char *getUserName() const;
+
+//    void updateSubmittedStatusFromFile();
+
+//    char *getEmail() const;
 
 
 

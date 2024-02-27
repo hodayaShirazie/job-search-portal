@@ -6,34 +6,7 @@
 #include "Job.h"
 
 
-Candidate :: ~Candidate()
-{
-
-    copyPersonalDetailsToFile();
-
-    copyCVToFile();
-
-    copySubmittedJobsToFile();
-
-    copyLikedJobsToFile();
-
-
-
-    //dis-allocating memory
-    delete [] userName;
-    delete [] id;
-    delete [] email;
-    delete [] phoneNumber;
-    delete [] birthDate;
-    delete [] password;
-    delete [] freeTxt;
-    delete cv;
-
-
-}
-
-
-//constructor
+//constructor with parameters
 Candidate :: Candidate(char* id, char* password, char* userName, char* email, char* phoneNumber, char* birthDate, char* freeTxt):cv(NULL),all_jobs_arr(NULL), all_jobs_arr_size(0)
 {
     copyAllJobsFromFile();
@@ -67,7 +40,7 @@ Candidate :: Candidate(char* id, char* password, char* userName, char* email, ch
 }
 
 
-//constructor
+//constructor with no parameters
  Candidate :: Candidate() : userName(NULL), id(NULL), email(NULL), phoneNumber(NULL), birthDate(NULL), password(NULL),freeTxt(NULL),all_jobs_arr_size(0), all_jobs_arr(NULL) {
 
     copyAllJobsFromFile();
@@ -187,12 +160,43 @@ Candidate :: Candidate(char* id, char* password, char* userName, char* email, ch
 
 }
 
+
+//distructor
+Candidate :: ~Candidate()
+{
+
+    copyPersonalDetailsToFile();
+
+    copyCVToFile();
+
+    copySubmittedJobsToFile();
+
+    copyLikedJobsToFile();
+
+
+
+    //dis-allocating memory
+    delete [] userName;
+    delete [] id;
+    delete [] email;
+    delete [] phoneNumber;
+    delete [] birthDate;
+    delete [] password;
+    delete [] freeTxt;
+    delete cv;
+
+
+}
+
+
+//copy constructor
 Candidate :: Candidate(const Candidate& candidate): userName(NULL), id(NULL), email(NULL), phoneNumber(NULL), birthDate(NULL), password(NULL), freeTxt(NULL)
 {
     *this = candidate;
 }
 
 
+//operator=
 Candidate& Candidate :: operator=(const Candidate& candidate)
 {
     //dis-allocating memory
@@ -234,7 +238,7 @@ Candidate& Candidate :: operator=(const Candidate& candidate)
 }
 
 
-
+//person area
 void Candidate :: personalArea()
 {
     char nav_personal_area = '\0'; //TODO change to do-while
@@ -263,7 +267,7 @@ void Candidate :: personalArea()
                     cout << "3- phone number \n";
                     cout << "4- password \n";
                     cout << "5- cv \n";
-                    cout << "6- back to personal area \n";
+                    cout << "6- update \n";
 
                     cin >> nav_edit_profile;
 
@@ -294,13 +298,13 @@ void Candidate :: personalArea()
                             break;
 
                         }
-                        case BACK_P_A_C: {
+                        case UPDATE_P_C: {
                             break;
 
                         }
 
                     }
-                }while (nav_edit_profile != BACK_P_A_C);
+                }while (nav_edit_profile != UPDATE_P_C);
 
                 print();
 
@@ -340,6 +344,7 @@ void Candidate :: personalArea()
 }
 
 
+//setters
 void Candidate :: set_user_name()
 {
     delete [] userName;
@@ -358,7 +363,6 @@ void Candidate :: set_user_name()
     userName = new char[strlen(buffer) + 1];
     strcpy(userName,buffer);
 }
-
 
 void Candidate::set_email()
 {
@@ -409,7 +413,6 @@ void Candidate::set_email()
 
 }
 
-
 void Candidate :: set_phone_number()
 {
     char buffer[80];
@@ -428,7 +431,6 @@ void Candidate :: set_phone_number()
     strcpy(phoneNumber, buffer);
 }
 
-
 void Candidate:: set_password()
 {
     char buffer[80];
@@ -441,7 +443,6 @@ void Candidate:: set_password()
 
 }
 
-
 void Candidate:: set_cv(CV *cv)
 {
     //TODO change cv fields
@@ -449,58 +450,66 @@ void Candidate:: set_cv(CV *cv)
 }
 
 
-char *Candidate::getUserName() const {
-    return userName;
-}
 
-
+//getters
 char *Candidate::getId() const {
     return id;
 }
-
-
-char *Candidate::getEmail() const {
-    return email;
-}
-
-
-char *Candidate::getPhoneNumber() const {
-    return phoneNumber;
-}
-
-
-char *Candidate::getBirthDate() const {
-    return birthDate;
-}
-
 
 char *Candidate::getPassword() const {
     return password;
 }
 
+Job **Candidate::getAllJobsArr() const {
+    return all_jobs_arr;
+}
 
-CV *Candidate::getCv() const {
-    return cv;
+int Candidate::getAllJobsArrSize() const {
+    return all_jobs_arr_size;
 }
 
 
+//function that prints candidate details
 void Candidate:: print() const
 {
-    cout << "user name: " << userName <<endl;
+    Colors color;
+    color.setConsoleColor( FOREGROUND_INTENSITY );
+    cout << "user name: " << endl;
+    color.setConsoleColor(7);
+    cout << userName <<endl;
 
-    cout << "id: " << id <<endl;
+    color.setConsoleColor( FOREGROUND_INTENSITY );
+    cout << "id: " << endl;
+    color.setConsoleColor(7);
+    cout << id <<endl;
 
-    cout << "email: " << email <<endl;
+    color.setConsoleColor( FOREGROUND_INTENSITY );
+    cout << "email: " << endl;
+    color.setConsoleColor(7);
+    cout << email <<endl;
 
-    cout << "phoneNumber: " << phoneNumber <<endl;
+    color.setConsoleColor( FOREGROUND_INTENSITY );
+    cout << "phoneNumber: " << endl;
+    color.setConsoleColor(7);
+    cout << phoneNumber <<endl;
 
-    cout << "birthDate: " << birthDate <<endl;
+    color.setConsoleColor( FOREGROUND_INTENSITY );
+    cout << "birthDate: " << endl;
+    color.setConsoleColor(7);
+    cout << birthDate <<endl;
 
-    cout << "password: " << password <<endl;
+    color.setConsoleColor( FOREGROUND_INTENSITY );
+    cout << "password: " << endl;
+    color.setConsoleColor(7);
+    cout << password <<endl;
 
-    cout << "freeTxt: " << freeTxt <<endl;
+    color.setConsoleColor( FOREGROUND_INTENSITY );
+    cout << "freeTxt: " << endl;
+    color.setConsoleColor(7);
+    cout << freeTxt <<endl;
 
     //printing CV's
+    color.setConsoleColor( FOREGROUND_INTENSITY );
     cout << "printing CV's \n";
     cv->print();
 
@@ -535,21 +544,21 @@ void Candidate :: copyAllJobsFromFile() {
 
             //coping company name
             file_jobs >> read_file_jobs >> read_file_jobs;
-            while (!strcmp(read_file_jobs, "role") == 0) {
+            while (!strcmp(read_file_jobs, "#role#") == 0) {
                 strcat(company_name, read_file_jobs);
                 strcat(company_name, " ");
                 file_jobs >> read_file_jobs;
             }
             file_jobs >> read_file_jobs;
 
-            while (!strcmp(read_file_jobs, "jobDescription") == 0) {
+            while (!strcmp(read_file_jobs, "#jobDescription#") == 0) {
                 strcat(role, read_file_jobs);
                 strcat(role, " ");
                 file_jobs >> read_file_jobs;
             }
             file_jobs >> read_file_jobs;
 
-            while (!strcmp(read_file_jobs, "jobRequirements") == 0) {
+            while (!strcmp(read_file_jobs, "#jobRequirements#") == 0) {
                 strcat(job_description, read_file_jobs);
                 strcat(job_description, " ");
                 file_jobs >> read_file_jobs;
@@ -557,35 +566,35 @@ void Candidate :: copyAllJobsFromFile() {
             }
             file_jobs >> read_file_jobs;
 
-            while (!strcmp(read_file_jobs, "jobType") == 0) {
+            while (!strcmp(read_file_jobs, "#jobType#") == 0) {
                 strcat(job_requirements, read_file_jobs);
                 strcat(job_requirements, " ");
                 file_jobs >> read_file_jobs;
             }
             file_jobs >> read_file_jobs;
 
-            while (!strcmp(read_file_jobs, "jobCondition") == 0) {
+            while (!strcmp(read_file_jobs, "#jobCondition#") == 0) {
                 strcat(job_type, read_file_jobs);
                 strcat(job_type, " ");
                 file_jobs >> read_file_jobs;
             }
             file_jobs >> read_file_jobs;
 
-            while (!strcmp(read_file_jobs, "location") == 0) {
+            while (!strcmp(read_file_jobs, "#location#") == 0) {
                 strcat(job_condition, read_file_jobs);
                 strcat(job_condition, " ");
                 file_jobs >> read_file_jobs;
             }
             file_jobs >> read_file_jobs;
 
-            while (!strcmp(read_file_jobs, "date") == 0) {
+            while (!strcmp(read_file_jobs, "#date#") == 0) {
                 strcat(location, read_file_jobs);
                 strcat(location, " ");
                 file_jobs >> read_file_jobs;
             }
             file_jobs >> read_file_jobs;
 
-            while (!strcmp(read_file_jobs, "id") == 0) {
+            while (!strcmp(read_file_jobs, "#id#") == 0) {
                 strcat(date, read_file_jobs);
                 strcat(date, " ");
                 file_jobs >> read_file_jobs;
@@ -593,7 +602,7 @@ void Candidate :: copyAllJobsFromFile() {
             file_jobs >> read_file_jobs;
 
 
-            while (!strcmp(read_file_jobs, "endl") == 0) {
+            while (!strcmp(read_file_jobs, "#endl#") == 0) {
                 strcat(id_j, read_file_jobs);
                 strcat(id_j, " ");
                 file_jobs >> read_file_jobs;
@@ -692,243 +701,6 @@ void Candidate :: submit_job()
 
 }
 
-
-void Candidate :: updateSubmittedStatusFromFile()
-{
-    fstream file_submitted_jobs;
-
-    char readFile[500];//TODO  you can open file and define in length that is bigger in 1 fro, file
-
-    file_submitted_jobs.open("C:\\ObjectOrientedProgramming\\jobSearch\\submittedJobs",ios::in);
-    if(!file_submitted_jobs.is_open())
-        cout << "file could not be opened, check error" << endl;
-    else {
-        while (!file_submitted_jobs.eof()) {
-            file_submitted_jobs >> readFile;
-            if (strcmp(readFile, id) == 0) {
-
-
-                while (strcmp(readFile, "endl") != 0) {
-                    file_submitted_jobs >> readFile;
-                    for (int i = 0; i < all_jobs_arr_size; ++i) {
-                        if (readFile[strlen(readFile) - 1] >= '0' && readFile[strlen(readFile) - 1] <= '9') //if readFile contains id of a job
-                            strcat(readFile, " ");
-
-                        if (all_jobs_arr[i]->getId().compare(readFile) == 0) {
-                            all_jobs_arr[i]->setSubmitted();
-
-
-/////////////////KKKKK
-                            //--------------added----------
-                            //update JobApplicants array
-                            Candidate** tmpArr = new Candidate*[all_jobs_arr[i]->getJobApplicantsSize()+1];
-                            for (int j = 0; j < all_jobs_arr[i]->getJobApplicantsSize(); ++j) {
-                                tmpArr[j] = all_jobs_arr[i]->getJobApplicants()[j];
-                            }
-                            tmpArr[all_jobs_arr[i]->getJobApplicantsSize()] = this; //put in last cell pointer to current candidate
-                            delete [] all_jobs_arr[i]->getJobApplicants();
-                            all_jobs_arr[i]->setJobApplicants(tmpArr);
-                            all_jobs_arr[i]->setJobApplicantsSize(all_jobs_arr[i]->getJobApplicantsSize()+1);
-
-                            cout << "hi i am inside submit_job FROM FILE after coping candidate to jobApplicans\n\n";
-//                            all_jobs_arr[i]->getJobApplicants()[i]->print();
-
-
-
-
-                        }
-                    }
-                }
-            }
-        }
-
-
-        file_submitted_jobs.close();
-    }
-
-
-
-}
-
-
-void Candidate :: updateLikedStatusFromFile()
-{
-
-    fstream file_liked_jobs;
-
-    char readFile[500];//TODO  you can open file and define in length that is bigger in 1 fro, file
-
-    file_liked_jobs.open("C:\\ObjectOrientedProgramming\\jobSearch\\likedJobs",ios::in);
-    if(!file_liked_jobs.is_open())
-        cout << "file could not be opened, check error" << endl;
-    else {
-        while (!file_liked_jobs.eof()) {
-            file_liked_jobs >> readFile;
-            if (strcmp(readFile, id) == 0) {
-                while (strcmp(readFile, "endl") != 0) {
-                    file_liked_jobs >> readFile;
-                    for (int i = 0; i < all_jobs_arr_size; ++i) {
-                        if (readFile[strlen(readFile) - 1] >= '0' && readFile[strlen(readFile) - 1] <= '9')
-                            strcat(readFile, " ");
-
-                        if (all_jobs_arr[i]->getId().compare(readFile) == 0) {
-                            all_jobs_arr[i]->setLiked();
-
-                        }
-                    }
-                }
-            }
-        }
-
-
-        file_liked_jobs.close();
-    }
-
-
-
-
-}
-
-
-void Candidate :: viewSubmissionHistory()
-{
-    cout << "inside view sub history"<<endl;
-
-    for(int i = 0; i < all_jobs_arr_size; ++i)
-        if (all_jobs_arr[i]->isSubmitted())//if job was submitted - print its details
-            all_jobs_arr[i]->print();
-
-}
-
-void Candidate :: likeJob() {
-    char tmpID[500] = "";//TODO  you can open file and define in length that is bigger in 1 fro, file
-    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-    cout << "enter id of job you want to mark as liked" << endl;
-    cin.getline(tmpID, 500);
-    strcat(tmpID, " ");
-    for (int i = 0; i < all_jobs_arr_size; ++i) {
-        if (all_jobs_arr[i]->getId().compare(tmpID) == 0) {//cmp between strings
-            cout << "found jobb---LIKED--\n";
-            all_jobs_arr[i]->setLiked();
-        }
-
-
-    }
-}
-
-void Candidate :: viewLikedJobs()
-{
-    cout << "inside view liked job"<<endl;
-
-    for(int i = 0; i < all_jobs_arr_size; ++i)
-        if (all_jobs_arr[i]->isLiked())//if job was submitted - print its details
-            all_jobs_arr[i]->print();
-
-}
-
-void Candidate :: copyPersonalDetailsToFile()
-{
-    fstream file_personal_details;
-    file_personal_details.open("C:\\ObjectOrientedProgramming\\jobSearch\\personalDetails.txt",ios::app);
-    if(!file_personal_details.is_open())
-        cout << "file could not be opened, check error" << endl;
-    else {
-        //copy all candidate details to "personalDetails" file
-        file_personal_details << endl << "c " << id << " " << password << " " << userName << " " << email << " "
-                              << phoneNumber << " " << birthDate << " " << freeTxt;
-        file_personal_details.close();
-    }
-
-}
-
-void Candidate :: copyCVToFile()
-{
-
-    fstream file_cv;
-
-    //copy CV to
-    file_cv.open("C:\\ObjectOrientedProgramming\\jobSearch\\CV.txt",ios::app);
-    if(!file_cv.is_open())
-        cout << "file could not be opened, check error" << endl;
-    else {
-        file_cv << id << " #summary# " << cv->getSummary() << " #experience# " << cv->getExperience()
-                << " #education# " << cv->getEducation() << " #licenses# " <<
-                cv->getLicenses() << " #skills# " << cv->getSkills() << " #awards# " << cv->getAwards()
-                << " #name# " <<
-                cv->getName() << " #email# " << cv->getEmail() << " #endl# " << endl;
-
-        file_cv.close();
-    }
-
-}
-
-void Candidate :: copySubmittedJobsToFile()
-{
-    fstream file_submitted_jobs;
-
-    file_submitted_jobs.open("C:\\ObjectOrientedProgramming\\jobSearch\\submittedJobs",ios::app);
-    if(!file_submitted_jobs.is_open())
-        cout << "file could not be opened, check error" << endl;
-    else
-    {
-
-        bool isSubmitExists = false;
-        for (int i = 0; i < all_jobs_arr_size; ++i)
-            if (all_jobs_arr[i]->isSubmitted())
-                isSubmitExists = true;
-
-        if (isSubmitExists) {
-            file_submitted_jobs << id << " ";
-            for (int i = 0; i < all_jobs_arr_size; ++i) {
-                if (all_jobs_arr[i]->isSubmitted()) { //if job was submitted, add its id to file
-//                    cout << "GET ID=" << all_jobs_arr[i]->getId() << endl;
-                    file_submitted_jobs << all_jobs_arr[i]->getId() << " ";
-//                    cout << "coping sub job-----------\n";
-                }
-
-            }
-            file_submitted_jobs << "endl" << endl;
-        }
-        file_submitted_jobs.close();
-
-    }
-
-
-}
-
-void Candidate :: copyLikedJobsToFile() {
-
-//TODO open and close file
-    fstream file_liked_jobs;
-
-    file_liked_jobs.open("C:\\ObjectOrientedProgramming\\jobSearch\\likedJobs",ios::app);
-    if(!file_liked_jobs.is_open())
-        cout << "file could not be opened, check error" << endl;
-    else
-    {
-
-        bool isLikedExists = false;
-        for (int i = 0; i < all_jobs_arr_size; ++i)
-            if (all_jobs_arr[i]->isLiked())
-                isLikedExists = true;
-
-        if (isLikedExists) {
-            file_liked_jobs << id << " ";
-            for (int i = 0; i < all_jobs_arr_size; ++i) {
-                if (all_jobs_arr[i]->isLiked()) { //if job was submitted, add its id to file
-//                    cout << "GET ID=" << all_jobs_arr[i]->getId() << endl;
-                    file_liked_jobs << all_jobs_arr[i]->getId() << " ";
-//                    cout << "coping liked job-----------\n";
-                }
-
-            }
-            file_liked_jobs << "endl" << endl;
-        }
-        file_liked_jobs.close();
-
-    }
-
-}
 
 void Candidate :: filterJobsByFeatures() {
 
@@ -1151,13 +923,210 @@ void Candidate :: filterJobsByFeatures() {
 
 }
 
-Job **Candidate::getAllJobsArr() const {
-    return all_jobs_arr;
+
+void Candidate :: updateLikedStatusFromFile()
+{
+
+    fstream file_liked_jobs;
+
+    char readFile[500];//TODO  you can open file and define in length that is bigger in 1 fro, file
+
+    file_liked_jobs.open("C:\\ObjectOrientedProgramming\\jobSearch\\likedJobs",ios::in);
+    if(!file_liked_jobs.is_open())
+        cout << "file could not be opened, check error" << endl;
+    else {
+        while (!file_liked_jobs.eof()) {
+            file_liked_jobs >> readFile;
+            if (strcmp(readFile, id) == 0) {
+                while (strcmp(readFile, "endl") != 0) {
+                    file_liked_jobs >> readFile;
+                    for (int i = 0; i < all_jobs_arr_size; ++i) {
+                        if (readFile[strlen(readFile) - 1] >= '0' && readFile[strlen(readFile) - 1] <= '9')
+                            strcat(readFile, " ");
+
+                        if (all_jobs_arr[i]->getId().compare(readFile) == 0) {
+                            all_jobs_arr[i]->setLiked();
+
+                        }
+                    }
+                }
+            }
+        }
+
+
+        file_liked_jobs.close();
+    }
+
+
+
+
 }
 
-int Candidate::getAllJobsArrSize() const {
-    return all_jobs_arr_size;
+
+void Candidate :: viewSubmissionHistory()
+{
+    cout << "inside view sub history"<<endl;
+
+    for(int i = 0; i < all_jobs_arr_size; ++i)
+        if (all_jobs_arr[i]->isSubmitted())//if job was submitted - print its details
+            all_jobs_arr[i]->print();
+
 }
+
+
+void Candidate :: likeJob() {
+    char tmpID[500] = "";//TODO  you can open file and define in length that is bigger in 1 fro, file
+    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    cout << "enter id of job you want to mark as ";
+
+    Colors color;
+
+    color.setConsoleColor(FOREGROUND_RED);
+
+    // Set console code page to UTF-8 so console known how to interpret string data
+    SetConsoleOutputCP(CP_UTF8);
+
+    // Enable buffering to prevent VS from injecting its own console code
+    setvbuf(stdout, nullptr, _IOFBF, 1000);
+
+    // Print heart symbol
+    cout << "♥" << endl;
+
+    color.setConsoleColor(7);
+
+    cin.getline(tmpID, 500);
+    strcat(tmpID, " ");
+    for (int i = 0; i < all_jobs_arr_size; ++i) {
+        if (all_jobs_arr[i]->getId().compare(tmpID) == 0) {//cmp between strings
+            cout << "found jobb---LIKED--\n";
+            all_jobs_arr[i]->setLiked();
+        }
+    }
+}
+
+
+void Candidate :: viewLikedJobs()
+{
+    cout << "inside view liked job"<<endl;
+
+    for(int i = 0; i < all_jobs_arr_size; ++i)
+        if (all_jobs_arr[i]->isLiked())//if job was submitted - print its details
+            all_jobs_arr[i]->print();
+
+}
+
+
+void Candidate :: copyPersonalDetailsToFile()
+{
+    fstream file_personal_details;
+    file_personal_details.open("C:\\ObjectOrientedProgramming\\jobSearch\\personalDetails.txt",ios::app);
+    if(!file_personal_details.is_open())
+        cout << "file could not be opened, check error" << endl;
+    else {
+        //copy all candidate details to "personalDetails" file
+        file_personal_details << endl << "c " << id << " " << password << " " << userName << " " << email << " "
+                              << phoneNumber << " " << birthDate << " " << freeTxt;
+        file_personal_details.close();
+    }
+
+}
+
+
+void Candidate :: copyCVToFile()
+{
+
+    fstream file_cv;
+
+    //copy CV to
+    file_cv.open("C:\\ObjectOrientedProgramming\\jobSearch\\CV.txt",ios::app);
+    if(!file_cv.is_open())
+        cout << "file could not be opened, check error" << endl;
+    else {
+        file_cv << id << " #summary# " << cv->getSummary() << " #experience# " << cv->getExperience()
+                << " #education# " << cv->getEducation() << " #licenses# " <<
+                cv->getLicenses() << " #skills# " << cv->getSkills() << " #awards# " << cv->getAwards()
+                << " #name# " <<
+                cv->getName() << " #email# " << cv->getEmail() << " #endl# " << endl;
+
+        file_cv.close();
+    }
+
+}
+
+
+void Candidate :: copySubmittedJobsToFile()
+{
+    fstream file_submitted_jobs;
+
+    file_submitted_jobs.open("C:\\ObjectOrientedProgramming\\jobSearch\\submittedJobs",ios::app);
+    if(!file_submitted_jobs.is_open())
+        cout << "file could not be opened, check error" << endl;
+    else
+    {
+
+        bool isSubmitExists = false;
+        for (int i = 0; i < all_jobs_arr_size; ++i)
+            if (all_jobs_arr[i]->isSubmitted())
+                isSubmitExists = true;
+
+        if (isSubmitExists) {
+            file_submitted_jobs << id << " ";
+            for (int i = 0; i < all_jobs_arr_size; ++i) {
+                if (all_jobs_arr[i]->isSubmitted()) { //if job was submitted, add its id to file
+//                    cout << "GET ID=" << all_jobs_arr[i]->getId() << endl;
+                    file_submitted_jobs << all_jobs_arr[i]->getId() << " ";
+//                    cout << "coping sub job-----------\n";
+                }
+
+            }
+            file_submitted_jobs << "endl" << endl;
+        }
+        file_submitted_jobs.close();
+
+    }
+
+
+}
+
+
+void Candidate :: copyLikedJobsToFile() {
+
+//TODO open and close file
+    fstream file_liked_jobs;
+
+    file_liked_jobs.open("C:\\ObjectOrientedProgramming\\jobSearch\\likedJobs",ios::app);
+    if(!file_liked_jobs.is_open())
+        cout << "file could not be opened, check error" << endl;
+    else
+    {
+
+        bool isLikedExists = false;
+        for (int i = 0; i < all_jobs_arr_size; ++i)
+            if (all_jobs_arr[i]->isLiked())
+                isLikedExists = true;
+
+        if (isLikedExists) {
+            file_liked_jobs << id << " ";
+            for (int i = 0; i < all_jobs_arr_size; ++i) {
+                if (all_jobs_arr[i]->isLiked()) { //if job was submitted, add its id to file
+//                    cout << "GET ID=" << all_jobs_arr[i]->getId() << endl;
+                    file_liked_jobs << all_jobs_arr[i]->getId() << " ";
+//                    cout << "coping liked job-----------\n";
+                }
+
+            }
+            file_liked_jobs << "endl" << endl;
+        }
+        file_liked_jobs.close();
+
+    }
+
+}
+
+
+
+
+
 
 //void Candidate::addCandidateToJobApllicantsArr(Candidate* candidate, Job* job) {
 //
@@ -1185,3 +1154,81 @@ int Candidate::getAllJobsArrSize() const {
 //}
 
 
+//CV *Candidate::getCv() const {
+//    return cv;
+//}
+
+//char *Candidate::getEmail() const {
+//    return email;
+//}
+//
+//
+//char *Candidate::getPhoneNumber() const {
+//    return phoneNumber;
+//}
+//
+//
+//char *Candidate::getBirthDate() const {
+//    return birthDate;
+//}
+//char *Candidate::getUserName() const {
+//    return userName;
+//}
+
+
+//void Candidate :: updateSubmittedStatusFromFile()
+//{
+//    fstream file_submitted_jobs;
+//
+//    char readFile[500];//TODO  you can open file and define in length that is bigger in 1 fro, file
+//
+//    file_submitted_jobs.open("C:\\ObjectOrientedProgramming\\jobSearch\\submittedJobs",ios::in);
+//    if(!file_submitted_jobs.is_open())
+//        cout << "file could not be opened, check error" << endl;
+//    else {
+//        while (!file_submitted_jobs.eof()) {
+//            file_submitted_jobs >> readFile;
+//            if (strcmp(readFile, id) == 0) {
+//
+//
+//                while (strcmp(readFile, "endl") != 0) {
+//                    file_submitted_jobs >> readFile;
+//                    for (int i = 0; i < all_jobs_arr_size; ++i) {
+//                        if (readFile[strlen(readFile) - 1] >= '0' && readFile[strlen(readFile) - 1] <= '9') //if readFile contains id of a job
+//                            strcat(readFile, " ");
+//
+//                        if (all_jobs_arr[i]->getId().compare(readFile) == 0) {
+//                            all_jobs_arr[i]->setSubmitted();
+//
+//
+///////////////////KKKKK
+//                            //--------------added----------
+//                            //update JobApplicants array
+//                            Candidate** tmpArr = new Candidate*[all_jobs_arr[i]->getJobApplicantsSize()+1];
+//                            for (int j = 0; j < all_jobs_arr[i]->getJobApplicantsSize(); ++j) {
+//                                tmpArr[j] = all_jobs_arr[i]->getJobApplicants()[j];
+//                            }
+//                            tmpArr[all_jobs_arr[i]->getJobApplicantsSize()] = this; //put in last cell pointer to current candidate
+//                            delete [] all_jobs_arr[i]->getJobApplicants();
+//                            all_jobs_arr[i]->setJobApplicants(tmpArr);
+//                            all_jobs_arr[i]->setJobApplicantsSize(all_jobs_arr[i]->getJobApplicantsSize()+1);
+//
+//                            cout << "hi i am inside submit_job FROM FILE after coping candidate to jobApplicans\n\n";
+////                            all_jobs_arr[i]->getJobApplicants()[i]->print();
+//
+//
+//
+//
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//
+//
+//        file_submitted_jobs.close();
+//    }
+//
+//
+//
+//}

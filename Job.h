@@ -8,7 +8,8 @@
 #include <iostream>
 #include <cstring>
 #include <fstream>
-//#include "Candidate.h"
+#include "Colors.h"
+
 class Candidate; //forward declaration
 
 
@@ -46,7 +47,10 @@ public:
 
     ~Job();
 
+    Job(const Job& job);
+
     Job& operator=(const Job& job);
+
 
     string getId() const;
 
@@ -55,12 +59,6 @@ public:
     void get_job_type_input();
 
     void get_job_location_input();
-
-    void print() const;
-
-    bool isLiked() const;
-
-    void today();
 
     char *getCompanyName() const;
 
@@ -73,6 +71,19 @@ public:
     char *getJobType() const;
 
     char *getJobCondition() const;
+
+    bool isSubmitted() const;
+
+    bool isLiked() const;
+
+    char *getLocation() const;
+
+    char *getDate() const;
+
+    Candidate **getJobApplicants() const;
+
+    int getJobApplicantsSize() const;
+
 
     void setSubmitted();
 
@@ -90,31 +101,31 @@ public:
 
     void setJobCondition();
 
-    bool isSubmitted() const;
-
     void setLocation();
-
-    char *getLocation() const;
-
-    char *getDate() const;
-
-    void getMaxIdFromFiles();
-
-    void insertMaxIdToFiles();
-
-    void  updateJob();
 
     void setJobApplicants(Candidate **jobApplicants);
 
     void setJobApplicantsSize(int jobApplicantsSize);
 
-    Candidate **getJobApplicants() const;
 
-    int getJobApplicantsSize() const;
+    void print() const;
 
     void printJobApplicants();
 
-//    bool operator==(Job& job);
+
+    void readMaxIdFromFiles();
+
+    void insertMaxIdToFiles();
+
+    void today();
+
+    void  updateJob();
+
+
+
+
+
+
 
 private:
     char *company_name;

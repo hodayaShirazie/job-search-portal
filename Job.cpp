@@ -6,7 +6,10 @@
 //#include <cstdlib>
 #include "Candidate.h"
 
-
+//void setConsoleColor(WORD c)
+//{
+//    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), c);
+//}
 
 
 //void setConsoleColor(WORD c)
@@ -15,10 +18,10 @@
 //}
 
 
-
+//constructor with no parameters
 Job :: Job():submitted(false),liked(false),jobApplicants(NULL),jobApplicantsSize(0)
 {
-    getMaxIdFromFiles();
+    readMaxIdFromFiles();
     ++max_id;
     char buffer[80];
 
@@ -84,6 +87,8 @@ Job :: Job():submitted(false),liked(false),jobApplicants(NULL),jobApplicantsSize
 
 }
 
+
+//constructor with parameters
 Job :: Job(char *company_name, char* role, char* job_description, char* job_requirements,
     char* job_type, char* job_condition, char* location, char* date, string id ):submitted(false),liked(false),jobApplicants(NULL),jobApplicantsSize(0)
 {
@@ -121,6 +126,8 @@ Job :: Job(char *company_name, char* role, char* job_description, char* job_requ
 
 }
 
+
+//distructor
 Job :: ~Job()
 {
     //dis-allocating memory
@@ -139,6 +146,23 @@ Job :: ~Job()
 }
 
 
+//copy constructor
+Job :: Job(const Job& job)
+{
+    company_name = NULL;
+    role = NULL;
+    job_description = NULL;
+    job_requirements = NULL;
+    job_type = NULL;
+    job_condition = NULL;
+    location = NULL;
+    date = NULL;
+
+    *this = job; //call operator=
+}
+
+
+//operator=
 Job& Job :: operator=(const Job& job)
 {
     //dis-allocating memory
@@ -177,6 +201,8 @@ Job& Job :: operator=(const Job& job)
 
 }
 
+
+//getters
 void Job :: get_job_location_input()
 {
     char nav_location;
@@ -269,7 +295,6 @@ void Job ::get_job_type_input()
     }
 }
 
-
 void Job:: get_role_input()
 {
     char nav_role;
@@ -349,153 +374,6 @@ void Job:: get_role_input()
 
 }
 
-void Job :: print() const
-{
-    cout << "----------------------------------------------------------------------------------------------------------- " << endl;
-
-//    setConsoleColor( FOREGROUND_BLUE );
-    cout << "\ncompany name: " << endl;
-//    setConsoleColor(7);
-    cout << company_name << endl << endl;
-
-//    setConsoleColor( FOREGROUND_BLUE );
-    cout << "role: " << endl;
-//    setConsoleColor(7);
-    cout << role << endl << endl;
-
-//    setConsoleColor( FOREGROUND_BLUE );
-    cout << "job description: " << endl;
-//    setConsoleColor(7);
-    cout << job_description << endl << endl;
-
-//    setConsoleColor( FOREGROUND_BLUE );
-    cout << "job requirements: " << endl;
-//    setConsoleColor(7);
-    cout << job_requirements << endl << endl;
-
-//    setConsoleColor( FOREGROUND_BLUE );
-    cout << "job type: " << endl;
-//    setConsoleColor(7);
-    cout << job_type << endl << endl;
-
-//    setConsoleColor( FOREGROUND_BLUE );
-    cout << "job condition:" << endl;
-//    setConsoleColor(7);
-    cout << job_condition << endl << endl;
-
-//    setConsoleColor( FOREGROUND_BLUE );
-    cout << "location: " << endl;
-//    setConsoleColor(7);
-    cout << location << endl << endl;
-
-    //    setConsoleColor( FOREGROUND_BLUE );
-    cout << "posted in: " << endl;
-//    setConsoleColor(7);
-    cout << date << endl << endl;
-
-    cout << "id: " << id << endl;
-//
-//    cout << "max id: " << max_id << endl;
-
-    cout << "is submitted: " << submitted << endl;
-
-    cout << "is LIKED: " << liked << endl << endl;
-
-
-    cout << "----------------------------------------------------------------------------------------------------------- " << endl;
-
-}
-
-void Job :: updateJob()
-{
-    char nav_update_job;
-
-    do {
-
-
-        cout << "1- company name \n";
-        cout << "2- role\n";
-        cout << "3- job description \n";
-        cout << "4- job requirements \n";
-        cout << "5- job type\n";
-        cout << "6- job condition \n";
-        cout << "7- location \n";
-        cout << "8- back to all submitted jobs \n";
-
-
-        cin >> nav_update_job;
-        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-
-
-        switch (nav_update_job) {
-            case COMPANY_NAME: {
-                delete [] company_name;
-                setCompanyName();
-                break;
-            }
-            case ROLE: {
-                delete [] role;
-                setRole();
-                break;
-            }
-            case JOB_DESCRIPTION: {
-                delete [] job_description;
-                setJobDescription();
-                break;
-            }
-            case JOB_REQUIREMENTS: {
-                delete [] job_requirements;
-                setJobRequirements();
-                break;
-            }
-            case JOB_TYPE: {
-                delete [] job_type;
-                setJobType();
-                break;
-            }
-            case JOB_CONDITION: {
-                delete [] job_condition;
-                setJobCondition();
-                break;
-            }
-            case LOCATION: {
-                delete [] location;
-                setLocation();
-                break;
-            }
-            case BACK_ALL_SUB_J: {
-                //navigate user to all submitted jobs
-                break;
-            }
-        }
-    } while (nav_update_job != BACK_ALL_SUB_J); //keep showing options for adaptation until user back in all submitted jobs
-
-
-
-}
-
-//function that creates a string which is the date the function was called
-void Job :: today() {
-
-    time_t rawtime;
-    tm *timeinfo;
-    time(&rawtime);
-    timeinfo = localtime(&rawtime);
-    int d = timeinfo->tm_mday;
-    int m = timeinfo->tm_mon + 1;
-    int y = timeinfo->tm_year + 1900;
-
-    char buffer[10] = "";
-    strcat(buffer, to_string(d).c_str());
-    strcat(buffer, "/");
-    strcat(buffer, to_string(m).c_str());
-    strcat(buffer, "/");
-    strcat(buffer, to_string(y).c_str());
-    cout << buffer;
-    date = new char[strlen(buffer)+1];
-    strcpy(date, buffer);
-}
-
 string Job::getId() const {
     return id;
 }
@@ -532,43 +410,25 @@ char *Job::getDate() const {
     return date;
 }
 
-//int Job::getGeneralId() {
-//    return general_id;
-//}
-
-//int Job::getMaxId() {
-//    return max_id;
-//}
-
-
-void Job:: getMaxIdFromFiles() {
-
-
-    fstream file_general;
-    file_general.open("C:\\ObjectOrientedProgramming\\jobSearch\\general.txt", ios::in);
-    if (!file_general.is_open())
-        cout << "file could not be opened, check error" << endl;
-    else {
-        file_general >> max_id;
-    }
-
+bool Job::isSubmitted() const {
+    return submitted;
 }
 
-void Job:: insertMaxIdToFiles() {
+bool Job::isLiked() const {
+    return liked;
+}
 
-    fstream file_general;
-    file_general.open("C:\\ObjectOrientedProgramming\\jobSearch\\general.txt", ios::out);
-    if (!file_general.is_open())
-        cout << "file could not be opened, check error" << endl;
-    else {
-        file_general << max_id;
-    }
+Candidate **Job::getJobApplicants() const {
+    return jobApplicants;
+}
 
+int Job::getJobApplicantsSize() const {
+    return jobApplicantsSize;
 }
 
 
 
-
+//setters
 void Job:: setSubmitted()
 {
     submitted = true; //change field submitted
@@ -576,10 +436,8 @@ void Job:: setSubmitted()
 
 void Job:: setLiked()
 {
-  liked = true;  //change field liked
+    liked = true;  //change field liked
 }
-
-
 
 void Job::setCompanyName() {
 
@@ -651,28 +509,86 @@ void Job::setLocation() {
 
 }
 
-bool Job::isSubmitted() const {
-    return submitted;
-}
-
-bool Job::isLiked() const {
-    return liked;
-}
-
-Candidate **Job::getJobApplicants() const {
-    return jobApplicants;
-}
-
-int Job::getJobApplicantsSize() const {
-    return jobApplicantsSize;
-}
-
 void Job::setJobApplicants(Candidate **jobApplicants) {
     this->jobApplicants = jobApplicants;
 }
 
 void Job::setJobApplicantsSize(int jobApplicantsSize) {
     this->jobApplicantsSize = jobApplicantsSize;
+}
+
+
+//print functions
+void Job :: print() const
+{
+    Colors color;
+
+    color.setConsoleColor( FOREGROUND_RED );
+    cout << "----------------------------------------------------------------------------------------------------------- " << endl;
+    color.setConsoleColor(7);
+
+    color.setConsoleColor( FOREGROUND_BLUE );
+    cout << "\ncompany name: " << endl;
+    color.setConsoleColor(7);
+    cout << company_name << endl << endl;
+
+    color.setConsoleColor( FOREGROUND_BLUE );
+    cout << "role: " << endl;
+    color.setConsoleColor(7);
+    cout << role << endl << endl;
+
+    color.setConsoleColor( FOREGROUND_BLUE );
+    cout << "job description: " << endl;
+    color.setConsoleColor(7);
+    cout << job_description << endl << endl;
+
+    color.setConsoleColor( FOREGROUND_BLUE );
+    cout << "job requirements: " << endl;
+    color.setConsoleColor(7);
+    cout << job_requirements << endl << endl;
+
+    color.setConsoleColor( FOREGROUND_BLUE );
+    cout << "job type: " << endl;
+    color.setConsoleColor(7);
+    cout << job_type << endl << endl;
+
+    color.setConsoleColor( FOREGROUND_BLUE );
+    cout << "job condition:" << endl;
+    color.setConsoleColor(7);
+    cout << job_condition << endl << endl;
+
+    color.setConsoleColor( FOREGROUND_BLUE );
+    cout << "location: " << endl;
+    color.setConsoleColor(7);
+    cout << location << endl << endl;
+
+    color.setConsoleColor( FOREGROUND_BLUE );
+    cout << "posted in: " << endl;
+    color.setConsoleColor(7);
+    cout << date << endl << endl;
+
+    color.setConsoleColor( FOREGROUND_BLUE );
+    cout << "id: " << endl;
+    color.setConsoleColor(7);
+    cout << id << endl << endl;
+
+    color.setConsoleColor( FOREGROUND_BLUE );
+    cout << "is submitted: " << endl;
+    color.setConsoleColor(7);
+    cout << submitted << endl << endl;
+
+    color.setConsoleColor( FOREGROUND_BLUE );
+    cout << "is liked: " << endl;
+    color.setConsoleColor(7);
+    cout << liked << endl << endl;
+
+
+
+
+    color.setConsoleColor( FOREGROUND_RED );
+    cout << "----------------------------------------------------------------------------------------------------------- " << endl;
+    color.setConsoleColor(7);
+
 }
 
 void Job:: printJobApplicants() {
@@ -685,21 +601,129 @@ void Job:: printJobApplicants() {
 }
 
 
-//bool Job:: operator==(Job& job)
-//{
-//    if(strcmp(company_name,job.company_name) == 0)
-//        if(strcmp(role,job.role) == 0)
-//            if(strcmp(job_description,job.job_description) == 0)
-//                if(strcmp(job_requirements,job.job_requirements) == 0)
-//                    if(strcmp(job_type,job.job_type) == 0)
-//                        if(strcmp(job_condition,job.job_condition) == 0)
-//                            if(strcmp(location,job.location) == 0)
-//                                if(strcmp(date,job.date) == 0)
-//                                    if(id == job.id)
-//                                        if(submitted == job.submitted)
-//                                            if(liked == job.liked)
-//                                                return true;
-//    return false;
+//function that update job details
+void Job :: updateJob()
+{
+    char nav_update_job;
+
+    do {
+
+
+        cout << "1- company name \n";
+        cout << "2- role\n";
+        cout << "3- job description \n";
+        cout << "4- job requirements \n";
+        cout << "5- job type\n";
+        cout << "6- job condition \n";
+        cout << "7- location \n";
+        cout << "8- back to all submitted jobs \n";
+
+
+        cin >> nav_update_job;
+        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+
+        switch (nav_update_job) {
+            case COMPANY_NAME: {
+                delete [] company_name;
+                setCompanyName();
+                break;
+            }
+            case ROLE: {
+                delete [] role;
+                setRole();
+                break;
+            }
+            case JOB_DESCRIPTION: {
+                delete [] job_description;
+                setJobDescription();
+                break;
+            }
+            case JOB_REQUIREMENTS: {
+                delete [] job_requirements;
+                setJobRequirements();
+                break;
+            }
+            case JOB_TYPE: {
+                delete [] job_type;
+                setJobType();
+                break;
+            }
+            case JOB_CONDITION: {
+                delete [] job_condition;
+                setJobCondition();
+                break;
+            }
+            case LOCATION: {
+                delete [] location;
+                setLocation();
+                break;
+            }
+            case BACK_ALL_SUB_J: {
+                //navigate user to all submitted jobs
+                break;
+            }
+        }
+    } while (nav_update_job != BACK_ALL_SUB_J); //keep showing options for adaptation until user back in all submitted jobs
+
+
+
+}
+
+
+//function that creates a string which is the date the function was called
+void Job :: today() {
+
+    time_t rawtime;
+    tm *timeinfo;
+    time(&rawtime);
+    timeinfo = localtime(&rawtime);
+    int d = timeinfo->tm_mday;
+    int m = timeinfo->tm_mon + 1;
+    int y = timeinfo->tm_year + 1900;
+
+    char buffer[10] = "";
+    strcat(buffer, to_string(d).c_str());
+    strcat(buffer, "/");
+    strcat(buffer, to_string(m).c_str());
+    strcat(buffer, "/");
+    strcat(buffer, to_string(y).c_str());
+    cout << buffer;
+    date = new char[strlen(buffer)+1];
+    strcpy(date, buffer);
+}
+
+
+//function that read id from general file and update field
+void Job:: readMaxIdFromFiles() {
+
+
+    fstream file_general;
+    file_general.open("C:\\ObjectOrientedProgramming\\jobSearch\\general.txt", ios::in);
+    if (!file_general.is_open())
+        cout << "file could not be opened, check error" << endl;
+    else {
+        file_general >> max_id;
+    }
+
+}
+
+
+//function that update general to contain max id
+void Job:: insertMaxIdToFiles() {
+
+    fstream file_general;
+    file_general.open("C:\\ObjectOrientedProgramming\\jobSearch\\general.txt", ios::out);
+    if (!file_general.is_open())
+        cout << "file could not be opened, check error" << endl;
+    else {
+        file_general << max_id;
+    }
+
+}
+
+
+
 
 
 

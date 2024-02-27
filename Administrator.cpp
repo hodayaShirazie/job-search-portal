@@ -16,43 +16,20 @@ using std::endl;
 enum userType{CANDIDATE = '1', EMPLOYER = '2'};
 enum navEnter {LOGIN = 'A'   ,REGISTER = 'B'};
 
-//constructor to initialize fields
+//constructor
 Administrator :: Administrator() : candidate_arr(NULL), employers_arr(NULL), candidate_arr_size(0),employers_arr_size(0)
 {
-
-//    Job::getMaxIdFromFiles();
 
     copyPersonalDetailsFromFile(); //build candidate and employer arrays without cv and published job fields(respectively)
     copyCVfromFile(); //build cv field to candidate array
     copyJobsFromFile(); //build published job field of employer array
-    copySubFromSUBFILE();
+    copySubFromFile();
 
-//    print();
 
 
 }
 
-
-void Administrator :: print() const
-{
-    cout <<"------------------Administrator printing-----------------------------\n";
-
-    cout <<"------------------candidate-----------------------------\n";
-
-    for (int i = 0; i < candidate_arr_size; ++i)
-    {
-        candidate_arr[i]->print();
-    }
-
-
-    cout <<"------------------employer-----------------------------\n";
-
-    for (int i = 0; i < employers_arr_size; ++i) {
-        employers_arr[i]->print();
-        cout <<endl;
-    }
-}
-
+//distructor
 Administrator :: ~Administrator()
 {
 
@@ -80,8 +57,7 @@ Administrator :: ~Administrator()
 
 }
 
-
-//TODO after operation come back to personal area. add case to end program
+//main function that starts program for user //TODO after operation come back to personal area. add case to end program
 void Administrator :: enterSystem()
 {
     char enteringChoice;
@@ -190,143 +166,28 @@ void Administrator :: enterSystem()
 
 }
 
-void Administrator :: copyJobsFromFile() {
+//print function
+void Administrator :: print() const
+{
+    cout <<"------------------Administrator printing-----------------------------\n";
+
+    cout <<"------------------candidate-----------------------------\n";
+
+    for (int i = 0; i < candidate_arr_size; ++i)
+    {
+        candidate_arr[i]->print();
+    }
 
 
-    //
-//    cout<<"printing before jobs \n";
-//    for(int r=0; r<employers_arr_size; ++r)
-//        employers_arr[r]->print();
-    //
+    cout <<"------------------employer-----------------------------\n";
 
-    fstream file_jobs;
-
-        for(int i=0; i<employers_arr_size; ++i) {
-
-            char company_name[200] = "\0";
-            char role[200] = "\0";
-            char job_description[200] = "\0";
-            char job_requirements[200] = "\0";
-            char job_type[200] = "\0";
-            char job_condition[200] = "\0";
-            char location[200] = "\0";
-            char date[200] = "\0";
-            char id_j[5] = "\0";
-
-            //TODO copy list of jobs
-            file_jobs.open("C:\\ObjectOrientedProgramming\\jobSearch\\jobs.txt", ios::in);
-            if (!file_jobs.is_open())
-                cout << "file could not be opened, check error" << endl;
-            else {
-
-                while (!file_jobs.eof()) {
-                    char read_file_jobs[200];
-                    file_jobs >> read_file_jobs;
-                    if (strcmp(read_file_jobs, employers_arr[i]->getId()) == 0) {
-                        //coping company name
-                        file_jobs >> read_file_jobs >> read_file_jobs;
-                        while (!strcmp(read_file_jobs, "role") == 0) {
-                            strcat(company_name, read_file_jobs);
-                            strcat(company_name, " ");
-                            file_jobs >> read_file_jobs;
-                        }
-                        file_jobs >> read_file_jobs;
-                        //
-                        while (!strcmp(read_file_jobs, "jobDescription") == 0) {
-                            strcat(role, read_file_jobs);
-                            strcat(role, " ");
-                            file_jobs >> read_file_jobs;
-                        }
-                        file_jobs >> read_file_jobs;
-
-                        while (!strcmp(read_file_jobs, "jobRequirements") == 0) {
-                            strcat(job_description, read_file_jobs);
-                            strcat(job_description, " ");
-                            file_jobs >> read_file_jobs;
-
-                        }
-                        file_jobs >> read_file_jobs;
-
-                        while (!strcmp(read_file_jobs, "jobType") == 0) {
-                            strcat(job_requirements, read_file_jobs);
-                            strcat(job_requirements, " ");
-                            file_jobs >> read_file_jobs;
-                        }
-                        file_jobs >> read_file_jobs;
-
-                        while (!strcmp(read_file_jobs, "jobCondition") == 0) {
-                            strcat(job_type, read_file_jobs);
-                            strcat(job_type, " ");
-                            file_jobs >> read_file_jobs;
-                        }
-                        file_jobs >> read_file_jobs;
-
-                        while (!strcmp(read_file_jobs, "location") == 0) {
-                            strcat(job_condition, read_file_jobs);
-                            strcat(job_condition, " ");
-                            file_jobs >> read_file_jobs;
-                        }
-                        file_jobs >> read_file_jobs;
-
-                        while (!strcmp(read_file_jobs, "date") == 0) {
-                            strcat(location, read_file_jobs);
-                            strcat(location, " ");
-                            file_jobs >> read_file_jobs;
-                        }
-                        file_jobs >> read_file_jobs;
-
-                        while (!strcmp(read_file_jobs, "id") == 0) {
-                            strcat(date, read_file_jobs);
-                            strcat(date, " ");
-                            file_jobs >> read_file_jobs;
-                        }
-                        file_jobs >> read_file_jobs;
-
-
-                        while (!strcmp(read_file_jobs, "endl") == 0) {
-                            strcat(id_j, read_file_jobs);
-                            strcat(id_j, " ");
-                            file_jobs >> read_file_jobs;
-                        }
-
-                        //create new Job with details from file
-                        Job *job = new Job(company_name, role, job_description, job_requirements, job_type,
-                                           job_condition,
-                                           location, date, id_j);
-//                        cout << "printing job from filee-------\n";
-//                        job->print();
-
-                        //add job to publish jobs array
-                        employers_arr[i]->addJobToPublishJobs(job);
-
-
-
-                    }
-
-                    company_name[0] = '\0';
-                    role [0] = '\0';
-                    job_description[0] = '\0';
-                    job_requirements[0] = '\0';
-                    job_type[0] = '\0';
-                    job_condition[0] = '\0';
-                    location[0] = '\0';
-                    date[0] = '\0';
-                    id_j[0] = '\0';
-//                    file_jobs >> read_file_jobs;
-                }
-
-                file_jobs.close();
-            }
-        }
-
-
-    cout<<"copy jobs from file was called\n";
-
-
-
+    for (int i = 0; i < employers_arr_size; ++i) {
+        employers_arr[i]->print();
+        cout <<endl;
+    }
 }
 
-
+//function to files content
 void Administrator :: emptyFiles()
 {
     //open and close files to delete history
@@ -361,14 +222,132 @@ void Administrator :: emptyFiles()
     else
         file.close();
 
-    cout<<"empty file was called\n";
-
 }
 
 
+//functions to create data Structure from files
+void Administrator :: copyJobsFromFile() {
+
+
+    fstream file_jobs;
+
+        for(int i=0; i<employers_arr_size; ++i) {
+
+            char company_name[200] = "\0";
+            char role[200] = "\0";
+            char job_description[200] = "\0";
+            char job_requirements[200] = "\0";
+            char job_type[200] = "\0";
+            char job_condition[200] = "\0";
+            char location[200] = "\0";
+            char date[200] = "\0";
+            char id_j[5] = "\0";
+
+            //TODO copy list of jobs
+            file_jobs.open("C:\\ObjectOrientedProgramming\\jobSearch\\jobs.txt", ios::in);
+            if (!file_jobs.is_open())
+                cout << "file could not be opened, check error" << endl;
+            else {
+
+                while (!file_jobs.eof()) {
+                    char read_file_jobs[200];
+                    file_jobs >> read_file_jobs;
+                    if (strcmp(read_file_jobs, employers_arr[i]->getId()) == 0) {
+                        //coping company name
+                        file_jobs >> read_file_jobs >> read_file_jobs;
+                        while (!strcmp(read_file_jobs, "#role#") == 0) {
+                            strcat(company_name, read_file_jobs);
+                            strcat(company_name, " ");
+                            file_jobs >> read_file_jobs;
+                        }
+                        file_jobs >> read_file_jobs;
+                        //
+                        while (!strcmp(read_file_jobs, "#jobDescription#") == 0) {
+                            strcat(role, read_file_jobs);
+                            strcat(role, " ");
+                            file_jobs >> read_file_jobs;
+                        }
+                        file_jobs >> read_file_jobs;
+
+                        while (!strcmp(read_file_jobs, "#jobRequirements#") == 0) {
+                            strcat(job_description, read_file_jobs);
+                            strcat(job_description, " ");
+                            file_jobs >> read_file_jobs;
+
+                        }
+                        file_jobs >> read_file_jobs;
+
+                        while (!strcmp(read_file_jobs, "#jobType#") == 0) {
+                            strcat(job_requirements, read_file_jobs);
+                            strcat(job_requirements, " ");
+                            file_jobs >> read_file_jobs;
+                        }
+                        file_jobs >> read_file_jobs;
+
+                        while (!strcmp(read_file_jobs, "#jobCondition#") == 0) {
+                            strcat(job_type, read_file_jobs);
+                            strcat(job_type, " ");
+                            file_jobs >> read_file_jobs;
+                        }
+                        file_jobs >> read_file_jobs;
+
+                        while (!strcmp(read_file_jobs, "#location#") == 0) {
+                            strcat(job_condition, read_file_jobs);
+                            strcat(job_condition, " ");
+                            file_jobs >> read_file_jobs;
+                        }
+                        file_jobs >> read_file_jobs;
+
+                        while (!strcmp(read_file_jobs, "#date#") == 0) {
+                            strcat(location, read_file_jobs);
+                            strcat(location, " ");
+                            file_jobs >> read_file_jobs;
+                        }
+                        file_jobs >> read_file_jobs;
+
+                        while (!strcmp(read_file_jobs, "#id#") == 0) {
+                            strcat(date, read_file_jobs);
+                            strcat(date, " ");
+                            file_jobs >> read_file_jobs;
+                        }
+                        file_jobs >> read_file_jobs;
+
+
+                        while (!strcmp(read_file_jobs, "#endl#") == 0) {
+                            strcat(id_j, read_file_jobs);
+                            strcat(id_j, " ");
+                            file_jobs >> read_file_jobs;
+                        }
+
+                        //create new Job with details from file
+                        Job *job = new Job(company_name, role, job_description, job_requirements, job_type,
+                                           job_condition,
+                                           location, date, id_j);
+
+
+                        //add job to publish jobs array
+                        employers_arr[i]->addJobToPublishJobs(job);
 
 
 
+                    }
+
+                    company_name[0] = '\0';
+                    role [0] = '\0';
+                    job_description[0] = '\0';
+                    job_requirements[0] = '\0';
+                    job_type[0] = '\0';
+                    job_condition[0] = '\0';
+                    location[0] = '\0';
+                    date[0] = '\0';
+                    id_j[0] = '\0';
+                }
+
+                file_jobs.close();
+            }
+        }
+
+}
 
 void Administrator ::copyPersonalDetailsFromFile() {
     //copy personal details of employer + candidate to file "personal employer
@@ -422,17 +401,9 @@ void Administrator ::copyPersonalDetailsFromFile() {
 
 
 
-                //copy details from file and creat candidate object
+                //copy details from file and create candidate object
                 Employer *employer = new Employer(id, password, userName, email, phoneNumber, birthDate);
                 Employer **employer_tmp = new Employer *[employers_arr_size + 1];
-
-
-
-
-
-
-
-
 
 
 
@@ -456,9 +427,6 @@ void Administrator ::copyPersonalDetailsFromFile() {
         file_personal_details.close();
 
     }
-
-    cout<<"copy personal details from file was called\n";
-
 
 }
 
@@ -579,20 +547,11 @@ void Administrator ::copyCVfromFile() {
 
         }
 
-        cout<<"copy cv from file was called\n";
-
-
-
     }
-
-
-
-
 
 }
 
-
-void Administrator ::copySubFromSUBFILE() {
+void Administrator ::copySubFromFile() {
 
     fstream file_submitted_jobs;
 
@@ -622,49 +581,42 @@ void Administrator ::copySubFromSUBFILE() {
                                 candidate_arr[t]->getAllJobsArr()[i]->setSubmitted();
 
 
-/////////////////KKKKK
+
                                 //--------------added----------
                                 //update JobApplicants array
-                                Candidate **tmpArrC = new Candidate *[candidate_arr[t]->getAllJobsArr()[i]->getJobApplicantsSize() + 1];
+                                Candidate **tmpArrC = new Candidate *[
+                                candidate_arr[t]->getAllJobsArr()[i]->getJobApplicantsSize() + 1];
                                 for (int j = 0; j < candidate_arr[t]->getAllJobsArr()[i]->getJobApplicantsSize(); ++j) {
                                     tmpArrC[j] = candidate_arr[t]->getAllJobsArr()[i]->getJobApplicants()[j];
                                 }
                                 tmpArrC[candidate_arr[t]->getAllJobsArr()[i]->getJobApplicantsSize()] = candidate_arr[t]; //put in last cell - pointer to current candidate
-                                delete [] candidate_arr[t]->getAllJobsArr()[i]->getJobApplicants();
+                                delete[] candidate_arr[t]->getAllJobsArr()[i]->getJobApplicants();
                                 candidate_arr[t]->getAllJobsArr()[i]->setJobApplicants(tmpArrC);
-                                candidate_arr[t]->getAllJobsArr()[i]->setJobApplicantsSize(candidate_arr[t]->getAllJobsArr()[i]->getJobApplicantsSize() + 1);
-
-                                cout << "hi i am inside submit_job FROM FILE after coping candidate to jobApplicans\n\n";
-                                candidate_arr[t]->getAllJobsArr()[i]->getJobApplicants()[i]->print();
-
-                                cout<<"PRINT-0-TTYYY\n";
-                                candidate_arr[t]->getAllJobsArr()[i]->printJobApplicants();
-                                cout<<"END --------PRINT-0-TTYYY\n";
+                                candidate_arr[t]->getAllJobsArr()[i]->setJobApplicantsSize(
+                                        candidate_arr[t]->getAllJobsArr()[i]->getJobApplicantsSize() + 1);
 
 
 
-////
 
                                 // find job in published job arr of employer
-                                for(int e=0; e < employers_arr_size; ++e)
-                                {
-                                    for(int y=0; y<employers_arr[e]->getPublishedJobsArrSize(); ++y)
-                                    {
-//                                        if (readFile[strlen(readFile) - 1] >= '0' &&
-//                                            readFile[strlen(readFile) - 1] <= '9') //if readFile contains id of a job
-//                                            strcat(readFile, " ");
+                                for (int e = 0; e < employers_arr_size; ++e) {
+                                    for (int y = 0; y < employers_arr[e]->getPublishedJobsArrSize(); ++y) {
 
-                                        if (employers_arr[e]->getPublishedJobsArr()[y]->getId().compare(readFile) == 0)//if job is found in publish job arr of said employer
+
+                                        if (employers_arr[e]->getPublishedJobsArr()[y]->getId().compare(readFile) ==
+                                            0)//if job is found in publish job arr of said employer
                                         {
-                                            Candidate **tmpArrE = new Candidate *[employers_arr[e]->getPublishedJobsArr()[y]->getJobApplicantsSize() + 1];
-                                            for (int j = 0; j < employers_arr[e]->getPublishedJobsArr()[y]->getJobApplicantsSize(); ++j) {
+                                            Candidate **tmpArrE = new Candidate *[
+                                            employers_arr[e]->getPublishedJobsArr()[y]->getJobApplicantsSize() + 1];
+                                            for (int j = 0; j <
+                                                            employers_arr[e]->getPublishedJobsArr()[y]->getJobApplicantsSize(); ++j) {
                                                 tmpArrE[j] = employers_arr[e]->getPublishedJobsArr()[y]->getJobApplicants()[j];
                                             }
                                             tmpArrE[employers_arr[e]->getPublishedJobsArr()[y]->getJobApplicantsSize()] = candidate_arr[t]; //put in last cell pointer to current candidate
-                                            delete [] employers_arr[e]->getPublishedJobsArr()[y]->getJobApplicants();
+                                            delete[] employers_arr[e]->getPublishedJobsArr()[y]->getJobApplicants();
                                             employers_arr[e]->getPublishedJobsArr()[y]->setJobApplicants(tmpArrE);
-                                            employers_arr[e]->getPublishedJobsArr()[y]->setJobApplicantsSize( employers_arr[e]->getPublishedJobsArr()[y]->getJobApplicantsSize() + 1);
-
+                                            employers_arr[e]->getPublishedJobsArr()[y]->setJobApplicantsSize(
+                                                    employers_arr[e]->getPublishedJobsArr()[y]->getJobApplicantsSize()+1);
 
 
                                         }
@@ -672,21 +624,7 @@ void Administrator ::copySubFromSUBFILE() {
                                     }
 
 
-
                                 }
-
-
-
-
-
-//                                cout << "hi i am inside submit_job FROM FILE after coping candidate to jobApplicans\n\n";
-//                                candidate_arr[t]->getAllJobsArr()[i]->getJobApplicants()[i]->print();
-
-
-
-
-
-
 
 
                             }
@@ -694,65 +632,11 @@ void Administrator ::copySubFromSUBFILE() {
                     }
                 }
             }
-
-///////////
-//            for (int t = 0; t < employers_arr_size; ++t) {
-//
-//
-//                if (strcmp(readFile, employers_arr[t]->getId()) == 0) {
-//
-//
-//                    while (strcmp(readFile, "endl") != 0) {
-//                        file_submitted_jobs >> readFile;
-//                        for (int i = 0; i < employers_arr[t]->getPublishedJobsArrSize(); ++i) {
-//                            if (readFile[strlen(readFile) - 1] >= '0' &&
-//                                readFile[strlen(readFile) - 1] <= '9') //if readFile contains id of a job
-//                                strcat(readFile, " ");
-//
-//                            if (employers_arr[t]->getPublishedJobsArr()[i]->getId().compare(readFile) == 0) {
-//                                employers_arr[t]->getPublishedJobsArr()[i]->setSubmitted();
-//
-//
-///////////////////KKKKK
-//                                //--------------added----------
-//                                //update JobApplicants array
-//                                Candidate **tmpArr = new Candidate *[employers_arr[t]->getPublishedJobsArr()[i]->getJobApplicantsSize() + 1];
-//                                for (int j = 0; j < employers_arr[t]->getPublishedJobsArr()[i]->getJobApplicantsSize(); ++j) {
-//                                    tmpArr[j] = employers_arr[t]->getPublishedJobsArr()[i]->getJobApplicants()[j];
-//                                }
-//                                tmpArr[employers_arr[t]->getPublishedJobsArr()[i]->getJobApplicantsSize()] = employers_arr[t]; //put in last cell pointer to current candidate
-//                                delete [] employers_arr[t]->getPublishedJobsArr()[i]->getJobApplicants();
-//                                employers_arr[t]->getPublishedJobsArr()[i]->setJobApplicants(tmpArr);
-//                                employers_arr[t]->getPublishedJobsArr()[i]->setJobApplicantsSize(candidate_arr[t]->getAllJobsArr()[i]->getJobApplicantsSize() + 1);
-//
-//                                cout << "hi i am inside submit_job FROM FILE after coping candidate to jobApplicans\n\n";
-//                                employers_arr[t]->getPublishedJobsArr()[i]->getJobApplicants()[i]->print();
-//
-//                                cout<<"PRINT-0-TTYYY\n";
-//                                employers_arr[t]->getPublishedJobsArr()[i]->printJobApplicants();
-//                                cout<<"END --------PRINT-0-TTYYY\n";
-//
-//
-//
-//
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-
-
         }
 
 
         file_submitted_jobs.close();
     }
-
-
-
-
-
-
 
 }
 

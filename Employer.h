@@ -25,51 +25,69 @@ enum submission_history_e{ALL_SUBMITTED_JOBS = '1', EDIT_JOBS = '2', DELETE_JOBS
 
 class Employer {
 public:
+
     Employer();
 
     Employer(char* id, char* password, char* userName, char* email, char* phoneNumber, char* birthDate);
 
-    void addJobToPublishJobs(Job* job);
+    ~Employer();
 
-    void copyJobsFromFile();
 
-    char *getUserName() const;
+    void personalArea();
+
 
     char *getId() const;
 
-    char *getEmail() const;
+    Job **getPublishedJobsArr() const;
 
-    char *getPhoneNumber() const;
-
-    char *getBirthDate() const;
+    int getPublishedJobsArrSize() const;
 
     char *getPassword() const;
+
 
     void print() const;
 
     void printPublishedJobs() const;
 
+
     void copyPersonalDetailsToFile();
 
     void copyAllJobsToFiles();
+
+    void copyJobsFromFile();
+
+
+    void addJobToPublishJobs(Job* job);
 
     void edit_job();
 
     void delete_a_job();
 
-    void personalArea();
+    void addNewJob();
 
-
-
-    ~Employer();
 
     void viewCandidateSubmission();
 
-    void addNewJob();
 
-    Job **getPublishedJobsArr() const;
 
-    int getPublishedJobsArrSize() const;
+
+
+
+
+
+
+
+
+//
+//    char *getUserName() const;
+//
+//
+//
+//    char *getEmail() const;
+//
+//    char *getPhoneNumber() const;
+//
+//    char *getBirthDate() const;
 
 private:
     char *userName;

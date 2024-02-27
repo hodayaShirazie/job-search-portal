@@ -5,7 +5,8 @@
 #include "CV.h"
 #include <iostream>
 #include <cstring>
-#include <windows.h>
+//#include <windows.h>
+#include "Colors.h"
 
 enum editCV{SUMMARY = '1', EXPERIENCE = '2', EDUCATION = '3', LICENSES = '4', SKILLS = '5', AWARDS = '6', BACK_E_P = '7'};
 
@@ -15,10 +16,10 @@ using std::cout;
 using std::cin;
 using std::endl;
 
-void setConsoleColor(WORD c)
-{
-    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), c);
-}
+//void setConsoleColor(WORD c)
+//{
+//    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), c);
+//}
 
 CV::CV(){}
 
@@ -147,7 +148,6 @@ CV& CV:: operator=(const CV& cv) {
 }
 
 
-
 void CV:: createCV()
 {
     //TODO call setters instead of this code
@@ -206,54 +206,55 @@ void CV:: print ()const
 {
     //print only if field is not "none"
 
-    setConsoleColor( FOREGROUND_BLUE );
+    Colors color;
+    color.setConsoleColor( FOREGROUND_BLUE );
     cout << "name " << endl;
-    setConsoleColor(7);
+    color.setConsoleColor(7);
     cout << name << endl;
 
-    setConsoleColor( FOREGROUND_BLUE);
+    color.setConsoleColor( FOREGROUND_BLUE);
     cout << "email " << endl;
-    setConsoleColor(7);
+    color.setConsoleColor(7);
     cout << email << endl << endl << endl;
 
     if(strcmp(summary, "none") != 0) {
-        setConsoleColor(FOREGROUND_BLUE);
+        color.setConsoleColor(FOREGROUND_BLUE);
         cout << "summary " << endl;
-        setConsoleColor(7);
+        color.setConsoleColor(7);
         cout << summary << endl << endl;
     }
 
     if(strcmp(experience, "none") != 0) {
-        setConsoleColor(FOREGROUND_BLUE);
+        color.setConsoleColor(FOREGROUND_BLUE);
         cout << "experience " << endl;
-        setConsoleColor(7);
+        color.setConsoleColor(7);
         cout << experience << endl << endl;
     }
     if(strcmp(education, "none") != 0) {
-        setConsoleColor(FOREGROUND_BLUE);
+        color.setConsoleColor(FOREGROUND_BLUE);
         cout << "education " << endl;
-        setConsoleColor(7);
+        color.setConsoleColor(7);
         cout << education << endl << endl;
     }
 
     if(strcmp(licenses, "none") != 0) {
-        setConsoleColor(FOREGROUND_BLUE);
+        color.setConsoleColor(FOREGROUND_BLUE);
         cout << "licenses " << endl;
-        setConsoleColor(7);
+        color.setConsoleColor(7);
         cout << licenses << endl << endl;
     }
 
     if(strcmp(skills, "none") != 0) {
-        setConsoleColor(FOREGROUND_BLUE);
+        color.setConsoleColor(FOREGROUND_BLUE);
         cout << "skills " << endl;
-        setConsoleColor(7);
+        color.setConsoleColor(7);
         cout << skills << endl << endl;
     }
 
     if(strcmp(awards, "none") != 0) {
-        setConsoleColor(FOREGROUND_BLUE);
+        color.setConsoleColor(FOREGROUND_BLUE);
         cout << "awards " << endl;
-        setConsoleColor(7);
+        color.setConsoleColor(7);
         cout << awards << endl << endl;
     }
 
