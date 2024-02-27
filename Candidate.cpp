@@ -3,7 +3,7 @@
 //
 
 #include "Candidate.h"
-
+#include "Job.h"
 
 
 Candidate :: ~Candidate()
@@ -59,9 +59,9 @@ Candidate :: Candidate(char* id, char* password, char* userName, char* email, ch
     this->freeTxt = new char[strlen(freeTxt) + 1];
     strcpy(this->freeTxt,freeTxt);
 
-    updateSubmittedStatusFromFile();
+//    updateSubmittedStatusFromFile();
 
-    updateLikedtedStatusFromFile();
+    updateLikedStatusFromFile();
 
 
 }
@@ -69,6 +69,7 @@ Candidate :: Candidate(char* id, char* password, char* userName, char* email, ch
 
 //constructor
  Candidate :: Candidate() : userName(NULL), id(NULL), email(NULL), phoneNumber(NULL), birthDate(NULL), password(NULL),freeTxt(NULL),all_jobs_arr_size(0), all_jobs_arr(NULL) {
+
     copyAllJobsFromFile();
 
 
@@ -326,7 +327,7 @@ void Candidate :: personalArea()
                 break;
             }
             case JOBS_I_LIKED: {
-                viewLikedJjobs();
+                viewLikedJobs();
                 break;
             }
             case SUBMISSION_HISTORY_C: {
@@ -452,25 +453,31 @@ char *Candidate::getUserName() const {
     return userName;
 }
 
+
 char *Candidate::getId() const {
     return id;
 }
+
 
 char *Candidate::getEmail() const {
     return email;
 }
 
+
 char *Candidate::getPhoneNumber() const {
     return phoneNumber;
 }
+
 
 char *Candidate::getBirthDate() const {
     return birthDate;
 }
 
+
 char *Candidate::getPassword() const {
     return password;
 }
+
 
 CV *Candidate::getCv() const {
     return cv;
@@ -500,6 +507,7 @@ void Candidate:: print() const
 
 
 }
+
 
 void Candidate :: copyAllJobsFromFile() {
 
@@ -621,7 +629,6 @@ void Candidate :: copyAllJobsFromFile() {
 }
 
 
-
 void Candidate :: addJobToJobArr(Job* job) {
 
     Job **temp_jobs_arr = new Job *[all_jobs_arr_size + 1];
@@ -644,6 +651,7 @@ void Candidate :: printAllJobsArr() const
     }
 }
 
+
 void Candidate :: submit_job()
 {
     bool is_job_found_in_file = false;
@@ -659,9 +667,23 @@ void Candidate :: submit_job()
             is_job_found_in_file = true;
             cout <<"found jobb-----\n";
             all_jobs_arr[i]->setSubmitted();
+
+//            //--------------added----------
+//
+//            //add candidate to jobApplicants arr of said job
+//            Candidate** tmpArr = new Candidate*[all_jobs_arr[i]->getJobApplicantsSize()+1];
+//            for (int j = 0; j < all_jobs_arr[i]->getJobApplicantsSize(); ++j) {
+//                tmpArr[j] = all_jobs_arr[i]->getJobApplicants()[j];
+//            }
+//            tmpArr[all_jobs_arr[i]->getJobApplicantsSize()] = this; //put in last cell pointer to current candidate
+//            delete [] all_jobs_arr[i]->getJobApplicants();
+//            all_jobs_arr[i]->setJobApplicants(tmpArr);
+//            all_jobs_arr[i]->setJobApplicantsSize(all_jobs_arr[i]->getJobApplicantsSize()+1);
+//
+////            cout << "hi i am inside submit_job after coping candidate to jobApplicans\n\n";
+////            all_jobs_arr[i]->getJobApplicants()[i]
         }
 
-//        if(strcmp(all_jobs_arr[i]->getId(),tmpID) == 0)
     }
     if (!is_job_found_in_file)
         cout <<"----------coul NOT find jobb--------\n";
@@ -684,14 +706,35 @@ void Candidate :: updateSubmittedStatusFromFile()
         while (!file_submitted_jobs.eof()) {
             file_submitted_jobs >> readFile;
             if (strcmp(readFile, id) == 0) {
+
+
                 while (strcmp(readFile, "endl") != 0) {
                     file_submitted_jobs >> readFile;
                     for (int i = 0; i < all_jobs_arr_size; ++i) {
-                        if (readFile[strlen(readFile) - 1] >= '0' && readFile[strlen(readFile) - 1] <= '9')
+                        if (readFile[strlen(readFile) - 1] >= '0' && readFile[strlen(readFile) - 1] <= '9') //if readFile contains id of a job
                             strcat(readFile, " ");
 
                         if (all_jobs_arr[i]->getId().compare(readFile) == 0) {
                             all_jobs_arr[i]->setSubmitted();
+
+
+/////////////////KKKKK
+                            //--------------added----------
+                            //update JobApplicants array
+                            Candidate** tmpArr = new Candidate*[all_jobs_arr[i]->getJobApplicantsSize()+1];
+                            for (int j = 0; j < all_jobs_arr[i]->getJobApplicantsSize(); ++j) {
+                                tmpArr[j] = all_jobs_arr[i]->getJobApplicants()[j];
+                            }
+                            tmpArr[all_jobs_arr[i]->getJobApplicantsSize()] = this; //put in last cell pointer to current candidate
+                            delete [] all_jobs_arr[i]->getJobApplicants();
+                            all_jobs_arr[i]->setJobApplicants(tmpArr);
+                            all_jobs_arr[i]->setJobApplicantsSize(all_jobs_arr[i]->getJobApplicantsSize()+1);
+
+                            cout << "hi i am inside submit_job FROM FILE after coping candidate to jobApplicans\n\n";
+//                            all_jobs_arr[i]->getJobApplicants()[i]->print();
+
+
+
 
                         }
                     }
@@ -708,7 +751,7 @@ void Candidate :: updateSubmittedStatusFromFile()
 }
 
 
-void Candidate :: updateLikedtedStatusFromFile()
+void Candidate :: updateLikedStatusFromFile()
 {
 
     fstream file_liked_jobs;
@@ -773,7 +816,7 @@ void Candidate :: likeJob() {
     }
 }
 
-void Candidate :: viewLikedJjobs()
+void Candidate :: viewLikedJobs()
 {
     cout << "inside view liked job"<<endl;
 
@@ -886,7 +929,6 @@ void Candidate :: copyLikedJobsToFile() {
     }
 
 }
-
 
 void Candidate :: filterJobsByFeatures() {
 
@@ -1107,13 +1149,39 @@ void Candidate :: filterJobsByFeatures() {
 
     }
 
-
-
-
-
-
-
-
-
 }
+
+Job **Candidate::getAllJobsArr() const {
+    return all_jobs_arr;
+}
+
+int Candidate::getAllJobsArrSize() const {
+    return all_jobs_arr_size;
+}
+
+//void Candidate::addCandidateToJobApllicantsArr(Candidate* candidate, Job* job) {
+//
+//
+//    for (int i = 0; i < all_jobs_arr_size; ++i)
+//        if (*all_jobs_arr[i] == *job)
+//
+//
+//    //add candidate to jobApplicants arr of said job
+//    Candidate** tmpArr = new Candidate*[all_jobs_arr[i]->getJobApplicantsSize()+1];
+//    for (int j = 0; j < all_jobs_arr[i]->getJobApplicantsSize(); ++j) {
+//        tmpArr[i] = all_jobs_arr[i]->getJobApplicants()[i];
+//    }
+//    tmpArr[all_jobs_arr[i]->getJobApplicantsSize()] = this; //put in last cell pointer to current candidate
+//    delete [] all_jobs_arr[i]->getJobApplicants();
+//    all_jobs_arr[i]->setJobApplicants(tmpArr);
+//    all_jobs_arr[i]->setJobApplicantsSize(all_jobs_arr[i]->getJobApplicantsSize()+1);
+//
+//
+//}\
+
+// void Candidate:: showSecretValue()
+//{
+//
+//}
+
 

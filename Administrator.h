@@ -17,6 +17,8 @@ public:
 
     void copyPersonalDetailsFromFile();
 
+    void copySubFromSUBFILE();
+
     void copyCVfromFile();
 
     void enterSystem();

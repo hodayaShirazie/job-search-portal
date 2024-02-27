@@ -24,7 +24,8 @@ Administrator :: Administrator() : candidate_arr(NULL), employers_arr(NULL), can
 
     copyPersonalDetailsFromFile(); //build candidate and employer arrays without cv and published job fields(respectively)
     copyCVfromFile(); //build cv field to candidate array
-    copyJobsFromFile(); //build published job field to employer array
+    copyJobsFromFile(); //build published job field of employer array
+    copySubFromSUBFILE();
 
 //    print();
 
@@ -319,6 +320,7 @@ void Administrator :: copyJobsFromFile() {
         }
 
 
+    cout<<"copy jobs from file was called\n";
 
 
 
@@ -358,6 +360,9 @@ void Administrator :: emptyFiles()
         cout << "file could not be opened, check error" << endl;
     else
         file.close();
+
+    cout<<"empty file was called\n";
+
 }
 
 
@@ -392,8 +397,8 @@ void Administrator ::copyPersonalDetailsFromFile() {
 
                 //copy details from file and create candidate object
                 Candidate *candidate = new Candidate(id, password, userName, email, phoneNumber, birthDate, freeTxt);
-                Candidate **candidate_tmp = new Candidate *[candidate_arr_size + 1];
 
+                Candidate **candidate_tmp = new Candidate *[candidate_arr_size + 1];
 
                 for (int i = 0; i < candidate_arr_size; ++i) {
                     candidate_tmp[i] = candidate_arr[i];
@@ -452,6 +457,7 @@ void Administrator ::copyPersonalDetailsFromFile() {
 
     }
 
+    cout<<"copy personal details from file was called\n";
 
 
 }
@@ -573,9 +579,176 @@ void Administrator ::copyCVfromFile() {
 
         }
 
+        cout<<"copy cv from file was called\n";
+
 
 
     }
+
+
+
+
+
+}
+
+
+void Administrator ::copySubFromSUBFILE() {
+
+    fstream file_submitted_jobs;
+
+    char readFile[500];//TODO  you can open file and define in length that is bigger in 1 fro, file
+
+    file_submitted_jobs.open("C:\\ObjectOrientedProgramming\\jobSearch\\submittedJobs",ios::in);
+    if(!file_submitted_jobs.is_open())
+        cout << "file could not be opened, check error" << endl;
+    else {
+        while (!file_submitted_jobs.eof()) {
+            file_submitted_jobs >> readFile;
+
+            for (int t = 0; t < candidate_arr_size; ++t) {
+
+
+                if (strcmp(readFile, candidate_arr[t]->getId()) == 0) {
+
+
+                    while (strcmp(readFile, "endl") != 0) {
+                        file_submitted_jobs >> readFile;
+                        for (int i = 0; i < candidate_arr[t]->getAllJobsArrSize(); ++i) {
+                            if (readFile[strlen(readFile) - 1] >= '0' &&
+                                readFile[strlen(readFile) - 1] <= '9') //if readFile contains id of a job
+                                strcat(readFile, " ");
+
+                            if (candidate_arr[t]->getAllJobsArr()[i]->getId().compare(readFile) == 0) {
+                                candidate_arr[t]->getAllJobsArr()[i]->setSubmitted();
+
+
+/////////////////KKKKK
+                                //--------------added----------
+                                //update JobApplicants array
+                                Candidate **tmpArrC = new Candidate *[candidate_arr[t]->getAllJobsArr()[i]->getJobApplicantsSize() + 1];
+                                for (int j = 0; j < candidate_arr[t]->getAllJobsArr()[i]->getJobApplicantsSize(); ++j) {
+                                    tmpArrC[j] = candidate_arr[t]->getAllJobsArr()[i]->getJobApplicants()[j];
+                                }
+                                tmpArrC[candidate_arr[t]->getAllJobsArr()[i]->getJobApplicantsSize()] = candidate_arr[t]; //put in last cell - pointer to current candidate
+                                delete [] candidate_arr[t]->getAllJobsArr()[i]->getJobApplicants();
+                                candidate_arr[t]->getAllJobsArr()[i]->setJobApplicants(tmpArrC);
+                                candidate_arr[t]->getAllJobsArr()[i]->setJobApplicantsSize(candidate_arr[t]->getAllJobsArr()[i]->getJobApplicantsSize() + 1);
+
+                                cout << "hi i am inside submit_job FROM FILE after coping candidate to jobApplicans\n\n";
+                                candidate_arr[t]->getAllJobsArr()[i]->getJobApplicants()[i]->print();
+
+                                cout<<"PRINT-0-TTYYY\n";
+                                candidate_arr[t]->getAllJobsArr()[i]->printJobApplicants();
+                                cout<<"END --------PRINT-0-TTYYY\n";
+
+
+
+////
+
+                                // find job in published job arr of employer
+                                for(int e=0; e < employers_arr_size; ++e)
+                                {
+                                    for(int y=0; y<employers_arr[e]->getPublishedJobsArrSize(); ++y)
+                                    {
+//                                        if (readFile[strlen(readFile) - 1] >= '0' &&
+//                                            readFile[strlen(readFile) - 1] <= '9') //if readFile contains id of a job
+//                                            strcat(readFile, " ");
+
+                                        if (employers_arr[e]->getPublishedJobsArr()[y]->getId().compare(readFile) == 0)//if job is found in publish job arr of said employer
+                                        {
+                                            Candidate **tmpArrE = new Candidate *[employers_arr[e]->getPublishedJobsArr()[y]->getJobApplicantsSize() + 1];
+                                            for (int j = 0; j < employers_arr[e]->getPublishedJobsArr()[y]->getJobApplicantsSize(); ++j) {
+                                                tmpArrE[j] = employers_arr[e]->getPublishedJobsArr()[y]->getJobApplicants()[j];
+                                            }
+                                            tmpArrE[employers_arr[e]->getPublishedJobsArr()[y]->getJobApplicantsSize()] = candidate_arr[t]; //put in last cell pointer to current candidate
+                                            delete [] employers_arr[e]->getPublishedJobsArr()[y]->getJobApplicants();
+                                            employers_arr[e]->getPublishedJobsArr()[y]->setJobApplicants(tmpArrE);
+                                            employers_arr[e]->getPublishedJobsArr()[y]->setJobApplicantsSize( employers_arr[e]->getPublishedJobsArr()[y]->getJobApplicantsSize() + 1);
+
+
+
+                                        }
+
+                                    }
+
+
+
+                                }
+
+
+
+
+
+//                                cout << "hi i am inside submit_job FROM FILE after coping candidate to jobApplicans\n\n";
+//                                candidate_arr[t]->getAllJobsArr()[i]->getJobApplicants()[i]->print();
+
+
+
+
+
+
+
+
+                            }
+                        }
+                    }
+                }
+            }
+
+///////////
+//            for (int t = 0; t < employers_arr_size; ++t) {
+//
+//
+//                if (strcmp(readFile, employers_arr[t]->getId()) == 0) {
+//
+//
+//                    while (strcmp(readFile, "endl") != 0) {
+//                        file_submitted_jobs >> readFile;
+//                        for (int i = 0; i < employers_arr[t]->getPublishedJobsArrSize(); ++i) {
+//                            if (readFile[strlen(readFile) - 1] >= '0' &&
+//                                readFile[strlen(readFile) - 1] <= '9') //if readFile contains id of a job
+//                                strcat(readFile, " ");
+//
+//                            if (employers_arr[t]->getPublishedJobsArr()[i]->getId().compare(readFile) == 0) {
+//                                employers_arr[t]->getPublishedJobsArr()[i]->setSubmitted();
+//
+//
+///////////////////KKKKK
+//                                //--------------added----------
+//                                //update JobApplicants array
+//                                Candidate **tmpArr = new Candidate *[employers_arr[t]->getPublishedJobsArr()[i]->getJobApplicantsSize() + 1];
+//                                for (int j = 0; j < employers_arr[t]->getPublishedJobsArr()[i]->getJobApplicantsSize(); ++j) {
+//                                    tmpArr[j] = employers_arr[t]->getPublishedJobsArr()[i]->getJobApplicants()[j];
+//                                }
+//                                tmpArr[employers_arr[t]->getPublishedJobsArr()[i]->getJobApplicantsSize()] = employers_arr[t]; //put in last cell pointer to current candidate
+//                                delete [] employers_arr[t]->getPublishedJobsArr()[i]->getJobApplicants();
+//                                employers_arr[t]->getPublishedJobsArr()[i]->setJobApplicants(tmpArr);
+//                                employers_arr[t]->getPublishedJobsArr()[i]->setJobApplicantsSize(candidate_arr[t]->getAllJobsArr()[i]->getJobApplicantsSize() + 1);
+//
+//                                cout << "hi i am inside submit_job FROM FILE after coping candidate to jobApplicans\n\n";
+//                                employers_arr[t]->getPublishedJobsArr()[i]->getJobApplicants()[i]->print();
+//
+//                                cout<<"PRINT-0-TTYYY\n";
+//                                employers_arr[t]->getPublishedJobsArr()[i]->printJobApplicants();
+//                                cout<<"END --------PRINT-0-TTYYY\n";
+//
+//
+//
+//
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+
+
+        }
+
+
+        file_submitted_jobs.close();
+    }
+
+
 
 
 

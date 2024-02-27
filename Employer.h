@@ -14,6 +14,8 @@ using std::endl;
 using std::fstream;
 using std::ios;
 
+#include "Candidate.h"
+
 //TODO WHEN employer delete a gob, add it as usual to files but add it to another file as deleted
 
 
@@ -64,6 +66,10 @@ public:
     void viewCandidateSubmission();
 
     void addNewJob();
+
+    Job **getPublishedJobsArr() const;
+
+    int getPublishedJobsArrSize() const;
 
 private:
     char *userName;

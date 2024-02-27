@@ -8,8 +8,9 @@
 #include <iostream>
 #include <cstring>
 #include <fstream>
-class Candidate; //forward declaration
 //#include "Candidate.h"
+class Candidate; //forward declaration
+
 
 //TODO maintain array of applicants here for candidate submissions in employer
 
@@ -103,6 +104,17 @@ public:
 
     void  updateJob();
 
+    void setJobApplicants(Candidate **jobApplicants);
+
+    void setJobApplicantsSize(int jobApplicantsSize);
+
+    Candidate **getJobApplicants() const;
+
+    int getJobApplicantsSize() const;
+
+    void printJobApplicants();
+
+//    bool operator==(Job& job);
 
 private:
     char *company_name;

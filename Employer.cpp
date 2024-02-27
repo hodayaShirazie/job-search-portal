@@ -2,6 +2,7 @@
 // Created by Student on 14/02/2024.
 //
 #include "Employer.h"
+//#include "Candidate.h"
 
 
 
@@ -370,7 +371,7 @@ void Employer :: personalArea()
                 break;
             }
             case CANDIDTE_SUBMISSION: {
-
+                viewCandidateSubmission();
                 break;
             }
             case PUBLISH_JOB: {
@@ -537,11 +538,24 @@ void Employer :: viewCandidateSubmission()
     for (int i = 0; i < published_jobs_arr_size; ++i)
     {
         cout << "candidate submission to job id " << published_jobs_arr[i]->getId() << ":\n";
-        //
+        published_jobs_arr[i]->printJobApplicants();
+//        for (int j = 0; j < published_jobs_arr[i]->getJobApplicantsSize(); ++j) {
+//            published_jobs_arr[i]->printJobApplicants();
+//        }
+
     }
 
 //TODO contin hereeeeeeeee
 
 }
+
+Job **Employer::getPublishedJobsArr() const {
+    return published_jobs_arr;
+}
+
+int Employer::getPublishedJobsArrSize() const {
+    return published_jobs_arr_size;
+}
+
 
 

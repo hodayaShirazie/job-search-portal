@@ -1,14 +1,19 @@
 //
 // Created by Student on 14/02/2024.
 //
+
+#ifndef JOBSEARCH_CANDIDATE_H
+#define JOBSEARCH_CANDIDATE_H
+
 //#include <string>
 #include <iostream>
 #include "Date.h"
 #include "CV.h"
 #include <fstream>
 #include <cstring>
-#include "Job.h"
+//#include "Job.h"
 #include <limits>
+class Job; //forward declaration
 
 
 using std::string;
@@ -24,8 +29,7 @@ enum editProfileCandidate{USER_NAME_C = '1', EMAIL_C = '2', PHONE_NUMBER_C = '3'
 enum filterJobs_c{LOCATION_F = '1', JOB_TYPE_F = '2', ROLE_F = '3'};
 
 
-#ifndef JOBSEARCH_CANDIDATE_H
-#define JOBSEARCH_CANDIDATE_H
+
 
 
 class Candidate {
@@ -51,6 +55,10 @@ public:
     char *getId() const;
 
     char *getEmail() const;
+
+    Job **getAllJobsArr() const;
+
+    int getAllJobsArrSize() const;
 
     char *getPhoneNumber() const;
 
@@ -80,7 +88,7 @@ public:
 
     void submit_job();
 
-    void updateLikedtedStatusFromFile();
+    void updateLikedStatusFromFile();
 
     void updateSubmittedStatusFromFile();
 
@@ -88,7 +96,7 @@ public:
 
     void likeJob();
 
-    void viewLikedJjobs();
+    void viewLikedJobs();
 
     void copyPersonalDetailsToFile();
 
@@ -97,6 +105,8 @@ public:
     void copySubmittedJobsToFile();
 
     void copyLikedJobsToFile();
+
+//    void addCandidateToJobApllicantsArr(Candidate* candidate, Job* job);
 
 
 
@@ -115,6 +125,7 @@ private:
     char* password;
     char* freeTxt;
     CV *cv;
+
     Job** all_jobs_arr;
     int all_jobs_arr_size;
 

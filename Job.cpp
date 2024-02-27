@@ -4,6 +4,7 @@
 #include <limits> // Include for std::numeric_limits
 #include "Job.h"
 //#include <cstdlib>
+#include "Candidate.h"
 
 
 
@@ -657,6 +658,56 @@ bool Job::isSubmitted() const {
 bool Job::isLiked() const {
     return liked;
 }
+
+Candidate **Job::getJobApplicants() const {
+    return jobApplicants;
+}
+
+int Job::getJobApplicantsSize() const {
+    return jobApplicantsSize;
+}
+
+void Job::setJobApplicants(Candidate **jobApplicants) {
+    this->jobApplicants = jobApplicants;
+}
+
+void Job::setJobApplicantsSize(int jobApplicantsSize) {
+    this->jobApplicantsSize = jobApplicantsSize;
+}
+
+void Job:: printJobApplicants() {
+    cout << "\n-------inside printJobApplicants--\n\n";
+    for (int i = 0; i < jobApplicantsSize; ++i) {
+        jobApplicants[i] -> print();
+
+    }
+
+}
+
+
+//bool Job:: operator==(Job& job)
+//{
+//    if(strcmp(company_name,job.company_name) == 0)
+//        if(strcmp(role,job.role) == 0)
+//            if(strcmp(job_description,job.job_description) == 0)
+//                if(strcmp(job_requirements,job.job_requirements) == 0)
+//                    if(strcmp(job_type,job.job_type) == 0)
+//                        if(strcmp(job_condition,job.job_condition) == 0)
+//                            if(strcmp(location,job.location) == 0)
+//                                if(strcmp(date,job.date) == 0)
+//                                    if(id == job.id)
+//                                        if(submitted == job.submitted)
+//                                            if(liked == job.liked)
+//                                                return true;
+//    return false;
+
+
+
+
+
+
+
+
 
 
 
