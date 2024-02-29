@@ -18,261 +18,180 @@
 
 //git link: https://github.com/hodayaShirazie/job-search-portal.git
 
-void draftColor()
+
+
+
+
+
+
+bool checkValidDate(int day, int month, int year) {
+
+    if (year < 1924 || year > 2006) {
+        return false;
+    }
+
+    if (month < 1 || month > 12) {
+        return false;
+    }
+
+    int daysInMonth;
+    if (month == 2) {
+
+        if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)) {
+            daysInMonth = 29;
+        } else {
+            daysInMonth = 28;
+        }
+    } else if (month == 4 || month == 6 || month == 9 || month == 11) {
+        daysInMonth = 30;
+    } else {
+        daysInMonth = 31;
+    }
+
+    if (day < 1 || day > daysInMonth) {
+        return false;
+    }
+
+    return true;
+
+}
+
+
+
+
+
+void set_birth_datee()
 {
-//#include <iostream>
-//#include <windows.h>
 
-//// c = 7 for default color
-//void setConsoleColor(WORD c)
-//{
-//    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), c);
-//}
+
+
+//        int input;
+//        std::cout << "Enter an integer: ";
+//        while(!(std::cin >> input)) {
 //
-//int main()
-//{
-//    setConsoleColor(FOREGROUND_RED | BACKGROUND_BLUE | BACKGROUND_GREEN | BACKGROUND_RED );
-//    std::cout << "Hello\n";
-//    setConsoleColor( BACKGROUND_BLUE | BACKGROUND_GREEN | BACKGROUND_RED );
-//    std::cout << "Goodbye\n";
-//    setConsoleColor(7);
-//}
+//        }
+//        std::cout << "You entered the integer: " << input << std::endl;
+
+
+
+
+
+
+
+
+//    delete [] birthDate;
+
+    int d,m,y;
+    cout<<"date: enter month, day and year"<<endl;
+    while(!(cin >> m) || !(cin >> d) || !(cin >> y)) //if input is not integer
+
+    {
+        cout << "Invalid input.try again \n";
+        cin.clear();// Clear the buffer
+        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');// Ignore the rest of the input line to avoid infinite loop
+    }
+
+    while(!checkValidDate(d,m,y)) {
+        int d,m,y;
+        cout<<"invalid date, please enter -valid-: month, day and year"<<endl;
+        cin >> m >> d >> y;
+    }
+    char buffer[10] = "";
+    strcat(buffer, to_string(m).c_str());
+    strcat(buffer, ".");
+    strcat(buffer, to_string(d).c_str());
+    strcat(buffer, ".");
+    strcat(buffer, to_string(y).c_str());
+
+
+//    birthDate = new char[strlen(buffer) + 1];
+//    strcpy(birthDate, buffer);
+
 }
 
-void checkCV(){
-//    CV cv("rina","hodaya.sh2003@gmail.com");
-//    cv.createCV();
-//    cv.print();
-
-}
 
 
 
 
-void validemailC(){
-        char buffer [80];
-        char* email;
-        bool existsSign = false;
-        bool invalidEmail = false;
-        bool invalidProfix = false;
-//    while (!invalidEmail || !invalidProfix || !existsSign) {
-        while(!invalidEmail) {
-            cout << "email" << endl;
-            cin.getline(buffer, 20);
-            email = new char[strlen(buffer) + 1];
-            strcpy(email, buffer);
-            int lenEmail = strlen(email);
-
-//        //if email does not end with .org/.com/.il
-//        if ((email[lenEmail - 1] == 'm' && email[lenEmail - 2] == 'o' && email[lenEmail - 3] == 'c' &&
-//             email[lenEmail - 4] == '.')
-//            || (email[lenEmail - 1] == 'g' && email[lenEmail - 2] == 'r' && email[lenEmail - 3] == 'o' &&
-//                email[lenEmail - 4] == '.') ||
-//                (email[lenEmail - 1] == 'l' && email[lenEmail - 2] == 'i' && email[lenEmail - 3] == '.'))
-//            invalidProfix = true;
 
 
-            //if email contains invalid characters
-            for (int i = 0; email[i] != '\0' && invalidEmail; ++i) {
-                if (!(email[i] > 'a' && email[i] < 'z' || email[i] > 'A' && email[i] < 'Z'))
-                    if (!(email[i] > '0' && email[i] < '9'))
-                        if (!(email[i] == '-' && email[i] < '.'))
-                            if (!(email[i] == '@')) {
-                                invalidEmail = false; //email is not valid
-                                cout << "enter a valid ";
-                            }
-                            else
-                                invalidEmail = true;
+void ph_id()
+{
 
+    bool valid = false;
 
+    char buffer[80];
 
-//            if (email[i] == '@')
-//                existsSign = true;
-            }
+//    delete [] phoneNumber;
+//    cin.ignore();
+    cout << "phone number" << endl;
+    cin.getline(buffer, 80);
+
+    while (!valid) {
+        bool onlyDigits = true;
+
+        for (int i = 0; buffer[i] != '\0'; ++i)
+            if (buffer[i] < '0' || buffer[i] > '9')
+                onlyDigits = false;
+
+        if (strlen(buffer) == 10 && buffer[0] == '0' && onlyDigits)
+            valid = true;
+        else {
+            cout << "invalid phone number, enter again" << endl;
+            cin.getline(buffer, 80);
 
         }
-
-}
-
+    }
 
 
-#include <fstream>
-using std::ios;
-using std::fstream;
-using std::to_string;
 
-//void today(int d,int m,int y) {
-//
-//    time_t rawtime;
-//    tm *timeinfo;
-//    time(&rawtime);
-//    timeinfo = localtime(&rawtime);
-//    d = timeinfo->tm_mday;
-//    m = timeinfo->tm_mon + 1;
-//    y = timeinfo->tm_year + 1900;
-//
-//    char buffer[10] = "";
-//    strcat(buffer, to_string(d).c_str());
-//    strcat(buffer, "/");
-//    strcat(buffer, to_string(m).c_str());
-//    strcat(buffer, "/");
-//    strcat(buffer, to_string(y).c_str());
-//    cout << buffer;
-//}
-//#include <typeinfo>
-//
-//void addJobToJobArr(Job* job)
-//{
-//
-//}
+//    phoneNumber = new char[strlen(buffer) + 1];
+//    strcpy(phoneNumber, buffer);
 
-//void copyAllJobsFromFile() {
+
+
+
+
+
+
+//    while (!valid) {
+//        for (int i = 0; buffer[i] != '\0'; ++i)
+//            if(buffer[i] < '0' || buffer[i] > '9')
+//                onlyDigits = false;
 //
-//
-//    fstream file_jobs;
-//
-////    for(int i=0; i<employers_arr_size; ++i) {
-//
-//    char company_name[200] = "\0";
-//    char role[200] = "\0";
-//    char job_description[200] = "\0";
-//    char job_requirements[200] = "\0";
-//    char job_type[200] = "\0";
-//    char job_condition[200] = "\0";
-//    char location[200] = "\0";
-//    char date[200] = "\0";
-//    char id_j[5] = "\0";
-//
-//    //TODO copy list of jobs
-//    file_jobs.open("C:\\ObjectOrientedProgramming\\jobSearch\\jobs.txt", ios::in);
-//    if (!file_jobs.is_open())
-//        cout << "file could not be opened, check error" << endl;
-//    else {
-//
-//        while (!file_jobs.eof()) {
-//            char read_file_jobs[200];
-//            file_jobs >> read_file_jobs;
-//
-//            //coping company name
-//            file_jobs >> read_file_jobs >> read_file_jobs;
-//            while (!strcmp(read_file_jobs, "role") == 0) {
-//                strcat(company_name, read_file_jobs);
-//                strcat(company_name, " ");
-//                file_jobs >> read_file_jobs;
-//            }
-//            file_jobs >> read_file_jobs;
-//
-//            while (!strcmp(read_file_jobs, "jobDescription") == 0) {
-//                strcat(role, read_file_jobs);
-//                strcat(role, " ");
-//                file_jobs >> read_file_jobs;
-//            }
-//            file_jobs >> read_file_jobs;
-//
-//            while (!strcmp(read_file_jobs, "jobRequirements") == 0) {
-//                strcat(job_description, read_file_jobs);
-//                strcat(job_description, " ");
-//                file_jobs >> read_file_jobs;
-//
-//            }
-//            file_jobs >> read_file_jobs;
-//
-//            while (!strcmp(read_file_jobs, "jobType") == 0) {
-//                strcat(job_requirements, read_file_jobs);
-//                strcat(job_requirements, " ");
-//                file_jobs >> read_file_jobs;
-//            }
-//            file_jobs >> read_file_jobs;
-//
-//            while (!strcmp(read_file_jobs, "jobCondition") == 0) {
-//                strcat(job_type, read_file_jobs);
-//                strcat(job_type, " ");
-//                file_jobs >> read_file_jobs;
-//            }
-//            file_jobs >> read_file_jobs;
-//
-//            while (!strcmp(read_file_jobs, "location") == 0) {
-//                strcat(job_condition, read_file_jobs);
-//                strcat(job_condition, " ");
-//                file_jobs >> read_file_jobs;
-//            }
-//            file_jobs >> read_file_jobs;
-//
-//            while (!strcmp(read_file_jobs, "date") == 0) {
-//                strcat(location, read_file_jobs);
-//                strcat(location, " ");
-//                file_jobs >> read_file_jobs;
-//            }
-//            file_jobs >> read_file_jobs;
-//
-//            while (!strcmp(read_file_jobs, "id") == 0) {
-//                strcat(date, read_file_jobs);
-//                strcat(date, " ");
-//                file_jobs >> read_file_jobs;
-//            }
-//            file_jobs >> read_file_jobs;
-//
-//
-//            while (!strcmp(read_file_jobs, "endl") == 0) {
-//                strcat(id_j, read_file_jobs);
-//                strcat(id_j, " ");
-//                file_jobs >> read_file_jobs;
-//            }
-//
-//            //create new Job with details from file
-//            Job *job = new Job(company_name, role, job_description, job_requirements, job_type,
-//                               job_condition,
-//                               location, date, id_j);
-////                        cout << "printing job from filee-------\n";
-//                        job->print();
-//
-//            //add job to publish jobs array
-////            employers_arr[i]->addJobToPublishJobs(job);
-//
-//
-//            company_name[0] = '\0';
-//            role[0] = '\0';
-//            job_description[0] = '\0';
-//            job_requirements[0] = '\0';
-//            job_type[0] = '\0';
-//            job_condition[0] = '\0';
-//            location[0] = '\0';
-//            date[0] = '\0';
-//            id_j[0] = '\0';
+//        if(strlen(buffer) == 9 && onlyDigits)
+//            valid = true;
+//        else{
+//            cout << "invalid id, try again" << endl;
+//            cin.getline(buffer, 80);
 //        }
 //
-//        file_jobs.close();
 //    }
-//
-//
-//}
+//    cout << buffer;
+////    id = new char[strlen(buffer) + 1];
+////    strcpy(id, buffer);
+
+}
 
 
 int main() {
 
-Colors color;
 
-//    color.setConsoleColor(FOREGROUND_RED);
-//
-//    // Set console code page to UTF-8 so console known how to interpret string data
-//    SetConsoleOutputCP(CP_UTF8);
-//
-//    // Enable buffering to prevent VS from injecting its own console code
-//    setvbuf(stdout, nullptr, _IOFBF, 1000);
-//
-//    // Print heart symbol
-//    cout << "♥" << endl;
-//
-////    cout << "♥" << endl;
-//    color.setConsoleColor(7);
+//    set_birth_datee();
 
 
-//Job j;
-//Job j1;
+//    set_passwords();
 
+//char h[20] = "hod aya";
+//if(checkFirstNameAndLastName(h))
+//    cout << "valid\n";
+//else
+//    cout << "---------not valid\n";
 
-//    copyAllJobsFromFile();
-
+//if(checkValidDate(23,1,2024))
+//    cout << "valid\n";
+//else
+//    cout << "---------not valid\n";
 
     Administrator a;
     a.enterSystem();

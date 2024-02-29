@@ -8,6 +8,8 @@
 #include <cstring>
 #include <fstream>
 #include "Job.h"
+#include <cctype>  // For isdigit
+
 using std::cout;
 using std::cin;
 using std::endl;
@@ -16,6 +18,7 @@ using std::ios;
 
 #include "Candidate.h"
 
+//TODO check why cant delete a job right after publishing
 //TODO WHEN employer delete a gob, add it as usual to files but add it to another file as deleted
 
 
@@ -45,6 +48,19 @@ public:
     char *getPassword() const;
 
 
+    void set_user_name();
+
+    void set_id();
+
+    void set_email();
+
+    void set_phone_number();
+
+    void set_password();
+
+    void set_birth_date();
+
+
     void print() const;
 
     void printPublishedJobs() const;
@@ -56,6 +72,11 @@ public:
 
     void copyJobsFromFile();
 
+    bool checkValidDate(int day, int month, int year);
+
+    bool checkFirstNameAndLastName(char* str);
+
+    bool isValidNumber(char* str);
 
     void addJobToPublishJobs(Job* job);
 
@@ -64,7 +85,6 @@ public:
     void delete_a_job();
 
     void addNewJob();
-
 
     void viewCandidateSubmission();
 

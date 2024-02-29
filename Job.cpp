@@ -1,7 +1,7 @@
 //
 // Created by Student on 21/02/2024.
 //
-#include <limits> // Include for std::numeric_limits
+//#include <limits> // Include for std::numeric_limits
 #include "Job.h"
 //#include <cstdlib>
 #include "Candidate.h"
@@ -26,64 +26,42 @@ Job :: Job():submitted(false),liked(false),jobApplicants(NULL),jobApplicantsSize
     char buffer[80];
 
     //getting company name
-    cout << "company name" << endl;
-    cin.ignore();
-    cin.getline(buffer,102);
-    company_name = new char[strlen(buffer)+1];
-    strcpy(company_name, buffer);
+    setCompanyName();
 
 
     //getting role
-    get_role_input();
+    setRole();
 
 
 
-    //job description
-    cout << "job description. to skip, enter \"none\"" << endl;
-    cin.ignore();
-    cin.getline(buffer,101);
-    job_description = new char[strlen(buffer)+1];
-    strcpy(job_description, buffer);
+    //getting job description
+    setJobDescription();
 
-    //job requirements
-    cout << "job requirements. you might want to include the following suggestions: degree, languages, "
-            "experience,\n valid licence holder, personal skills...\n -to skip, enter \"none\"-" << endl;
-    cin.getline(buffer,101);
-    job_requirements = new char[strlen(buffer)+1];
-    strcpy(job_requirements, buffer);
+
+
+    //getting job requirements
+    setJobRequirements();
+
 
     //job type
-    get_job_type_input();
+    setJobType();
 
 
-    //job conditions
-    cout << "job conditions. you might want to include the following suggestions: wage, transportation, "
-            " car job, \"TenBis \" discount. -to skip, enter \"none\"" << endl;
-    cin.ignore();
-    cin.getline(buffer,51);
-    job_condition = new char[strlen(buffer)+1];
-    strcpy(job_condition, buffer);
+    //getting job conditions
+    setJobCondition();
 
 
 
-    //job location
-    get_job_location_input();
+    //getting job location
+    setLocation();
 
-    //job date
+    //getting job date
     today();
 
     //job id
-    //convert max id to string and save in id of job
-    id = to_string(max_id);
+    id = to_string(max_id); //convert max id to string and save in id of job
 
     insertMaxIdToFiles(); //save id of last job ID in file
-
-
-
-    print();
-
-
-
 
 }
 
@@ -92,8 +70,6 @@ Job :: Job():submitted(false),liked(false),jobApplicants(NULL),jobApplicantsSize
 Job :: Job(char *company_name, char* role, char* job_description, char* job_requirements,
     char* job_type, char* job_condition, char* location, char* date, string id ):submitted(false),liked(false),jobApplicants(NULL),jobApplicantsSize(0)
 {
-
-    //TODO copy jobApplicants arr
 
     this->company_name = new char[strlen(company_name) + 1];
     strcpy(this->company_name,company_name);
@@ -203,177 +179,6 @@ Job& Job :: operator=(const Job& job)
 
 
 //getters
-void Job :: get_job_location_input()
-{
-    char nav_location;
-    cout << "job location" << endl << "choose from the following:" << endl;
-    cout << "1- north \n";
-    cout << "2- south \n";
-    cout << "3- center \n";
-    cout << "4- haifa \n";
-    cout << "5- Tel aviv \n";
-    cout << "6- Judea and Samaria \n";
-    cin >> nav_location;
-    switch (nav_location) {
-        case NORTH:
-        {
-            location = new char[strlen("north")+1];
-            strcpy(location,"north");
-            break;
-        }
-        case SOUTH:
-        {
-            location = new char[strlen("south")+1];
-            strcpy(location,"south");
-            break;
-        }
-        case CENTER:
-        {
-            location = new char[strlen("center")+1];
-            strcpy(location,"center");
-            break;
-        }
-        case HAIFA:
-        {
-            location = new char[strlen("haifa")+1];
-            strcpy(location,"haifa");
-            break;
-        }
-        case TEL_AVIV:
-        {
-            location = new char[strlen("telAviv")+1];
-            strcpy(location,"telAviv");
-            break;
-        }
-        case JUDEA_AND_SAMARIA:
-        {
-            location = new char[strlen("judeaAndSamaria")+1];
-            strcpy(location,"judeaAndSamaria");
-            break;
-        }
-
-
-    }
-}
-
-void Job ::get_job_type_input()
-{
-    char nav_type;
-    cout << "job type" << endl << "choose from the following:" << endl;
-    cout << "1- full time \n";
-    cout << "2- part time \n";
-    cout << "3- student \n";
-    cout << "4- special needs \n";
-    cin >> nav_type;
-    switch (nav_type) {
-        case FULL_TIME:
-        {
-            job_type = new char[strlen("fullTime")+1];
-            strcpy(job_type,"fullTime");
-            break;
-        }
-        case PART_TIME:
-        {
-            job_type = new char[strlen("partTime")+1];
-            strcpy(job_type,"partTime");
-            break;
-        }
-        case STUDENT:
-        {
-            job_type = new char[strlen("student")+1];
-            strcpy(job_type,"student");
-            break;
-        }
-        case SPECIAL_NEEDS:
-        {
-            job_type = new char[strlen("specialNeeds")+1];
-            strcpy(job_type,"specialNeeds");
-            break;
-        }
-
-
-    }
-}
-
-void Job:: get_role_input()
-{
-    char nav_role;
-    cout << "role" << endl << "choose from the following:" << endl;
-    cout << "1- teaching \n";
-    cout << "2- engineering \n";
-    cout << "3- law \n";
-    cout << "4- medicine \n";
-    cout << "5- research \n";
-    cout << "6- sales \n";
-    cout << "7- restaurants \n";
-    cout << "8- cleaning \n";
-    cout << "9- economy \n";
-    cin >> nav_role;
-
-    switch (nav_role) {
-        case TEACHING:
-        {
-            role = new char[strlen("teaching")+1];
-            strcpy(role,"teaching");
-            break;
-        }
-        case ENGINEERING:
-        {
-            role = new char[strlen("engineering")+1];
-            strcpy(role,"engineering");
-            break;
-        }
-        case LAW:
-        {
-            role = new char[strlen("law")+1];
-            strcpy(role,"law");
-            break;
-        }
-        case MEDICINE:
-        {
-            role = new char[strlen("medicine")+1];
-            strcpy(role,"medicine");
-            break;
-        }
-        case RESEARCH:
-        {
-            role = new char[strlen("research")+1];
-            strcpy(role,"research");
-            break;
-        }
-        case SALES:
-        {
-            role = new char[strlen("sales")+1];
-            strcpy(role,"sales");
-            break;
-        }
-        case RESTAURANTS:
-        {
-            role = new char[strlen("restaurants")+1];
-            strcpy(role,"restaurants");
-            break;
-        }
-        case CLEANING:
-        {
-            role = new char[strlen("cleaning")+1];
-            strcpy(role,"cleaning");
-            break;
-        }
-        case ECONOMY:
-        {
-            role = new char[strlen("economy")+1];
-            strcpy(role,"economy");
-            break;
-        }
-
-
-    }
-
-
-
-
-}
-
 string Job::getId() const {
     return id;
 }
@@ -439,73 +244,269 @@ void Job:: setLiked()
     liked = true;  //change field liked
 }
 
-void Job::setCompanyName() {
-
-    char buffer[80];
-
-    cout << "company name" << endl;
-    cin.getline(buffer,80);
-    company_name = new char[strlen(buffer)+1];
-    strcpy(company_name, buffer);
-    cout<<"comp name in field: " << company_name<<endl;
+void Job:: setUnLiked()
+{
+    liked = false;
 }
 
-void Job::setRole() {//TODO delete multiple function(do the same thing)
+void Job::setCompanyName() {
 
-    get_role_input();
+    char buffer[102];
+
+    //getting company name
+    cout << "company name" << endl;
+    cin.ignore();
+    cin.getline(buffer,102);
+    company_name = new char[strlen(buffer)+1];
+    strcpy(company_name, buffer);
+
+}
+
+void Job::setRole() {
+
+    bool validInput = false; // Flag to track if the input is valid
+
+    char nav_role;
+    while(!validInput) {
+        cout << "role" << endl << "choose from the following:" << endl;
+        cout << "1- teaching \n";
+        cout << "2- engineering \n";
+        cout << "3- law \n";
+        cout << "4- medicine \n";
+        cout << "5- research \n";
+        cout << "6- sales \n";
+        cout << "7- restaurants \n";
+        cout << "8- cleaning \n";
+        cout << "9- economy \n";
+        cin >> nav_role;
+
+        switch (nav_role) {
+            case TEACHING: {
+                role = new char[strlen("teaching") + 1];
+                strcpy(role, "teaching");
+                validInput = true;
+                break;
+            }
+            case ENGINEERING: {
+                role = new char[strlen("engineering") + 1];
+                strcpy(role, "engineering");
+                validInput = true;
+                break;
+            }
+            case LAW: {
+                role = new char[strlen("law") + 1];
+                strcpy(role, "law");
+                validInput = true;
+                break;
+            }
+            case MEDICINE: {
+                role = new char[strlen("medicine") + 1];
+                strcpy(role, "medicine");
+                validInput = true;
+                break;
+            }
+            case RESEARCH: {
+                role = new char[strlen("research") + 1];
+                strcpy(role, "research");
+                validInput = true;
+                break;
+            }
+            case SALES: {
+                role = new char[strlen("sales") + 1];
+                strcpy(role, "sales");
+                validInput = true;
+                break;
+            }
+            case RESTAURANTS: {
+                role = new char[strlen("restaurants") + 1];
+                strcpy(role, "restaurants");
+                validInput = true;
+                break;
+            }
+            case CLEANING: {
+                role = new char[strlen("cleaning") + 1];
+                strcpy(role, "cleaning");
+                validInput = true;
+                break;
+            }
+            case ECONOMY: {
+                role = new char[strlen("economy") + 1];
+                strcpy(role, "economy");
+                validInput = true;
+                break;
+            }
+            default: {
+                cout << "Invalid input. Please choose a valid option." << endl;
+                // Optionally clear the input buffer in case of invalid input
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                // No need to set validInput to false as it's already false
+                break;
+            }
+
+
+        }
+    }
 
 }
 
 void Job::setJobDescription() {
-    char buffer[80];
+
+    char buffer[101];
 
     cout << "job description. to skip, enter \"none\"" << endl;
+    cin.ignore();
     cin.getline(buffer,101);
     job_description = new char[strlen(buffer)+1];
     strcpy(job_description, buffer);
-    cout<<"job description in field: " << job_description<<endl;
-
-
 
 }
 
 void Job::setJobRequirements() {
-    char buffer[80];
+    char buffer[101];
+//    cin.ignore();
 
     cout << "job requirements. you might want to include the following suggestions: degree, languages, "
             "experience,\n valid licence holder, personal skills...\n -to skip, enter \"none\"-" << endl;
     cin.getline(buffer,101);
     job_requirements = new char[strlen(buffer)+1];
     strcpy(job_requirements, buffer);
-    cout<<"job_requirements in field: " << job_requirements<<endl;
 
 
 }
 
 void Job::setJobType() {
 
-    get_job_type_input();
+    bool validInput = false;
+
+    while(!validInput) {
+
+        char nav_type;
+        cout << "job type" << endl << "choose from the following:" << endl;
+        cout << "1- full time \n";
+        cout << "2- part time \n";
+        cout << "3- student \n";
+        cout << "4- special needs \n";
+        cin >> nav_type;
+        switch (nav_type) {
+            case FULL_TIME: {
+                job_type = new char[strlen("fullTime") + 1];
+                strcpy(job_type, "fullTime");
+                validInput = true;
+                break;
+            }
+            case PART_TIME: {
+                job_type = new char[strlen("partTime") + 1];
+                strcpy(job_type, "partTime");
+                validInput = true;
+                break;
+            }
+            case STUDENT: {
+                job_type = new char[strlen("student") + 1];
+                strcpy(job_type, "student");
+                validInput = true;
+                break;
+            }
+            case SPECIAL_NEEDS: {
+                job_type = new char[strlen("specialNeeds") + 1];
+                strcpy(job_type, "specialNeeds");
+                validInput = true;
+                break;
+            }
+            default: {
+                cout << "Invalid input. Please choose a valid option." << endl;
+                // Optionally clear the input buffer in case of invalid input
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                // No need to set validInput to false as it's already false
+                break;
+            }
+
+
+        }
+    }
 
 }
 
 void Job::setJobCondition() {
-    char buffer[80];
 
-
+    char buffer[51];
+    cin.ignore();
     cout << "job conditions. you might want to include the following suggestions: wage, transportation, "
             " car job, \"TenBis \" discount. -to skip, enter \"none\"" << endl;
     cin.getline(buffer,51);
+//    cin.ignore();
     job_condition = new char[strlen(buffer)+1];
     strcpy(job_condition, buffer);
 
-    cout<<"job_condition in field: " << job_condition<<endl;
 
 
 }
 
 void Job::setLocation() {
 
-    get_job_location_input();
+
+    char nav_location;
+
+    bool validInput = false;
+
+    while(!validInput) {
+        cout << "job location" << endl << "choose from the following:" << endl;
+        cout << "1- north \n";
+        cout << "2- south \n";
+        cout << "3- center \n";
+        cout << "4- haifa \n";
+        cout << "5- Tel aviv \n";
+        cout << "6- Judea and Samaria \n";
+        cin >> nav_location;
+        switch (nav_location) {
+            case NORTH: {
+                location = new char[strlen("north") + 1];
+                strcpy(location, "north");
+                validInput = true;
+                break;
+            }
+            case SOUTH: {
+                location = new char[strlen("south") + 1];
+                strcpy(location, "south");
+                validInput = true;
+                break;
+            }
+            case CENTER: {
+                location = new char[strlen("center") + 1];
+                strcpy(location, "center");
+                validInput = true;
+                break;
+            }
+            case HAIFA: {
+                location = new char[strlen("haifa") + 1];
+                strcpy(location, "haifa");
+                validInput = true;
+                break;
+            }
+            case TEL_AVIV: {
+                location = new char[strlen("telAviv") + 1];
+                strcpy(location, "telAviv");
+                validInput = true;
+                break;
+            }
+            case JUDEA_AND_SAMARIA: {
+                location = new char[strlen("judeaAndSamaria") + 1];
+                strcpy(location, "judeaAndSamaria");
+                validInput = true;
+                break;
+            }
+            default: {
+                cout << "Invalid input. Please choose a valid option." << endl;
+                // Optionally clear the input buffer in case of invalid input
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                // No need to set validInput to false as it's already false
+                break;
+            }
+
+        }
+    }
 
 }
 
@@ -521,11 +522,43 @@ void Job::setJobApplicantsSize(int jobApplicantsSize) {
 //print functions
 void Job :: print() const
 {
+    //TODO fix colors!!!!
     Colors color;
-
-    color.setConsoleColor( FOREGROUND_RED );
-    cout << "----------------------------------------------------------------------------------------------------------- " << endl;
+    color.setConsoleColor(  FOREGROUND_INTENSITY );
+    cout << "----------------------------------------- job id: "<< id << "------------------------------------------------------------ " << endl;
     color.setConsoleColor(7);
+
+
+    if(liked) {
+        SetConsoleOutputCP(CP_UTF8);
+        color.setConsoleColor(FOREGROUND_RED);
+
+        // Set console code page to UTF-8 so console known how to interpret string data
+//        SetConsoleOutputCP(CP_UTF8);
+
+        // Enable buffering to prevent VS from injecting its own console code
+        setvbuf(stdout, nullptr, _IOFBF, 1000);
+
+        // Print heart symbol
+        cout << "♥  ";
+
+        color.setConsoleColor(7);
+    } else {
+        SetConsoleOutputCP(CP_UTF8);
+        color.setConsoleColor(FOREGROUND_RED);
+        cout << "\xE2\x99\xA1  ";// UTF-8 encoding for U+2661 ('♡') is E2 99 A1
+        color.setConsoleColor(7);
+    }
+    if(submitted) {
+        color.setConsoleColor(FOREGROUND_GREEN);
+        cout << "submitted  ";
+        color.setConsoleColor(7);
+    }
+    cout << "posted in: " << date <<endl;
+
+
+
+
 
     color.setConsoleColor( FOREGROUND_BLUE );
     cout << "\ncompany name: " << endl;
@@ -562,42 +595,40 @@ void Job :: print() const
     color.setConsoleColor(7);
     cout << location << endl << endl;
 
-    color.setConsoleColor( FOREGROUND_BLUE );
-    cout << "posted in: " << endl;
-    color.setConsoleColor(7);
-    cout << date << endl << endl;
+//    color.setConsoleColor( FOREGROUND_BLUE );
+//    cout << "posted in: " << endl;
+//    color.setConsoleColor(7);
+//    cout << date << endl << endl;
 
-    color.setConsoleColor( FOREGROUND_BLUE );
-    cout << "id: " << endl;
-    color.setConsoleColor(7);
-    cout << id << endl << endl;
+//    color.setConsoleColor( FOREGROUND_BLUE );
+//    cout << "id: " << endl;
+//    color.setConsoleColor(7);
+//    cout << id << endl << endl;
 
-    color.setConsoleColor( FOREGROUND_BLUE );
-    cout << "is submitted: " << endl;
-    color.setConsoleColor(7);
-    cout << submitted << endl << endl;
-
-    color.setConsoleColor( FOREGROUND_BLUE );
-    cout << "is liked: " << endl;
-    color.setConsoleColor(7);
-    cout << liked << endl << endl;
-
-
+//    color.setConsoleColor( FOREGROUND_BLUE );
+//    cout << "is submitted: " << endl;
+//    color.setConsoleColor(7);
+//    cout << submitted << endl << endl;
+//
+//    color.setConsoleColor( FOREGROUND_BLUE );
+//    cout << "is liked: " << endl;
+//    color.setConsoleColor(7);
+//    cout << liked << endl << endl;
 
 
-    color.setConsoleColor( FOREGROUND_RED );
-    cout << "----------------------------------------------------------------------------------------------------------- " << endl;
+
+
+    color.setConsoleColor( FOREGROUND_INTENSITY );
+    cout << "----------------------------------------------------------------------------------------------------------------- " << endl;
     color.setConsoleColor(7);
 
 }
 
 void Job:: printJobApplicants() {
-    cout << "\n-------inside printJobApplicants--\n\n";
     for (int i = 0; i < jobApplicantsSize; ++i) {
-        jobApplicants[i] -> print();
+        jobApplicants[i]->getCv()->print();//printing CV's of candidates
 
     }
-
 }
 
 
@@ -608,7 +639,6 @@ void Job :: updateJob()
 
     do {
 
-
         cout << "1- company name \n";
         cout << "2- role\n";
         cout << "3- job description \n";
@@ -616,7 +646,7 @@ void Job :: updateJob()
         cout << "5- job type\n";
         cout << "6- job condition \n";
         cout << "7- location \n";
-        cout << "8- back to all submitted jobs \n";
+        cout << "8- update \n";
 
 
         cin >> nav_update_job;
@@ -678,17 +708,17 @@ void Job :: today() {
     tm *timeinfo;
     time(&rawtime);
     timeinfo = localtime(&rawtime);
-    int d = timeinfo->tm_mday;
     int m = timeinfo->tm_mon + 1;
+    int d = timeinfo->tm_mday;
     int y = timeinfo->tm_year + 1900;
 
     char buffer[10] = "";
-    strcat(buffer, to_string(d).c_str());
-    strcat(buffer, "/");
     strcat(buffer, to_string(m).c_str());
     strcat(buffer, "/");
+    strcat(buffer, to_string(d).c_str());
+    strcat(buffer, "/");
     strcat(buffer, to_string(y).c_str());
-    cout << buffer;
+
     date = new char[strlen(buffer)+1];
     strcpy(date, buffer);
 }
@@ -699,7 +729,7 @@ void Job:: readMaxIdFromFiles() {
 
 
     fstream file_general;
-    file_general.open("C:\\ObjectOrientedProgramming\\jobSearch\\general.txt", ios::in);
+    file_general.open("C:\\ObjectOrientedProgramming\\jobSearch\\uniqueId.txt", ios::in);
     if (!file_general.is_open())
         cout << "file could not be opened, check error" << endl;
     else {
@@ -713,7 +743,7 @@ void Job:: readMaxIdFromFiles() {
 void Job:: insertMaxIdToFiles() {
 
     fstream file_general;
-    file_general.open("C:\\ObjectOrientedProgramming\\jobSearch\\general.txt", ios::out);
+    file_general.open("C:\\ObjectOrientedProgramming\\jobSearch\\uniqueId.txt", ios::out);
     if (!file_general.is_open())
         cout << "file could not be opened, check error" << endl;
     else {

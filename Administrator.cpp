@@ -57,11 +57,16 @@ Administrator :: ~Administrator()
 
 }
 
-//main function that starts program for user //TODO after operation come back to personal area. add case to end program
+//main function that starts program for user
 void Administrator :: enterSystem()
 {
     char enteringChoice;
-    cout << "A-log in" << endl << "B-register" << endl;
+    Colors color;
+
+    color.setConsoleColor( FOREGROUND_RED );
+    cout << "\nA-log in" << endl << "B-register\n";
+    color.setConsoleColor(7);
+
     cin >> enteringChoice;
     switch (enteringChoice) {
         case LOGIN: {
@@ -69,10 +74,17 @@ void Administrator :: enterSystem()
             bool userExists = false;
             char temp_id[10];
             char temp_password[20];
+
+            color.setConsoleColor( FOREGROUND_RED );
             cout << "id" << endl;
+            color.setConsoleColor(7);
             cin.getline(temp_id, 20);
+
+            color.setConsoleColor( FOREGROUND_RED );
             cout << "password" << endl;
+            color.setConsoleColor(7);
             cin.getline(temp_password, 20);
+
             char user_type = '\0';
             while(user_type == '\0' && !userExists) {
                 //check if id and password belong to the same user
@@ -101,9 +113,15 @@ void Administrator :: enterSystem()
                 }
                 if (!userExists) {//if user is not in system--
                     cout << "1 or more details are incorrect, please try again" << endl;
+                    color.setConsoleColor( FOREGROUND_RED );
                     cout << "id" << endl;
+                    color.setConsoleColor(7);
                     cin.getline(temp_id, 20);
+
+                    color.setConsoleColor( FOREGROUND_RED );
                     cout << "password" << endl;
+                    color.setConsoleColor(7);
+
                     cin.getline(temp_password, 20);
 
                 }

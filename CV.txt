@@ -1,3 +1,6 @@
-098765432 #summary# this is my summary  #experience# this is my experience  #education# this is ,y education  #licenses# this is my licence  #skills# this is my skills  #awards# this is my awards  #name# hodaya shirazie  #email# hodaya.sh2003@gmail.com  #endl# 
+098765432 #summary# none  #experience# none  #education# none  #licenses# none  #skills# none  #awards# none  #name# Adam  #email# adam.co@gmail.com  #endl# 
 000000000 #summary# re  #experience# re  #education# poiu iuj  #licenses# iuyhgv  #skills# oiuy  #awards# iuy  #name# HILA  #email# hila@ff12.il  #endl# 
 098778900 #summary# this is my sum  #experience# none  #education# eduu  #licenses# li h  #skills# sdgi i  #awards# iujhygtfr  #name# nofar  #email# nofar@dan.org  #endl# 
+098765432 #summary# none  #experience# none  #education# none  #licenses# none  #skills# none  #awards# none  #name# Adam  #email# adam.co@gmail.com  #endl# 
+234567890 #summary# this is my summary  #experience# none  #education# none  #licenses# none  #skills# none  #awards# none  #name# HODAYA SHIR  #email# @.org  #endl# 
+685445678 #summary# summ  #experience# exper  #education# erty  #licenses# fvgbhj  #skills# fghjkj hjk  #awards# ugfvb uj  #name# shie endri  #email# shir.edri2002@gmail.org  #endl# 

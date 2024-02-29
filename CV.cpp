@@ -361,11 +361,14 @@ void CV::  change_cv()
 
             }
             case BACK_E_P: {
+                cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                 break;
 
             }
-            default:
-                cout << "choose from the option above \n";
+            default:{
+                cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                //if input is not one of the above - do nothing and print menu again
+            };
 
         }
     }while (nav_edit_cv != BACK_E_P);

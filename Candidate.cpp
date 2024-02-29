@@ -43,118 +43,41 @@ Candidate :: Candidate(char* id, char* password, char* userName, char* email, ch
 //constructor with no parameters
  Candidate :: Candidate() : userName(NULL), id(NULL), email(NULL), phoneNumber(NULL), birthDate(NULL), password(NULL),freeTxt(NULL),all_jobs_arr_size(0), all_jobs_arr(NULL) {
 
+    //copy jobs from file
     copyAllJobsFromFile();
 
-
-    char buffer[80];
-    cin.ignore();
-
     //getting user-name
-    cout << "username" << endl;
-    cin.getline(buffer, 80);
-    while (strlen(buffer) > 20) {
-        cout << "user name is up to 20 letters, try again" << endl;
-        cin.getline(buffer, 80);
-    }
-
-    userName = new char[strlen(buffer) + 1];
-    strcpy(userName, buffer);
+    set_user_name();
 
     //getting user id
-    cout << "id" << endl;
-    cin.getline(buffer, 80);
-    while (strlen(buffer) != 9) {
-        cout << "invalid id, try again" << endl;
-        cin.getline(buffer, 80);
-    }
-    id = new char[strlen(buffer) + 1];
-    strcpy(id, buffer);
-
+    set_id();
 
     //getting user email
-    cout << "email" << endl;
-    cin.getline(buffer, 80);
-
-    bool existsSign = false;
-    bool validChar = true;
-    bool invalidProfix = false;
-    while (!validChar || !invalidProfix || !existsSign) {
-
-        int lenEmail = strlen(buffer);
-
-        //if email does not end with .org/.com/.il
-        if ((buffer[lenEmail - 1] == 'm' && buffer[lenEmail - 2] == 'o' && buffer[lenEmail - 3] == 'c' &&
-             buffer[lenEmail - 4] == '.')
-            || (buffer[lenEmail - 1] == 'g' && buffer[lenEmail - 2] == 'r' && buffer[lenEmail - 3] == 'o' &&
-                buffer[lenEmail - 4] == '.') ||
-            (buffer[lenEmail - 1] == 'l' && buffer[lenEmail - 2] == 'i' && buffer[lenEmail - 3] == '.'))
-            invalidProfix = true;
-
-
-        //if email contains invalid characters
-        for (int i = 0; buffer[i] != '\0' && validChar && invalidProfix; ++i) {
-            if (!(buffer[i] >= 'a' && buffer[i] <= 'z' || buffer[i] >= 'A' && buffer[i] <= 'Z'))
-                if (!(buffer[i] >= '0' && buffer[i] <= '9'))
-                    if (!(buffer[i] == '-' || buffer[i] == '.'))
-                        if (!(buffer[i] == '@')) {
-                            validChar = false; //email is not valid
-                        } else
-                            existsSign = true;
-
-        }
-        if (!validChar || !invalidProfix || !existsSign) {
-            cout << "invalid email, enter again" << endl;
-            cin.getline(buffer, 80);
-        }
-
-    }
-
-    email = new char[strlen(buffer) + 1];
-    strcpy(email, buffer);
-
+    set_email();
 
     //getting phone number
-    cout << "phone number" << endl;
-    cin.getline(buffer, 80);
-    while (strlen(buffer) != 10 || buffer[0] != '0') {
-        cout << "invalid phone number, enter again" << endl;
-        cin.getline(buffer, 80);
-    }
-    phoneNumber = new char[strlen(buffer) + 1];
-    strcpy(phoneNumber, buffer);
+    set_phone_number();
 
-    //getting birth date
-    cout << "birthDate" << endl;
-    cin.getline(buffer, 80);
-
-    //TODO check validation
-
-    birthDate = new char[strlen(buffer) + 1];
-    strcpy(birthDate, buffer);
+    //getting birthdate
+    set_birth_date();
 
     //getting password
-    cout << "password" << endl;
-    cin.getline(buffer, 80);
+    set_password();
 
-    //TODO check validation
 
-    password = new char[strlen(buffer) + 1];
-    strcpy(password, buffer);
+    //getting free text
+    set_free_text();
 
-    char tempFt[501];
-    cout << "add free text to tell about yourself, if you dont want- enter none" << endl;
-    cin.getline(tempFt, 501);
-    freeTxt = new char[strlen(tempFt) + 1];
-    strcpy(freeTxt, tempFt);
+
 
     //add cv
     cv = new CV(userName, email);
 
 
-    cout << "create account" << endl;
-    cout << "-----------------------printing all copied jobs------------------------" << endl;
-
-    printAllJobsArr();
+//    cout << "create account" << endl;
+//    cout << "-----------------------printing all copied jobs------------------------" << endl;
+//
+//    printAllJobsArr();
 //    updateSubmittedStatusFromFile();
 
 
@@ -241,25 +164,24 @@ Candidate& Candidate :: operator=(const Candidate& candidate)
 //person area
 void Candidate :: personalArea()
 {
+
     char nav_personal_area = '\0'; //TODO change to do-while
+
 
     while(nav_personal_area != Exit_C) {
         cout << "1- edit profile \n";
         cout << "2- all jobs \n";
         cout << "3- filter jobs \n";
         cout << "4- submit job \n";
-        cout << "5- like a job \n";
-        cout << "6- jobs i liked \n";
-        cout << "7- submission history \n";
-        cout << "8- exit \n";
+        cout << "5- like job \n";
+        cout << "6- submission history \n";
+        cout << "7- log out \n";
         cin >> nav_personal_area;
 
 
         switch (nav_personal_area) {
             case EDIT_PROFILE: {
                 char nav_edit_profile;
-
-
 
                 do {
                     cout << "1- user name \n";
@@ -299,14 +221,19 @@ void Candidate :: personalArea()
 
                         }
                         case UPDATE_P_C: {
+                            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                             break;
 
                         }
+                        default:{
+                            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                            //if input is not one of the above - do nothing and print menu again
+                        };
 
                     }
                 }while (nav_edit_profile != UPDATE_P_C);
 
-                print();
+//                print();//////////////////////DELETE AFTERWARDS
 
 
                 break;
@@ -327,17 +254,50 @@ void Candidate :: personalArea()
             }
 
             case LIKE_A_JOB: {
-                likeJob();
+
+                char nav_like_job;
+
+                cout << "1- like a job \n";
+                cout << "2- un-like a job \n";
+                cout << "3- jobs i liked \n";
+                cin >> nav_like_job;
+
+                switch (nav_like_job) {
+                    case LIKE_A_JOB_l: {
+                        likeJob();
+                        break;
+                    }
+                    case UN_LIKE_A_JOB_l: {
+                        unLikeJob();
+                        break;
+                    }
+                    case JOBS_I_LIKED_I: {
+                        viewLikedJobs();
+                        break;
+                    }
+                    default:{
+                        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                        //if input is not one of the above - do nothing and print menu again
+                    };
+                }
+
+
+
+
+
+
+
                 break;
             }
-            case JOBS_I_LIKED: {
-                viewLikedJobs();
-                break;
-            }
+
             case SUBMISSION_HISTORY_C: {
                 viewSubmissionHistory();
                 break;
             }
+            default:{
+                cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                //if input is not one of the above - do nothing and print menu again
+            };
         }
 
     }
@@ -351,17 +311,42 @@ void Candidate :: set_user_name()
 
     char buffer[80];
     cin.ignore();
-    
+//    cin.clear();
     //getting user-name
     cout << "username" << endl;
-    cin.getline(buffer,80);
-    //if input is valid
-    while(strlen(buffer) > 20) {
-        cout << "user name is up to 20 letters, try again" << endl;
-        cin.getline(buffer,80);
+    cin.getline(buffer, 80);
+    while (strlen(buffer) > 20 || !checkFirstNameAndLastName(buffer)) { //check validation of user name
+        cout << "enter a valid user name" << endl;
+        cin.getline(buffer, 80);
     }
     userName = new char[strlen(buffer) + 1];
-    strcpy(userName,buffer);
+    strcpy(userName, buffer);
+}
+
+void  Candidate ::set_id() {
+
+    bool valid = false;
+    char buffer[80];
+    cout << "id" << endl;
+    cin.getline(buffer, 80);
+    while (!valid) {
+        bool onlyDigits = true;
+        for (int i = 0; buffer[i] != '\0'; ++i)
+            if (buffer[i] < '0' || buffer[i] > '9')
+                onlyDigits = false;
+
+        if (strlen(buffer) == 9 && onlyDigits)
+            valid = true;
+        else {
+            cout << "invalid id, try again" << endl;
+            cin.getline(buffer, 80);
+        }
+
+    }
+    id = new char[strlen(buffer) + 1];
+    strcpy(id, buffer);
+
+
 }
 
 void Candidate::set_email()
@@ -416,17 +401,31 @@ void Candidate::set_email()
 void Candidate :: set_phone_number()
 {
     char buffer[80];
-//    cin.ignore();
 
     delete [] phoneNumber;
     cin.ignore();
+    bool valid = false;
+
     cout << "phone number" << endl;
     cin.getline(buffer, 80);
-    while(strlen(buffer) != 10 || buffer[0] != '0')
-    {
-        cout << "invalid phone number, enter again" << endl;
-        cin.getline(buffer, 80);
+
+    while (!valid) {
+        bool onlyDigits = true;
+
+        for (int i = 0; buffer[i] != '\0'; ++i)
+            if (buffer[i] < '0' || buffer[i] > '9')
+                onlyDigits = false;
+
+        if (strlen(buffer) == 10 && buffer[0] == '0' && onlyDigits)
+            valid = true;
+        else {
+            cout << "invalid phone number, enter again" << endl;
+            cin.getline(buffer, 80);
+
+        }
     }
+
+
     phoneNumber = new char[strlen(buffer) + 1];
     strcpy(phoneNumber, buffer);
 }
@@ -436,18 +435,122 @@ void Candidate:: set_password()
     char buffer[80];
     delete [] password;
     cin.ignore();
+
+    bool lowerCase = false;
+    bool upperCase = false;
+    bool valid = false;
+
     cout << "password" << endl;
     cin.getline(buffer, 80);
+    while(!valid)
+    {
+        for (int i = 0; buffer[i] != '\0' && !valid; ++i) {
+            if (buffer[i] >= 'a' && buffer[i] <= 'z')
+                lowerCase = true;
+            else if(buffer[i] >= 'A' && buffer[i] <= 'Z')
+                upperCase = true;
+
+            if(lowerCase && upperCase && strlen(buffer) >= 8)
+                valid = true;
+        }
+        if(!valid)
+        {
+            cout << "password is not valid, try again" << endl;
+            cin.getline(buffer, 80);
+        }
+    }
+
+
     password = new char[strlen(buffer) + 1];
     strcpy(password, buffer);
 
 }
 
+void Candidate:: set_birth_date()
+{
+    delete [] birthDate;
+    int d,m,y;
+    cout<<"date: enter month, day and year"<<endl;
+
+
+    //validate input
+    while(!(cin >> m) || !(cin >> d) || !(cin >> y)) //if input is not integer
+
+    {
+        cout << "Invalid input.try again \n";
+        cin.clear();// Clear the buffer
+        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');// Ignore the rest of the input line to avoid infinite loop
+    }
+
+    //validate date
+    while(!checkValidDate(d,m,y)) {
+        int d,m,y;
+        cout<<"invalid date, enter: month, day and year"<<endl;
+        cin >> m >> d >> y;
+    }
+    char buffer[10] = "";
+    strcat(buffer, to_string(m).c_str());
+    strcat(buffer, ".");
+    strcat(buffer, to_string(d).c_str());
+    strcat(buffer, ".");
+    strcat(buffer, to_string(y).c_str());
+
+
+    birthDate = new char[strlen(buffer) + 1];
+    strcpy(birthDate, buffer);
+
+}
+
+void Candidate:: set_free_text()
+{
+    char tempFt[501];
+    cout << "add free text to tell about yourself, if you dont want- enter 'none'" << endl;
+    cin.getline(tempFt, 501);
+    freeTxt = new char[strlen(tempFt) + 1];
+    strcpy(freeTxt, tempFt);
+
+}
+
 void Candidate:: set_cv(CV *cv)
 {
-    //TODO change cv fields
     this->cv = cv;
 }
+
+
+
+bool Candidate:: checkValidDate(int day, int month, int year) {
+
+    if (year < 1924 || year > 2006) {
+        return false;
+    }
+
+    if (month < 1 || month > 12) {
+        return false;
+    }
+
+    int daysInMonth;
+    if (month == 2) {
+
+        if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)) {
+            daysInMonth = 29;
+        } else {
+            daysInMonth = 28;
+        }
+    } else if (month == 4 || month == 6 || month == 9 || month == 11) {
+        daysInMonth = 30;
+    } else {
+        daysInMonth = 31;
+    }
+
+    if (day < 1 || day > daysInMonth) {
+        return false;
+    }
+
+    return true;
+
+}
+
+
 
 
 
@@ -654,10 +757,20 @@ void Candidate :: addJobToJobArr(Job* job) {
 void Candidate :: printAllJobsArr() const
 {
     for (int i = 0; i < all_jobs_arr_size; ++i) {
-        cout << "\nJob offer number " << i+1 << " for you" << endl;
+//        cout << "\nJob offer number " << i+1 << " for you" << endl;
         all_jobs_arr[i]->print();
 
     }
+}
+
+//function that returns true if str is at least 2 words and false otherwise
+bool Candidate :: checkFirstNameAndLastName(char* str)
+{
+    bool exists = false;
+    for (int i = 0; str[i]!= '\0'; ++i)
+        if(str[i] == ' ')
+            exists = true;
+    return exists;
 }
 
 
@@ -674,7 +787,6 @@ void Candidate :: submit_job()
         if(all_jobs_arr[i]->getId().compare(tmpID) == 0)
         {
             is_job_found_in_file = true;
-            cout <<"found jobb-----\n";
             all_jobs_arr[i]->setSubmitted();
 
 //            //--------------added----------
@@ -701,8 +813,10 @@ void Candidate :: submit_job()
 
 }
 
-
+////////TODO fix herer
 void Candidate :: filterJobsByFeatures() {
+
+    bool isInputValid = true;
 
     bool north = false, south = false, center = false, haifa = false, telAviv = false, judeaAndSamaria = false;
 
@@ -720,7 +834,11 @@ void Candidate :: filterJobsByFeatures() {
     cout << "3- role \n";
 //        cout << "4- back to  \n";
 
-    cin >> nav_filter_job;
+    if(!cin >> nav_filter_job) {
+        cin.clear(); // Clears the error flag on cin
+        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    }
+//    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Clear buffer after reading//////afdded noww
 
 
     switch (nav_filter_job) {
@@ -767,6 +885,11 @@ void Candidate :: filterJobsByFeatures() {
                         judeaAndSamaria = true;
                         break;
                     }
+                    default:{
+                        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                        break;
+                        //if input is not one of the above - do nothing and print menu again
+                    };
                 }
 
 
@@ -805,6 +928,11 @@ void Candidate :: filterJobsByFeatures() {
                         special_needs = true;
                         break;
                     }
+                    default:{
+                        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                        break;
+                        //if input is not one of the above - do nothing and print menu again
+                    };
                 }
             }
             while (nav_job_type != '5');
@@ -870,6 +998,12 @@ void Candidate :: filterJobsByFeatures() {
                         economy = true;
                         break;
                     }
+                    default:{
+                        cin.clear(); // Clears the error flag on cin
+                        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                        break;
+                        //if input is not one of the above - do nothing and print menu again
+                    };
 
 
                 }
@@ -879,8 +1013,17 @@ void Candidate :: filterJobsByFeatures() {
 
 //            break;
         }
+        default:{
+//            cin.clear(); // Clears the error flag on cin
+//            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            isInputValid = false;
+            break;
+            //if input is not one of the above - do nothing and print menu again
+        };
     }
 
+    if(!isInputValid)
+        return;
 
     //print jobs who meet user selections
 
@@ -977,22 +1120,8 @@ void Candidate :: viewSubmissionHistory()
 void Candidate :: likeJob() {
     char tmpID[500] = "";//TODO  you can open file and define in length that is bigger in 1 fro, file
     cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-    cout << "enter id of job you want to mark as ";
 
-    Colors color;
-
-    color.setConsoleColor(FOREGROUND_RED);
-
-    // Set console code page to UTF-8 so console known how to interpret string data
-    SetConsoleOutputCP(CP_UTF8);
-
-    // Enable buffering to prevent VS from injecting its own console code
-    setvbuf(stdout, nullptr, _IOFBF, 1000);
-
-    // Print heart symbol
-    cout << "♥" << endl;
-
-    color.setConsoleColor(7);
+    cout << "enter id of job you want to mark as liked \n";
 
     cin.getline(tmpID, 500);
     strcat(tmpID, " ");
@@ -1002,6 +1131,28 @@ void Candidate :: likeJob() {
             all_jobs_arr[i]->setLiked();
         }
     }
+}
+
+void Candidate :: unLikeJob()
+{
+    Colors color;
+
+    char tmpID[500] = "";//TODO  you can open file and define in length that is bigger in 1 fro, file
+    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+    std::cout << "enter id of job you want to mark as un liked\n";
+
+    cin.getline(tmpID, 500);
+    strcat(tmpID, " ");
+    for (int i = 0; i < all_jobs_arr_size; ++i) {
+        if (all_jobs_arr[i]->getId().compare(tmpID) == 0) {//cmp between strings
+            cout << "found jobb--UN-LIKED--\n";
+            all_jobs_arr[i]->setUnLiked();
+        }
+    }
+
+
+
 }
 
 
@@ -1091,7 +1242,6 @@ void Candidate :: copySubmittedJobsToFile()
 
 void Candidate :: copyLikedJobsToFile() {
 
-//TODO open and close file
     fstream file_liked_jobs;
 
     file_liked_jobs.open("C:\\ObjectOrientedProgramming\\jobSearch\\likedJobs",ios::app);
@@ -1121,6 +1271,10 @@ void Candidate :: copyLikedJobsToFile() {
 
     }
 
+}
+
+CV *Candidate::getCv() const {
+    return cv;
 }
 
 

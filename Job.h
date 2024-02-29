@@ -9,11 +9,11 @@
 #include <cstring>
 #include <fstream>
 #include "Colors.h"
+#include <limits>
+
 
 class Candidate; //forward declaration
 
-
-//TODO maintain array of applicants here for candidate submissions in employer
 
 
 using std::cout;
@@ -23,6 +23,9 @@ using std::to_string;
 using std::string;
 using std::ios;
 using std::fstream;
+using std:: numeric_limits;
+using std:: streamsize;
+
 
 
 
@@ -54,12 +57,6 @@ public:
 
     string getId() const;
 
-    void get_role_input();
-
-    void get_job_type_input();
-
-    void get_job_location_input();
-
     char *getCompanyName() const;
 
     char *getRole() const;
@@ -88,6 +85,8 @@ public:
     void setSubmitted();
 
     void setLiked();
+
+    void setUnLiked();
 
     void setCompanyName();
 

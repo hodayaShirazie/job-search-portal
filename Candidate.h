@@ -23,10 +23,10 @@ using std::fstream;
 using std::ios;
 
 
-enum personalAreaCandidate{EDIT_PROFILE = '1', ALL_JOBS = '2', FILTER_JOBS = '3', SUBMIT_JOB = '4', LIKE_A_JOB = '5',  JOBS_I_LIKED = '6', SUBMISSION_HISTORY_C = '7',Exit_C = '8'};
+enum personalAreaCandidate{EDIT_PROFILE = '1', ALL_JOBS = '2', FILTER_JOBS = '3', SUBMIT_JOB = '4', LIKE_A_JOB = '5',  SUBMISSION_HISTORY_C = '6',Exit_C = '7'};
 enum editProfileCandidate{USER_NAME_C = '1', EMAIL_C = '2', PHONE_NUMBER_C = '3', PASSWORD_C = '4', CV_C = '5', UPDATE_P_C = '6'};
 enum filterJobs_c{LOCATION_F = '1', JOB_TYPE_F = '2', ROLE_F = '3'};
-
+enum likeJobs_c{LIKE_A_JOB_l = '1', UN_LIKE_A_JOB_l = '2', JOBS_I_LIKED_I = '3'};
 
 
 
@@ -50,13 +50,20 @@ public:
     //setters
     void set_user_name();
 
+    void set_id();
+
     void set_email();
 
     void set_phone_number();
 
     void set_password();
 
+    void set_birth_date();
+
+    void set_free_text();
+
     void set_cv(CV *cv);
+
 
 
     //getters
@@ -68,16 +75,22 @@ public:
 
     char *getPassword() const;
 
+    CV *getCv() const;
+
+
 
 
     void print() const;
 
+    void printAllJobsArr() const;
+
+    bool checkValidDate(int day, int month, int year);
+
+    bool checkFirstNameAndLastName(char* str);
 
     void copyAllJobsFromFile();
 
     void addJobToJobArr(Job* job);
-
-    void printAllJobsArr() const;
 
     void submit_job();
 
@@ -88,6 +101,8 @@ public:
     void viewSubmissionHistory();
 
     void likeJob();
+
+    void unLikeJob();
 
     void viewLikedJobs();
 

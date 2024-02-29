@@ -9,7 +9,10 @@
 
 
 #include <iostream>
+#include <limits>
 
+using std:: numeric_limits;
+using std:: streamsize;
 
 
 
