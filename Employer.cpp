@@ -711,7 +711,7 @@ void Employer :: delete_a_job()
 }
 
 bool Employer :: isValidNumber(char* jobId) {
-    
+
     bool exists = false;
     bool allDigits = true;
 
