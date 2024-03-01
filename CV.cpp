@@ -16,10 +16,7 @@ using std::cout;
 using std::cin;
 using std::endl;
 
-//void setConsoleColor(WORD c)
-//{
-//    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), c);
-//}
+
 
 CV::CV(){}
 
@@ -92,7 +89,6 @@ CV::~CV()
    awards = NULL;
    name = NULL;
    email = NULL;
-//   cout <<"dis CV" <<endl;
 
 }
 
@@ -204,7 +200,7 @@ void CV:: createCV()
 //print cv
 void CV:: print ()const
 {
-    //print only if field is not "none"
+    //TODO// print only if field is not "none"
 
     Colors color;
     color.setConsoleColor( FOREGROUND_BLUE );

@@ -1,4 +1,4 @@
-//
+// TODO innnnnnnnnnnnnnnnnn sub history
 // Created by Student on 14/02/2024.
 //
 
@@ -11,6 +11,7 @@
 #include <cstring>
 #include <limits>
 #include "Colors.h"
+#include <algorithm>
 
 class Job; //forward declaration
 
@@ -100,7 +101,9 @@ public:
 
     void viewSubmissionHistory();
 
-    void likeJob();
+    bool compareJobsByDate(Job* a, Job* b);
+
+     void likeJob();
 
     void unLikeJob();
 
@@ -114,19 +117,6 @@ public:
 
     void copyLikedJobsToFile();
 
-//    void addCandidateToJobApllicantsArr(Candidate* candidate, Job* job);
-
-//    char *getPhoneNumber() const;
-
-//    char *getBirthDate() const;
-
-//    CV *getCv() const;
-
-//    char *getUserName() const;
-
-//    void updateSubmittedStatusFromFile();
-
-//    char *getEmail() const;
 
 
 

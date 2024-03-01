@@ -63,9 +63,15 @@ void Administrator :: enterSystem()
     char enteringChoice;
     Colors color;
 
-    color.setConsoleColor( FOREGROUND_RED );
-    cout << "\nA-log in" << endl << "B-register\n";
+    color.setConsoleColor(  FOREGROUND_RED );
+    cout << "\nA";
     color.setConsoleColor(7);
+    cout << "-log in" << endl;
+    color.setConsoleColor(  FOREGROUND_RED );
+    cout << "B";
+    color.setConsoleColor(7);
+    cout << "-register\n";
+
 
     cin >> enteringChoice;
     switch (enteringChoice) {
@@ -75,14 +81,14 @@ void Administrator :: enterSystem()
             char temp_id[10];
             char temp_password[20];
 
-            color.setConsoleColor( FOREGROUND_RED );
+//            color.setConsoleColor( FOREGROUND_RED );
             cout << "id" << endl;
-            color.setConsoleColor(7);
+//            color.setConsoleColor(7);
             cin.getline(temp_id, 20);
 
-            color.setConsoleColor( FOREGROUND_RED );
+//            color.setConsoleColor( FOREGROUND_RED );
             cout << "password" << endl;
-            color.setConsoleColor(7);
+//            color.setConsoleColor(7);
             cin.getline(temp_password, 20);
 
             char user_type = '\0';
@@ -210,31 +216,32 @@ void Administrator :: emptyFiles()
 {
     //open and close files to delete history
     fstream file;
-    file.open("C:\\ObjectOrientedProgramming\\jobSearch\\personalDetails.txt",ios::out);
+    file.open("C:\\ObjectOrientedProgramming\\job-search-portal\\personalDetails.txt",ios::out);
     if(!file.is_open())
         cout << "file could not be opened, check error" << endl;
     else
         file.close();
 
-    file.open("C:\\ObjectOrientedProgramming\\jobSearch\\CV.txt",ios::out);
+    file.open("C:\\ObjectOrientedProgramming\\job-search-portal\\CV.txt",ios::out);
     if(!file.is_open())
         cout << "file could not be opened, check error" << endl;
     else
         file.close();
 
-    file.open("C:\\ObjectOrientedProgramming\\jobSearch\\jobs.txt",ios::out);
+    file.open("C:\\ObjectOrientedProgramming\\job-search-portal\\jobs.txt",ios::out);
     if(!file.is_open())
         cout << "file could not be opened, check error" << endl;
     else
         file.close();
 
-    file.open("C:\\ObjectOrientedProgramming\\jobSearch\\submittedJobs",ios::out);
+    file.open("C:\\ObjectOrientedProgramming\\job-search-portal\\submittedJobs",ios::out);
     if(!file.is_open())
         cout << "file could not be opened, check error" << endl;
     else
         file.close();
 
-    file.open("C:\\ObjectOrientedProgramming\\jobSearch\\likedJobs",ios::out);
+    file.open("C:\\ObjectOrientedProgramming\\job-search-portal\\likedJobs",ios::out);
+
     if(!file.is_open())
         cout << "file could not be opened, check error" << endl;
     else
@@ -258,17 +265,18 @@ void Administrator :: copyJobsFromFile() {
             char job_type[200] = "\0";
             char job_condition[200] = "\0";
             char location[200] = "\0";
-            char date[200] = "\0";
             char id_j[5] = "\0";
+            int d = 0,m = 0,y = 0;
 
             //TODO copy list of jobs
-            file_jobs.open("C:\\ObjectOrientedProgramming\\jobSearch\\jobs.txt", ios::in);
+            file_jobs.open("C:\\ObjectOrientedProgramming\\job-search-portal\\jobs.txt", ios::in);
             if (!file_jobs.is_open())
                 cout << "file could not be opened, check error" << endl;
             else {
 
                 while (!file_jobs.eof()) {
                     char read_file_jobs[200];
+                    int readFileDate;
                     file_jobs >> read_file_jobs;
                     if (strcmp(read_file_jobs, employers_arr[i]->getId()) == 0) {
                         //coping company name
@@ -316,19 +324,27 @@ void Administrator :: copyJobsFromFile() {
                         }
                         file_jobs >> read_file_jobs;
 
+
+
+
                         while (!strcmp(read_file_jobs, "#date#") == 0) {
                             strcat(location, read_file_jobs);
                             strcat(location, " ");
                             file_jobs >> read_file_jobs;
                         }
-                        file_jobs >> read_file_jobs;
+                        file_jobs >> m >> d >> y;
+                        file_jobs >> read_file_jobs >> read_file_jobs;
 
-                        while (!strcmp(read_file_jobs, "#id#") == 0) {
-                            strcat(date, read_file_jobs);
-                            strcat(date, " ");
-                            file_jobs >> read_file_jobs;
-                        }
-                        file_jobs >> read_file_jobs;
+
+
+
+
+//                        while (!strcmp(read_file_jobs, "#id#") == 0) {
+//                            strcat(date, read_file_jobs);
+//                            strcat(date, " ");
+//                            file_jobs >> read_file_jobs;
+//                        }
+//                        file_jobs >> read_file_jobs;
 
 
                         while (!strcmp(read_file_jobs, "#endl#") == 0) {
@@ -340,7 +356,7 @@ void Administrator :: copyJobsFromFile() {
                         //create new Job with details from file
                         Job *job = new Job(company_name, role, job_description, job_requirements, job_type,
                                            job_condition,
-                                           location, date, id_j);
+                                           location, id_j,d,m,y);
 
 
                         //add job to publish jobs array
@@ -357,7 +373,6 @@ void Administrator :: copyJobsFromFile() {
                     job_type[0] = '\0';
                     job_condition[0] = '\0';
                     location[0] = '\0';
-                    date[0] = '\0';
                     id_j[0] = '\0';
                 }
 
@@ -370,7 +385,7 @@ void Administrator :: copyJobsFromFile() {
 void Administrator ::copyPersonalDetailsFromFile() {
     //copy personal details of employer + candidate to file "personal employer
     fstream file_personal_details, file_cv,file_jobs;
-    file_personal_details.open("C:\\ObjectOrientedProgramming\\jobSearch\\personalDetails.txt",ios::in);
+    file_personal_details.open("C:\\ObjectOrientedProgramming\\job-search-portal\\personalDetails.txt",ios::in);
     if(!file_personal_details.is_open())
         cout << "file could not be opened, check error" << endl;
     else
@@ -454,7 +469,7 @@ void Administrator ::copyCVfromFile() {
     fstream file_cv,file_jobs;
 
     for (int i = 0; i < candidate_arr_size; ++i) {
-        file_cv.open("C:\\ObjectOrientedProgramming\\jobSearch\\CV.txt", ios::in);
+        file_cv.open("C:\\ObjectOrientedProgramming\\job-search-portal\\CV.txt", ios::in);
         if (!file_cv.is_open())
             cout << "file could not be opened, check error" << endl;
         else {
@@ -554,9 +569,6 @@ void Administrator ::copyCVfromFile() {
                     candidate_arr[i]->set_cv(cv);
 
 
-
-
-
                 }
 
 
@@ -575,7 +587,7 @@ void Administrator ::copySubFromFile() {
 
     char readFile[500];//TODO  you can open file and define in length that is bigger in 1 fro, file
 
-    file_submitted_jobs.open("C:\\ObjectOrientedProgramming\\jobSearch\\submittedJobs",ios::in);
+    file_submitted_jobs.open("C:\\ObjectOrientedProgramming\\job-search-portal\\submittedJobs",ios::in);
     if(!file_submitted_jobs.is_open())
         cout << "file could not be opened, check error" << endl;
     else {

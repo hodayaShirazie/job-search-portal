@@ -489,7 +489,7 @@ void Employer ::copyPersonalDetailsToFile() {
 
     //copy all employer details to "personalDetails" file
     fstream file_personal_details;
-    file_personal_details.open("C:\\ObjectOrientedProgramming\\jobSearch\\personalDetails.txt",ios::app);
+    file_personal_details.open("C:\\ObjectOrientedProgramming\\job-search-portal\\personalDetails.txt",ios::app);
     if(!file_personal_details.is_open()) {
         cout << "file could not be opened, check error" << endl;
     }else{
@@ -505,7 +505,7 @@ void Employer ::copyJobsFromFile()
 {
     fstream file_jobs;
 
-    file_jobs.open("C:\\ObjectOrientedProgramming\\jobSearch\\jobs.txt",ios::in);
+    file_jobs.open("C:\\ObjectOrientedProgramming\\job-search-portal\\jobs.txt",ios::in);
     if(!file_jobs.is_open())
         cout << "file could not be opened, check error" << endl;
     else
@@ -519,9 +519,11 @@ void Employer ::copyJobsFromFile()
         char location[200] = "\0";
         char date[200] = "\0";
         char id_j[5] =  "\0";
+        int m=0,d=0,y=0;
 
         while(!file_jobs.eof()) {
             char read_file_jobs[200];
+            int readDateFromFile;
             file_jobs >> read_file_jobs;
             if (strcmp(read_file_jobs, id) == 0)
             {
@@ -582,14 +584,14 @@ void Employer ::copyJobsFromFile()
                     strcat(location, " ");
                     file_jobs >> read_file_jobs;
                 }
-                file_jobs >> read_file_jobs;
-
-                while(!strcmp(read_file_jobs, "#id#") == 0)
-                {
-                    strcat(date,read_file_jobs);
-                    strcat(date, " ");
-                    file_jobs >> read_file_jobs;
-                }
+                file_jobs >> m >> d >> y;
+                file_jobs >> read_file_jobs >> read_file_jobs;
+//                while(!strcmp(read_file_jobs, "#id#") == 0)
+//                {
+//                    strcat(date,read_file_jobs);
+//                    strcat(date, " ");
+//                    file_jobs >> read_file_jobs;
+//                }
 
                 while(!strcmp(read_file_jobs, "#endl#") == 0)
                 {
@@ -600,9 +602,8 @@ void Employer ::copyJobsFromFile()
                 file_jobs >> read_file_jobs;
 
 //                            create new Job with details from file
-                Job* job = new Job(company_name, role, job_description, job_requirements, job_type, job_condition, location, date, id);
-//                cout<<"printing job from filee-------\n";
-//                job->print();
+                Job* job = new Job(company_name, role, job_description, job_requirements, job_type, job_condition, location, id,d,m,y);
+//                ;
 
 
 
@@ -621,7 +622,7 @@ void Employer :: copyAllJobsToFiles()
 {
     //copy all job details to "jobSearch" file
     fstream file_jobs;
-    file_jobs.open("C:\\ObjectOrientedProgramming\\jobSearch\\jobs.txt", ios::app);
+    file_jobs.open("C:\\ObjectOrientedProgramming\\job-search-portal\\jobs.txt", ios::app);
     if(!file_jobs.is_open()) {
         cout << "file could not be opened, check error" << endl;
     }else
@@ -632,8 +633,9 @@ void Employer :: copyAllJobsToFiles()
                       <<  " #jobDescription# " << published_jobs_arr[i]->getJobDescription() <<  " #jobRequirements# " <<
                       published_jobs_arr[i]->getJobRequirements() <<
                       " #jobType# " << published_jobs_arr[i]->getJobType() <<  " #jobCondition# " << published_jobs_arr[i]->getJobCondition() <<
-                      " #location# " << published_jobs_arr[i]->getLocation() << " #date# " << published_jobs_arr[i]->getDate() <<
-                      " #id# " << published_jobs_arr[i]->getId() << " #endl#";
+                      " #location# " << published_jobs_arr[i]->getLocation() << " #date# " << published_jobs_arr[i]->getMonth()  << " "
+                      << published_jobs_arr[i]->getDay()  << " " << published_jobs_arr[i]->getYear() << " #id# " <<
+                      published_jobs_arr[i]->getId() << " #endl#";
 
         }
         file_jobs.close();

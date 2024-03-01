@@ -1,21 +1,10 @@
 //
 // Created by Student on 21/02/2024.
 //
-//#include <limits> // Include for std::numeric_limits
 #include "Job.h"
-//#include <cstdlib>
 #include "Candidate.h"
 
-//void setConsoleColor(WORD c)
-//{
-//    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), c);
-//}
 
-
-//void setConsoleColor(WORD c)
-//{
-//    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), c);
-//}
 
 
 //constructor with no parameters
@@ -68,7 +57,7 @@ Job :: Job():submitted(false),liked(false),jobApplicants(NULL),jobApplicantsSize
 
 //constructor with parameters
 Job :: Job(char *company_name, char* role, char* job_description, char* job_requirements,
-    char* job_type, char* job_condition, char* location, char* date, string id ):submitted(false),liked(false),jobApplicants(NULL),jobApplicantsSize(0)
+    char* job_type, char* job_condition, char* location, string id, int day, int month,int year):submitted(false),liked(false),jobApplicants(NULL),jobApplicantsSize(0)
 {
 
     this->company_name = new char[strlen(company_name) + 1];
@@ -92,12 +81,13 @@ Job :: Job(char *company_name, char* role, char* job_description, char* job_requ
     this->location = new char[strlen(location) + 1];
     strcpy(this->location,location);
 
-    this->date = new char[strlen(date) + 1];
-    strcpy(this->date,date);
-
     this->id = id;
 
-//    updateSubmittedStatusFromFile(); //update submitted field
+    this->day = day;
+
+    this->month = month;
+
+    this->year = year;
 
 
 }
@@ -114,9 +104,8 @@ Job :: ~Job()
     delete [] job_type;
     delete [] job_condition;
     delete [] location;
-    delete [] date;
+    //TODO add deleting all dynamic fields
 
-//    insertMaxIdToFiles(); //save id of last job ID in file
 
 
 }
@@ -132,7 +121,6 @@ Job :: Job(const Job& job)
     job_type = NULL;
     job_condition = NULL;
     location = NULL;
-    date = NULL;
 
     *this = job; //call operator=
 }
@@ -149,7 +137,6 @@ Job& Job :: operator=(const Job& job)
     delete [] job_type;
     delete [] job_condition;
     delete [] location;
-    delete [] date;
 
 
     company_name = new char[strlen(job.company_name)+1];
@@ -170,8 +157,10 @@ Job& Job :: operator=(const Job& job)
     location = new char[strlen(job.location)+1];
     strcpy(location, job.location);
 
-    date = new char[strlen(job.date)+1];
-    strcpy(date, job.date);
+    day = job.day;
+    month = job.month;
+    year = job.year;
+
 
     id = job.id;
 
@@ -211,9 +200,6 @@ char *Job::getLocation() const {
     return location;
 }
 
-char *Job::getDate() const {
-    return date;
-}
 
 bool Job::isSubmitted() const {
     return submitted;
@@ -229,6 +215,18 @@ Candidate **Job::getJobApplicants() const {
 
 int Job::getJobApplicantsSize() const {
     return jobApplicantsSize;
+}
+
+int Job::getMonth() const {
+    return month;
+}
+
+int Job::getDay() const {
+    return day;
+}
+
+int Job::getYear() const {
+    return year;
 }
 
 
@@ -554,7 +552,7 @@ void Job :: print() const
         cout << "submitted  ";
         color.setConsoleColor(7);
     }
-    cout << "posted in: " << date <<endl;
+    cout << "posted in: " << day << "." << month << "." << year << endl;
 
 
 
@@ -594,28 +592,6 @@ void Job :: print() const
     cout << "location: " << endl;
     color.setConsoleColor(7);
     cout << location << endl << endl;
-
-//    color.setConsoleColor( FOREGROUND_BLUE );
-//    cout << "posted in: " << endl;
-//    color.setConsoleColor(7);
-//    cout << date << endl << endl;
-
-//    color.setConsoleColor( FOREGROUND_BLUE );
-//    cout << "id: " << endl;
-//    color.setConsoleColor(7);
-//    cout << id << endl << endl;
-
-//    color.setConsoleColor( FOREGROUND_BLUE );
-//    cout << "is submitted: " << endl;
-//    color.setConsoleColor(7);
-//    cout << submitted << endl << endl;
-//
-//    color.setConsoleColor( FOREGROUND_BLUE );
-//    cout << "is liked: " << endl;
-//    color.setConsoleColor(7);
-//    cout << liked << endl << endl;
-
-
 
 
     color.setConsoleColor( FOREGROUND_INTENSITY );
@@ -708,19 +684,10 @@ void Job :: today() {
     tm *timeinfo;
     time(&rawtime);
     timeinfo = localtime(&rawtime);
-    int m = timeinfo->tm_mon + 1;
-    int d = timeinfo->tm_mday;
-    int y = timeinfo->tm_year + 1900;
+    int month = timeinfo->tm_mon + 1;
+    int day = timeinfo->tm_mday;
+    int year = timeinfo->tm_year + 1900;
 
-    char buffer[10] = "";
-    strcat(buffer, to_string(m).c_str());
-    strcat(buffer, "/");
-    strcat(buffer, to_string(d).c_str());
-    strcat(buffer, "/");
-    strcat(buffer, to_string(y).c_str());
-
-    date = new char[strlen(buffer)+1];
-    strcpy(date, buffer);
 }
 
 
@@ -729,7 +696,7 @@ void Job:: readMaxIdFromFiles() {
 
 
     fstream file_general;
-    file_general.open("C:\\ObjectOrientedProgramming\\jobSearch\\uniqueId.txt", ios::in);
+    file_general.open("C:\\ObjectOrientedProgramming\\job-search-portal\\uniqueId.txt", ios::in);
     if (!file_general.is_open())
         cout << "file could not be opened, check error" << endl;
     else {
@@ -743,7 +710,7 @@ void Job:: readMaxIdFromFiles() {
 void Job:: insertMaxIdToFiles() {
 
     fstream file_general;
-    file_general.open("C:\\ObjectOrientedProgramming\\jobSearch\\uniqueId.txt", ios::out);
+    file_general.open("C:\\ObjectOrientedProgramming\\job-search-portal\\uniqueId.txt", ios::out);
     if (!file_general.is_open())
         cout << "file could not be opened, check error" << endl;
     else {
@@ -751,17 +718,4 @@ void Job:: insertMaxIdToFiles() {
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 

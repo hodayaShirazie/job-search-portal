@@ -46,7 +46,7 @@ public:
     Job();
 
     Job(char *company_name, char* role, char* job_description, char* job_requirements,
-        char* job_type, char* job_condition, char* location, char* date, string id );
+        char* job_type, char* job_condition, char* location, string id ,int day, int month,int year);
 
     ~Job();
 
@@ -74,8 +74,6 @@ public:
     bool isLiked() const;
 
     char *getLocation() const;
-
-    char *getDate() const;
 
     Candidate **getJobApplicants() const;
 
@@ -116,6 +114,12 @@ public:
 
     void insertMaxIdToFiles();
 
+    int getMonth() const;
+
+    int getDay() const;
+
+    int getYear() const;
+
     void today();
 
     void  updateJob();
@@ -134,7 +138,10 @@ private:
     char* job_type;
     char* job_condition;
     char* location;
-    char* date;
+    int month;
+    int day;
+    int year;
+
     string id;
     int max_id;
     bool submitted;
@@ -142,12 +149,6 @@ private:
 
     Candidate **jobApplicants;
     int jobApplicantsSize;
-
-
-
-
-
-
 
 
 };

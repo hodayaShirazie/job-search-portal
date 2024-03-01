@@ -49,8 +49,8 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "C:/ObjectOrientedProgramming/jobSearch/cmake-build-debug",
-		"source" : "C:/ObjectOrientedProgramming/jobSearch"
+		"build" : "C:/ObjectOrientedProgramming/job-search-portal/cmake-build-debug",
+		"source" : "C:/ObjectOrientedProgramming/job-search-portal"
 	},
 	"version" : 
 	{
