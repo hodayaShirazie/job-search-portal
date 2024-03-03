@@ -73,7 +73,10 @@ void Administrator :: enterSystem()
     if (std::cin.fail()) {
         std::cin.clear(); // Clears the error flags
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        color.setConsoleColor(  FOREGROUND_RED );
         cout << "invalid input"<<endl;
+        color.setConsoleColor(7);
+
     }
 
     if (!cin) {
@@ -93,7 +96,9 @@ void Administrator :: enterSystem()
             if (std::cin.fail()) {
                 std::cin.clear(); // Clears the error flags
                 std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                color.setConsoleColor(  FOREGROUND_RED );
                 cout << "invalid input"<<endl;
+                color.setConsoleColor(7);
                 return;
             }
 
@@ -103,7 +108,9 @@ void Administrator :: enterSystem()
             if (std::cin.fail()) {
                 std::cin.clear(); // Clears the error flags
                 std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                color.setConsoleColor(  FOREGROUND_RED );
                 cout << "invalid input"<<endl;
+                color.setConsoleColor(7);
                 return;
             }
 
@@ -161,7 +168,9 @@ void Administrator :: enterSystem()
             if (std::cin.fail()) {
                 std::cin.clear();
                 std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                color.setConsoleColor(  FOREGROUND_RED );
                 cout << "invalid input"<<endl;
+                color.setConsoleColor(7);
                 return;
             }
             switch (typeChoice){
@@ -198,8 +207,11 @@ void Administrator :: enterSystem()
                     break;
 
                 }
-                default:
-                    cout <<"invalid input";
+                default: {
+                    color.setConsoleColor(FOREGROUND_RED);
+                    cout << "invalid input" << endl;
+                    color.setConsoleColor(7);
+                }
 
             }
 

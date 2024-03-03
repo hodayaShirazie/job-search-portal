@@ -222,119 +222,259 @@ int Employer::getPublishedJobsArrSize() const {
 
 void Employer::set_user_name()
 {
+
     delete [] userName;
 
-    char buffer[80];
-    cin.ignore();
 
+//    string newVal;
+    char buffer[80];
+    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    bool validInput = true;
+
+
+    //getting user-name
     cout << "username" << endl;
     cin.getline(buffer,80);
-    while (strlen(buffer) > 20 || !checkFirstNameAndLastName(buffer)) { //check validation of user name
+    if (std::cin.fail()) {
+        Colors color;
+
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+        color.setConsoleColor(  FOREGROUND_RED );
+        cout << "invalid input"<<endl;
+        color.setConsoleColor(7);
+        validInput = false;
+    }
+
+
+    while (!validInput || strlen(buffer) > 20 || !checkFirstNameAndLastName(buffer)) { //check validation of user name
         cout << "enter a valid user name" << endl;
         cin.getline(buffer, 80);
+
+        if (std::cin.fail()) {
+            Colors color;
+
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+            color.setConsoleColor(  FOREGROUND_RED );
+            cout << "invalid input"<<endl;
+            color.setConsoleColor(7);
+            validInput = false;
+        }
+        else
+            validInput = true;
+
+
     }
     userName = new char[strlen(buffer) + 1];
-    strcpy(userName,buffer);
+    strcpy(userName, buffer);
+
+
 
 }
+
 void Employer ::set_id() {
 
     bool valid = false;
     char buffer[80];
+    bool validInput = true;
+
     cout << "id" << endl;
     cin.getline(buffer, 80);
-    while (!valid) {
-        bool onlyDigits = true;
-        for (int i = 0; buffer[i] != '\0'; ++i)
-            if(buffer[i] < '0' || buffer[i] > '9')
-                onlyDigits = false;
 
-        if(strlen(buffer) == 9 && onlyDigits)
-            valid = true;
-        else{
+    if (std::cin.fail()) {
+        Colors color;
+
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+        color.setConsoleColor(  FOREGROUND_RED );
+        cout << "invalid input"<<endl;
+        color.setConsoleColor(7);
+        validInput = false;
+    }
+
+
+    while (!validInput || !valid) {
+        if(validInput) {
+            bool onlyDigits = true;
+            for (int i = 0; buffer[i] != '\0'; ++i)
+                if (buffer[i] < '0' || buffer[i] > '9')
+                    onlyDigits = false;
+
+
+            if (strlen(buffer) == 9 && onlyDigits)
+                valid = true;
+        }
+        if(!validInput || !valid){
             cout << "invalid id, try again" << endl;
             cin.getline(buffer, 80);
+
+            if (std::cin.fail()) {
+                Colors color;
+
+                std::cin.clear();
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+                color.setConsoleColor(  FOREGROUND_RED );
+                cout << "invalid input"<<endl;
+                color.setConsoleColor(7);
+                validInput = false;
+            }
+            else
+                validInput = true;
+
         }
 
     }
     id = new char[strlen(buffer) + 1];
     strcpy(id, buffer);
-
-
 }
 
 void  Employer ::set_email() {
 
     char buffer[80];
+    bool validInput = true;
+//    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+//    cin.ignore();for register deleted
     delete [] email;
+
     cout << "email" << endl;
     cin.getline(buffer, 80);
+    if (std::cin.fail()) {
+        Colors color;
+
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+        color.setConsoleColor(  FOREGROUND_RED );
+        cout << "invalid input"<<endl;
+        color.setConsoleColor(7);
+        validInput = false;
+    }
+
+
+
+
 
     bool existsSign = false;
     bool validChar = true;
     bool invalidProfix = false;
-    while (!validChar || !invalidProfix || !existsSign) {
+    while (!validInput || !validChar || !invalidProfix || !existsSign) {
+        if(validInput) {
 
-        int lenEmail = strlen(buffer);
+            int lenEmail = strlen(buffer);
 
-        //if email does not end with .org/.com/.il
-        if ((buffer[lenEmail - 1] == 'm' && buffer[lenEmail - 2] == 'o' && buffer[lenEmail - 3] == 'c' &&
-             buffer[lenEmail - 4] == '.')
-            || (buffer[lenEmail - 1] == 'g' && buffer[lenEmail - 2] == 'r' && buffer[lenEmail - 3] == 'o' &&
-                buffer[lenEmail - 4] == '.') ||
-            (buffer[lenEmail - 1] == 'l' && buffer[lenEmail - 2] == 'i' && buffer[lenEmail - 3] == '.'))
-            invalidProfix = true;
+            //if email does not end with .org/.com/.il
+            if ((buffer[lenEmail - 1] == 'm' && buffer[lenEmail - 2] == 'o' && buffer[lenEmail - 3] == 'c' &&
+                 buffer[lenEmail - 4] == '.')
+                || (buffer[lenEmail - 1] == 'g' && buffer[lenEmail - 2] == 'r' && buffer[lenEmail - 3] == 'o' &&
+                    buffer[lenEmail - 4] == '.') ||
+                (buffer[lenEmail - 1] == 'l' && buffer[lenEmail - 2] == 'i' && buffer[lenEmail - 3] == '.'))
+                invalidProfix = true;
 
 
-        //if email contains invalid characters
-        for (int i = 0; buffer[i] != '\0' && validChar && invalidProfix; ++i)
-        {
-            if (!(buffer[i] >= 'a' && buffer[i] <= 'z' || buffer[i] >= 'A' && buffer[i] <= 'Z'))
-                if (!(buffer[i] >= '0' && buffer[i] <= '9'))
-                    if (!(buffer[i] == '-' || buffer[i] == '.'))
-                        if (!(buffer[i] == '@')) {
-                            validChar = false; //email is not valid
-                        }else
-                            existsSign = true;
+            //if email contains invalid characters
+            for (int i = 0; buffer[i] != '\0' && validChar && invalidProfix; ++i) {
+                if (!(buffer[i] >= 'a' && buffer[i] <= 'z' || buffer[i] >= 'A' && buffer[i] <= 'Z'))
+                    if (!(buffer[i] >= '0' && buffer[i] <= '9'))
+                        if (!(buffer[i] == '-' || buffer[i] == '.'))
+                            if (!(buffer[i] == '@')) {
+                                validChar = false; //email is not valid
+                            } else
+                                existsSign = true;
 
+            }
         }
-        if (!validChar || !invalidProfix || !existsSign) {
+        if (!validInput || !validChar || !invalidProfix || !existsSign) {
             cout << "invalid email, enter again" << endl;
             cin.getline(buffer, 80);
+
+            if (std::cin.fail()) {
+                Colors color;
+
+                std::cin.clear();
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+                color.setConsoleColor(  FOREGROUND_RED );
+                cout << "invalid input"<<endl;
+                color.setConsoleColor(7);
+                validInput = false;
+            }
+            else
+                validInput = true;
+
         }
 
     }
 
     email = new char[strlen(buffer) + 1];
     strcpy(email, buffer);
+
+
 }
 
 void Employer :: set_phone_number()
 {
 
     char buffer[80];
+    bool validInput = true;
 
-    delete [] phoneNumber;
+//    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+    delete[] phoneNumber;
+
 //    cin.ignore();
     bool valid = false;
 
     cout << "phone number" << endl;
     cin.getline(buffer, 80);
+    if (std::cin.fail()) {
+        Colors color;
 
-    while (!valid) {
-        bool onlyDigits = true;
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
-        for (int i = 0; buffer[i] != '\0'; ++i)
-            if (buffer[i] < '0' || buffer[i] > '9')
-                onlyDigits = false;
+        color.setConsoleColor(FOREGROUND_RED);
+//        cout << "invalid input" << endl;
+        color.setConsoleColor(7);
+        validInput = false;
+    }
 
-        if (strlen(buffer) == 10 && buffer[0] == '0' && onlyDigits)
-            valid = true;
-        else {
+
+    while (!validInput || !valid) {
+        if (validInput) {
+            bool onlyDigits = true;
+
+            for (int i = 0; buffer[i] != '\0'; ++i)
+                if (buffer[i] < '0' || buffer[i] > '9')
+                    onlyDigits = false;
+
+            if (strlen(buffer) == 10 && buffer[0] == '0' && onlyDigits)
+                valid = true;
+        } if(!validInput || !valid){
             cout << "invalid phone number, enter again" << endl;
             cin.getline(buffer, 80);
 
+            if (std::cin.fail()) {
+                Colors color;
+
+                std::cin.clear();
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+                color.setConsoleColor(FOREGROUND_RED);
+                cout << "invalid input" << endl;
+                color.setConsoleColor(7);
+                validInput = false;
+            } else
+                validInput = true;
         }
+
+
+
     }
 
 
@@ -346,6 +486,9 @@ void Employer :: set_phone_number()
 void Employer::set_password() {
 
     char buffer[80];
+    bool validInput = true;
+
+//    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     delete [] password;
 //    cin.ignore();
 
@@ -355,49 +498,91 @@ void Employer::set_password() {
 
     cout << "password" << endl;
     cin.getline(buffer, 80);
-    while(!valid)
-    {
-        for (int i = 0; buffer[i] != '\0' && !valid; ++i) {
-            if (buffer[i] >= 'a' && buffer[i] <= 'z')
-                lowerCase = true;
-            else if(buffer[i] >= 'A' && buffer[i] <= 'Z')
-                upperCase = true;
 
-            if(lowerCase && upperCase && strlen(buffer) >= 8)
-                valid = true;
+    if (std::cin.fail()) {
+        Colors color;
+
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+        color.setConsoleColor(FOREGROUND_RED);
+        cout << "invalid input" << endl;
+        color.setConsoleColor(7);
+        validInput = false;
+    }
+
+
+
+    while(!validInput || !valid)
+    {
+        if(validInput) {
+            for (int i = 0; buffer[i] != '\0' && !valid; ++i) {
+                if (buffer[i] >= 'a' && buffer[i] <= 'z')
+                    lowerCase = true;
+                else if (buffer[i] >= 'A' && buffer[i] <= 'Z')
+                    upperCase = true;
+
+                if (lowerCase && upperCase && strlen(buffer) >= 8)
+                    valid = true;
+            }
         }
-        if(!valid)
+        if(!validInput || !valid)
         {
             cout << "password is not valid, try again" << endl;
             cin.getline(buffer, 80);
+
+            if (std::cin.fail()) {
+                Colors color;
+
+                std::cin.clear();
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+                color.setConsoleColor(FOREGROUND_RED);
+                cout << "invalid input" << endl;
+                color.setConsoleColor(7);
+                validInput = false;
+            } else
+                validInput = true;
         }
+
+
     }
 
 
     password = new char[strlen(buffer) + 1];
     strcpy(password, buffer);
 
-
 }
 
 void Employer::set_birth_date() {
 
     delete [] birthDate;
-
     int d,m,y;
     cout<<"date: enter month, day and year"<<endl;
+    bool validInput = true;
+
+
+    //validate input
     while(!(cin >> m) || !(cin >> d) || !(cin >> y)) //if input is not integer
 
     {
         cout << "Invalid input.try again \n";
         cin.clear();// Clear the buffer
         cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');// Ignore the rest of the input line to avoid infinite loop
+//        validInput = false;
     }
 
+    //validate date
     while(!checkValidDate(d,m,y)) {
-        int d,m,y;
         cout<<"invalid date, enter: month, day and year"<<endl;
-        cin >> m >> d >> y;
+        while(!(cin >> m) || !(cin >> d) || !(cin >> y)) //if input is not integer
+
+        {
+            cout << "Invalid input.try again \n";
+            cin.clear();// Clear the buffer
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');// Ignore the rest of the input line to avoid infinite loop
+        }
+//        cin >> m >> d >> y;
     }
     char buffer[10] = "";
     strcat(buffer, to_string(m).c_str());
@@ -409,8 +594,6 @@ void Employer::set_birth_date() {
 
     birthDate = new char[strlen(buffer) + 1];
     strcpy(birthDate, buffer);
-
-
 
 }
 
@@ -486,7 +669,7 @@ void Employer:: print() const {
 
 void Employer :: printPublishedJobs() const///////////////
 {
-    cout << "--------------printing published jobs in function-----------------------\n";
+//    cout << "--------------printing published jobs in function-----------------------\n";
 
     for (int i = 0; i < published_jobs_arr_size; ++i) {
         published_jobs_arr[i]->printJobForEmployer();
@@ -817,9 +1000,6 @@ void Employer :: viewCandidateSubmission()
             color.setConsoleColor(7);
 
             published_jobs_arr[i]->printJobApplicants();
-//        for (int j = 0; j < published_jobs_arr[i]->getJobApplicantsSize(); ++j) {
-//            published_jobs_arr[i]->printJobApplicants();
-//        }
 
         }
     }
