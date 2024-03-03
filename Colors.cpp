@@ -4,7 +4,7 @@
 
 #include "Colors.h"
 
-void Colors ::setConsoleColor(WORD c) {
-//    setConsoleColor()
-    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), c);
+
+void Colors :: setConsoleColor(WORD color) {
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
 }

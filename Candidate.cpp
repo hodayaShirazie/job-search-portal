@@ -59,6 +59,8 @@ Candidate :: Candidate(char* id, char* password, char* userName, char* email, ch
     //getting birthdate
     set_birth_date();
 
+    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
     //getting password
     set_password();
 
@@ -97,6 +99,9 @@ Candidate :: ~Candidate()
     delete [] password;
     delete [] freeTxt;
     delete cv;
+
+//    for (int i = 0; i < all_jobs_arr_size; ++i)
+//        delete [] all_jobs_arr[i];
 
 
 }
@@ -168,7 +173,10 @@ void Candidate :: personalArea()
         cout << "7- log out \n";
         cin >> nav_personal_area;
 
-
+        if (nav_personal_area != '1' && nav_personal_area != '2' && nav_personal_area != '3' && nav_personal_area != '4' && nav_personal_area != '5' && nav_personal_area != '6' && nav_personal_area != '7') {
+            cin.clear(); // Clears the error flag on cin.
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        }
         switch (nav_personal_area) {
             case EDIT_PROFILE: {
                 char nav_edit_profile;
@@ -182,6 +190,11 @@ void Candidate :: personalArea()
                     cout << "6- update \n";
 
                     cin >> nav_edit_profile;
+
+                    if (nav_edit_profile != '1' && nav_edit_profile != '2' && nav_edit_profile != '3' && nav_edit_profile != '4' && nav_edit_profile != '5' && nav_edit_profile != '6') {
+                        cin.clear(); // Clears the error flag on cin.
+                        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                    }
 
                     switch (nav_edit_profile) {
                         case USER_NAME_C: {
@@ -211,13 +224,17 @@ void Candidate :: personalArea()
 
                         }
                         case UPDATE_P_C: {
-                            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+//
                             break;
 
                         }
                         default:{
-                            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                            Colors color;
                             //if input is not one of the above - do nothing and print menu again
+                            color.setConsoleColor(  FOREGROUND_RED );
+                            cout<< "invalid input, try again\n";
+                            color.setConsoleColor(7);
+
                         };
 
                     }
@@ -270,11 +287,6 @@ void Candidate :: personalArea()
                 }
 
 
-
-
-
-
-
                 break;
             }
 
@@ -282,9 +294,17 @@ void Candidate :: personalArea()
                 viewSubmissionHistory();
                 break;
             }
+            case Exit_C: {
+                //end program
+                break;
+            }
+
             default:{
+                Colors color;
                 //if input is not one of the above - do nothing and print menu again
-                cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                color.setConsoleColor(  FOREGROUND_RED );
+                cout<< "invalid input, try again\n";
+                color.setConsoleColor(7);
             };
         }
 
@@ -297,13 +317,30 @@ void Candidate :: set_user_name()
 {
     delete [] userName;
 
+
+//    string newVal;
     char buffer[80];
-    cin.ignore();
+    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+//    if (std::cin.fail()) {
+//        std::cin.clear();
+//        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+//    }
+
 //    cin.clear();
 
     //getting user-name
     cout << "username" << endl;
-    cin.getline(buffer, 80);
+    cin.getline(buffer,80);
+
+//    if (std::cin.fail()) {
+//        std::cin.clear();
+//
+//        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+//    }
+
+
+//    getline(cin,newVal);
     while (strlen(buffer) > 20 || !checkFirstNameAndLastName(buffer)) { //check validation of user name
         cout << "enter a valid user name" << endl;
         cin.getline(buffer, 80);
@@ -341,13 +378,24 @@ void  Candidate ::set_id() {
 void Candidate::set_email()
 {
     char buffer[80];
-    cin.ignore();
+//    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+//    cin.ignore();for register deleted
     delete [] email;
 
     cout << "email" << endl;
     cin.getline(buffer, 80);
 
-    bool existsSign = false;
+
+//    if (std::cin.fail()) {
+//        std::cin.clear();
+//        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+//    }
+
+
+
+
+        bool existsSign = false;
     bool validChar = true;
     bool invalidProfix = false;
     while (!validChar || !invalidProfix || !existsSign) {
@@ -390,9 +438,11 @@ void Candidate::set_email()
 void Candidate :: set_phone_number()
 {
     char buffer[80];
+//    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
     delete [] phoneNumber;
-    cin.ignore();
+
+//    cin.ignore();
     bool valid = false;
 
     cout << "phone number" << endl;
@@ -422,8 +472,9 @@ void Candidate :: set_phone_number()
 void Candidate:: set_password()
 {
     char buffer[80];
+//    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     delete [] password;
-    cin.ignore();
+//    cin.ignore();
 
     bool lowerCase = false;
     bool upperCase = false;
@@ -493,6 +544,7 @@ void Candidate:: set_birth_date()
 void Candidate:: set_free_text()
 {
     char tempFt[501];
+//    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n') rermoved because of register
     cout << "add free text to tell about yourself, if you dont want- enter 'none'" << endl;
     cin.getline(tempFt, 501);
     freeTxt = new char[strlen(tempFt) + 1];
@@ -632,96 +684,96 @@ void Candidate :: copyAllJobsFromFile() {
     else {
 
         while (!file_jobs.eof()) {
-            char read_file_jobs[200];
-            file_jobs >> read_file_jobs;
 
-            //coping company name
-            file_jobs >> read_file_jobs >> read_file_jobs;
-            while (!strcmp(read_file_jobs, "#role#") == 0) {
-                strcat(company_name, read_file_jobs);
-                strcat(company_name, " ");
-                file_jobs >> read_file_jobs;
-            }
-            file_jobs >> read_file_jobs;
 
-            while (!strcmp(read_file_jobs, "#jobDescription#") == 0) {
-                strcat(role, read_file_jobs);
-                strcat(role, " ");
-                file_jobs >> read_file_jobs;
-            }
-            file_jobs >> read_file_jobs;
-
-            while (!strcmp(read_file_jobs, "#jobRequirements#") == 0) {
-                strcat(job_description, read_file_jobs);
-                strcat(job_description, " ");
+                char read_file_jobs[200];
                 file_jobs >> read_file_jobs;
 
-            }
-            file_jobs >> read_file_jobs;
-
-            while (!strcmp(read_file_jobs, "#jobType#") == 0) {
-                strcat(job_requirements, read_file_jobs);
-                strcat(job_requirements, " ");
+                //coping company name
+                file_jobs >> read_file_jobs >> read_file_jobs;
+                while (!strcmp(read_file_jobs, "#role#") == 0) {
+                    strcat(company_name, read_file_jobs);
+                    strcat(company_name, " ");
+                    file_jobs >> read_file_jobs;
+                }
                 file_jobs >> read_file_jobs;
-            }
-            file_jobs >> read_file_jobs;
 
-            while (!strcmp(read_file_jobs, "#jobCondition#") == 0) {
-                strcat(job_type, read_file_jobs);
-                strcat(job_type, " ");
+                while (!strcmp(read_file_jobs, "#jobDescription#") == 0) {
+                    strcat(role, read_file_jobs);
+                    strcat(role, " ");
+                    file_jobs >> read_file_jobs;
+                }
                 file_jobs >> read_file_jobs;
-            }
-            file_jobs >> read_file_jobs;
 
-            while (!strcmp(read_file_jobs, "#location#") == 0) {
-                strcat(job_condition, read_file_jobs);
-                strcat(job_condition, " ");
+                while (!strcmp(read_file_jobs, "#jobRequirements#") == 0) {
+                    strcat(job_description, read_file_jobs);
+                    strcat(job_description, " ");
+                    file_jobs >> read_file_jobs;
+
+                }
                 file_jobs >> read_file_jobs;
-            }
-            file_jobs >> read_file_jobs;
 
-
-
-
-            while (!strcmp(read_file_jobs, "#date#") == 0) {
-                strcat(location, read_file_jobs);
-                strcat(location, " ");
+                while (!strcmp(read_file_jobs, "#jobType#") == 0) {
+                    strcat(job_requirements, read_file_jobs);
+                    strcat(job_requirements, " ");
+                    file_jobs >> read_file_jobs;
+                }
                 file_jobs >> read_file_jobs;
-            }
-            file_jobs >> m >> d >> y;
-            file_jobs >> read_file_jobs >> read_file_jobs;
 
-
-            while (!strcmp(read_file_jobs, "#endl#") == 0) {
-                strcat(id_j, read_file_jobs);
-                strcat(id_j, " ");
+                while (!strcmp(read_file_jobs, "#jobCondition#") == 0) {
+                    strcat(job_type, read_file_jobs);
+                    strcat(job_type, " ");
+                    file_jobs >> read_file_jobs;
+                }
                 file_jobs >> read_file_jobs;
+
+                while (!strcmp(read_file_jobs, "#location#") == 0) {
+                    strcat(job_condition, read_file_jobs);
+                    strcat(job_condition, " ");
+                    file_jobs >> read_file_jobs;
+                }
+                file_jobs >> read_file_jobs;
+
+
+                while (!strcmp(read_file_jobs, "#date#") == 0) {
+                    strcat(location, read_file_jobs);
+                    strcat(location, " ");
+                    file_jobs >> read_file_jobs;
+                }
+                file_jobs >> m >> d >> y;
+                file_jobs >> read_file_jobs >> read_file_jobs;
+
+
+                while (!strcmp(read_file_jobs, "#endl#") == 0) {
+                    strcat(id_j, read_file_jobs);
+                    strcat(id_j, " ");
+                    file_jobs >> read_file_jobs;
+                }
+
+                //create new Job with details from file
+                Job *job = new Job(company_name, role, job_description, job_requirements, job_type,
+                                   job_condition,
+                                   location, id_j, d, m, y);
+
+
+                //add job to all_jobs array
+                addJobToJobArr(job);
+
+
+                company_name[0] = '\0';
+                role[0] = '\0';
+                job_description[0] = '\0';
+                job_requirements[0] = '\0';
+                job_type[0] = '\0';
+                job_condition[0] = '\0';
+                location[0] = '\0';
+                date[0] = '\0';
+                id_j[0] = '\0';
             }
-
-            //create new Job with details from file
-            Job *job = new Job(company_name, role, job_description, job_requirements, job_type,
-                               job_condition,
-                               location, id_j,d,m,y);
-
-
-            //add job to all_jobs array
-            addJobToJobArr(job);
-
-
-
-            company_name[0] = '\0';
-            role[0] = '\0';
-            job_description[0] = '\0';
-            job_requirements[0] = '\0';
-            job_type[0] = '\0';
-            job_condition[0] = '\0';
-            location[0] = '\0';
-            date[0] = '\0';
-            id_j[0] = '\0';
         }
 
         file_jobs.close();
-    }
+//    }
 
 
 }
@@ -743,7 +795,6 @@ void Candidate :: addJobToJobArr(Job* job) {
 void Candidate :: printAllJobsArr() const
 {
     for (int i = 0; i < all_jobs_arr_size; ++i) {
-//        cout << "\nJob offer number " << i+1 << " for you" << endl;
         all_jobs_arr[i]->print();
 
     }
@@ -752,35 +803,56 @@ void Candidate :: printAllJobsArr() const
 //function that returns true if str is at least 2 words and false otherwise
 bool Candidate :: checkFirstNameAndLastName(char* str)
 {
+    int count = 0;
     bool exists = false;
-    for (int i = 0; str[i]!= '\0'; ++i)
-        if(str[i] == ' ')
+    int index;
+    for (int i = 0; str[i]!= '\0'; ++i) {
+        if (str[i] == ' ') {
             exists = true;
-    return exists;
+            count ++;
+        }
+    }
+    if(exists && count==1)
+        return true;
+    return false;
 }
 
 
 void Candidate :: submit_job()
 {
+    bool validInput = true;
     bool is_job_found_in_file = false;
     char tmpID[500] = "";//TODO  you can open file and define in length that is bigger in 1 fro, file
     cout << "enter id of the job you want to submit\n";
     cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     cin.getline(tmpID,500);
-    strcat(tmpID, " ");
-    for (int i = 0; i < all_jobs_arr_size; ++i)
-    {
-        if(all_jobs_arr[i]->getId().compare(tmpID) == 0)
-        {
-            is_job_found_in_file = true;
-            all_jobs_arr[i]->setSubmitted();
+
+    if (std::cin.fail()) {
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+        Colors color;
+        color.setConsoleColor(  FOREGROUND_RED );
+        cout << "invalid input"<<endl;
+        color.setConsoleColor(7);
+
+        validInput = false;
+    }
+
+    if(validInput) {
+        strcat(tmpID, " ");
+        for (int i = 0; i < all_jobs_arr_size; ++i) {
+            if (all_jobs_arr[i]->getId().compare(tmpID) == 0) {
+                is_job_found_in_file = true;
+                all_jobs_arr[i]->setSubmitted();
+            }
+
         }
+        if (!is_job_found_in_file)
+            cout << "----------could not find job---------\n";
+
 
     }
-    if (!is_job_found_in_file)
-        cout <<"----------could not find job---------\n";
-
-
 
 }
 
@@ -827,7 +899,11 @@ void Candidate :: filterJobsByFeatures() {
                 char nav_location;
                 do {
 
-                    cout << "job location" << endl << "choose from the following:" << endl;
+                    Colors color;
+                    color.setConsoleColor(  FOREGROUND_RED );
+                    cout << "job location\n";
+                    color.setConsoleColor(7);
+                    cout<< "choose from the following:" << endl;
                     cout << "1- north \n";
                     cout << "2- south \n";
                     cout << "3- center \n";
@@ -879,8 +955,12 @@ void Candidate :: filterJobsByFeatures() {
 
                 char nav_job_type;
                 do {
+                    Colors color;
+                    color.setConsoleColor(  FOREGROUND_RED );
+                    cout << "job type\n";
+                    color.setConsoleColor(7);
 
-                    cout << "job type" << endl << "choose from the following:" << endl;
+                    cout << "choose from the following:" << endl;
                     cout << "1- full time \n";
                     cout << "2- part time \n";
                     cout << "3- student \n";
@@ -921,8 +1001,12 @@ void Candidate :: filterJobsByFeatures() {
                 char nav_role;
 
                 do {
+                    Colors color;
+                    color.setConsoleColor(  FOREGROUND_RED );
+                    cout << "role\n";
+                    color.setConsoleColor(7);
 
-                    cout << "role" << endl << "choose from the following:" << endl;
+                    cout << endl << "choose from the following:" << endl;
                     cout << "1- teaching \n";
                     cout << "2- engineering \n";
                     cout << "3- law \n";
@@ -1081,7 +1165,7 @@ void Candidate :: updateLikedStatusFromFile()
 void Candidate :: viewSubmissionHistory() {
 
 
-    cout << "inside view sub history" << endl;
+//    cout << "inside view sub history" << endl;
 
     if (all_jobs_arr_size < 1)
         return;
@@ -1105,7 +1189,7 @@ void Candidate :: viewSubmissionHistory() {
         }
 
         if (latestDateJob != nullptr) {
-            latestDateJob->print(); //print latest
+            latestDateJob->Job::print(); //print latest
             selected[latestJobIndex] = true; // Mark this job as sorted
         }
     }
@@ -1130,15 +1214,30 @@ bool Candidate :: compareJobsByDate(Job* a, Job* b) {
 void Candidate :: likeJob() {
     char tmpID[500] = "";//TODO  you can open file and define in length that is bigger in 1 fro, file
     cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    bool validInput = true;
 
     cout << "enter id of job you want to mark as liked \n";
 
     cin.getline(tmpID, 500);
-    strcat(tmpID, " ");
-    for (int i = 0; i < all_jobs_arr_size; ++i) {
-        if (all_jobs_arr[i]->getId().compare(tmpID) == 0) {//cmp between strings
-            cout << "found jobb---LIKED--\n";
-            all_jobs_arr[i]->setLiked();
+    if (std::cin.fail()) {
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+        Colors color;
+        color.setConsoleColor(FOREGROUND_RED);
+        cout << "invalid input" << endl;
+        color.setConsoleColor(7);
+
+        validInput = false;
+    }
+    if (validInput) {
+
+        strcat(tmpID, " ");
+        for (int i = 0; i < all_jobs_arr_size; ++i) {
+            if (all_jobs_arr[i]->getId().compare(tmpID) == 0) {//cmp between strings
+                cout << "found jobb---LIKED--\n";
+                all_jobs_arr[i]->setLiked();
+            }
         }
     }
 }
@@ -1146,6 +1245,8 @@ void Candidate :: likeJob() {
 void Candidate :: unLikeJob()
 {
     Colors color;
+    bool validInput = true;
+
 
     char tmpID[500] = "";//TODO  you can open file and define in length that is bigger in 1 fro, file
     cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
@@ -1153,12 +1254,28 @@ void Candidate :: unLikeJob()
     std::cout << "enter id of job you want to mark as un liked\n";
 
     cin.getline(tmpID, 500);
-    strcat(tmpID, " ");
-    for (int i = 0; i < all_jobs_arr_size; ++i) {
-        if (all_jobs_arr[i]->getId().compare(tmpID) == 0) {//job is found
-            all_jobs_arr[i]->setUnLiked();
-            cout << "job "<< tmpID << " is marked as liked\n";
 
+    if (std::cin.fail()) {
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+        Colors color;
+        color.setConsoleColor(FOREGROUND_RED);
+        cout << "invalid input" << endl;
+        color.setConsoleColor(7);
+
+        validInput = false;
+    }
+    if (validInput) {
+
+
+        strcat(tmpID, " ");
+        for (int i = 0; i < all_jobs_arr_size; ++i) {
+            if (all_jobs_arr[i]->getId().compare(tmpID) == 0) {//job is found
+                all_jobs_arr[i]->setUnLiked();
+                cout << "job " << tmpID << " is marked as liked\n";
+
+            }
         }
     }
 
@@ -1193,7 +1310,7 @@ void Candidate :: copyPersonalDetailsToFile()
     else {
         //copy all candidate details to "personalDetails" file
         file_personal_details << endl << "c " << id << " " << password << " " << userName << " " << email << " "
-                              << phoneNumber << " " << birthDate << " " << freeTxt;
+                              << phoneNumber << " " << birthDate << " " << freeTxt << " #endl#";
         file_personal_details.close();
     }
 
@@ -1288,4 +1405,8 @@ void Candidate :: copyLikedJobsToFile() {
 
 CV *Candidate::getCv() const {
     return cv;
+}
+
+char *Candidate::getFreeTxt() const {
+    return freeTxt;
 }

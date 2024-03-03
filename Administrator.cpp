@@ -37,9 +37,6 @@ Administrator :: ~Administrator()
     //empty files in order to append
     emptyFiles();
 
-
-//    print();
-
     for (int i = 0; i < candidate_arr_size; ++i)
     {
         delete candidate_arr[i];
@@ -51,7 +48,6 @@ Administrator :: ~Administrator()
     {
         delete employers_arr[i];
     }
-//    cout << "done coping to files\n";
 
 
 
@@ -74,6 +70,17 @@ void Administrator :: enterSystem()
 
 
     cin >> enteringChoice;
+    if (std::cin.fail()) {
+        std::cin.clear(); // Clears the error flags
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        cout << "invalid input"<<endl;
+    }
+
+    if (!cin) {
+        cin.clear(); // Clears the error flag on cin.
+        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        return;
+    }
     switch (enteringChoice) {
         case LOGIN: {
             cin.ignore();
@@ -81,15 +88,24 @@ void Administrator :: enterSystem()
             char temp_id[10];
             char temp_password[20];
 
-//            color.setConsoleColor( FOREGROUND_RED );
             cout << "id" << endl;
-//            color.setConsoleColor(7);
             cin.getline(temp_id, 20);
+            if (std::cin.fail()) {
+                std::cin.clear(); // Clears the error flags
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                cout << "invalid input"<<endl;
+                return;
+            }
 
-//            color.setConsoleColor( FOREGROUND_RED );
+
             cout << "password" << endl;
-//            color.setConsoleColor(7);
             cin.getline(temp_password, 20);
+            if (std::cin.fail()) {
+                std::cin.clear(); // Clears the error flags
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                cout << "invalid input"<<endl;
+                return;
+            }
 
             char user_type = '\0';
             while(user_type == '\0' && !userExists) {
@@ -141,6 +157,13 @@ void Administrator :: enterSystem()
             char typeChoice;
             cout << "1-CANDIDATE" << endl << "2-EMPLOYER" << endl;
             cin >> typeChoice;
+
+            if (std::cin.fail()) {
+                std::cin.clear();
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                cout << "invalid input"<<endl;
+                return;
+            }
             switch (typeChoice){
                 case CANDIDATE:
                 {
@@ -176,15 +199,16 @@ void Administrator :: enterSystem()
 
                 }
                 default:
-                    cout <<"invalid input- try again";
+                    cout <<"invalid input";
 
             }
 
 
             break;
         }
-        default:
-            cout <<"invalid input- try again";
+        default: {
+            //end program
+        }
 
     }
 
@@ -395,20 +419,33 @@ void Administrator ::copyPersonalDetailsFromFile() {
             file_personal_details >> readFile;
 
             char userName[30];
+            char lastName[30];
             char id[30];
             char email[30];
             char phoneNumber[30];
             char birthDate[30];
             char password[30];
+//            char tmpFreeTxt [400];
 
             if (strcmp(readFile, "c") == 0)//copy as candide
             {
-                char freeTxt[30];
+                char freeTxt[400] = "";
 
-                file_personal_details >> id >> password >> userName >> email >> phoneNumber >> birthDate >> freeTxt;
+                file_personal_details >> id >> password >> userName >> lastName >> email >> phoneNumber >> birthDate;
+
+                file_personal_details >> readFile;
+                while(strcmp(readFile, "#endl#") != 0) {
+                    strcat(freeTxt,readFile);
+                    strcat(freeTxt," ");
+                    file_personal_details >> readFile;
+
+                }
+                strcat(userName," ");
+                strcat(userName,lastName);
 
                 //copy details from file and create candidate object
                 Candidate *candidate = new Candidate(id, password, userName, email, phoneNumber, birthDate, freeTxt);
+
 
                 Candidate **candidate_tmp = new Candidate *[candidate_arr_size + 1];
 
@@ -425,21 +462,15 @@ void Administrator ::copyPersonalDetailsFromFile() {
             }
             else if(strcmp(readFile, "e") == 0)//copy as employer
             {
-                file_personal_details >> id >> password >> userName >> email >> phoneNumber >> birthDate;
-
-
-
-
-
+                file_personal_details >> id >> password >> userName >> lastName >> email >> phoneNumber >> birthDate;
+                strcat(userName," ");
+                strcat(userName,lastName);
 
 
 
                 //copy details from file and create candidate object
                 Employer *employer = new Employer(id, password, userName, email, phoneNumber, birthDate);
                 Employer **employer_tmp = new Employer *[employers_arr_size + 1];
-
-
-
 
 
                 for (int i = 0; i < employers_arr_size; ++i) {
@@ -465,7 +496,7 @@ void Administrator ::copyPersonalDetailsFromFile() {
 
 void Administrator ::copyCVfromFile() {
 
-    char file_content[30];
+    char file_content[30];///////////TODO SIZE
     fstream file_cv,file_jobs;
 
     for (int i = 0; i < candidate_arr_size; ++i) {
@@ -478,14 +509,14 @@ void Administrator ::copyCVfromFile() {
 
                 if (strcmp(file_content, candidate_arr[i]->getId()) == 0)//if cv belongs to current candidate-
                 {
-                    char summary[80] = "\0";
-                    char experience[80] = "\0";
-                    char education[80] = "\0";
-                    char licenses[80] = "\0";
-                    char skills[80] = "\0";
-                    char awards[80] = "\0";
-                    char name[80] = "\0";
-                    char email[80] = "\0";
+                    char summary[3100] = "\0";
+                    char experience[3100] = "\0";
+                    char education[3100] = "\0";
+                    char licenses[3100] = "\0";
+                    char skills[3100] = "\0";
+                    char awards[3100] = "\0";
+                    char name[3100] = "\0";
+                    char email[3100] = "\0";
                     file_cv >> file_content >> file_content;//the word #summary#
 
                     //copy summary from file

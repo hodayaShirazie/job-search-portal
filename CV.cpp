@@ -1,11 +1,10 @@
 //
 // Created by Student on 14/02/2024.
 //
-#define SIZE_STRING 600
+#define SIZE_STRING 3100
 #include "CV.h"
 #include <iostream>
 #include <cstring>
-//#include <windows.h>
 #include "Colors.h"
 
 enum editCV{SUMMARY = '1', EXPERIENCE = '2', EDUCATION = '3', LICENSES = '4', SKILLS = '5', AWARDS = '6', BACK_E_P = '7'};
@@ -144,56 +143,85 @@ CV& CV:: operator=(const CV& cv) {
 }
 
 
-void CV:: createCV()
-{
+void CV:: createCV() {
     //TODO call setters instead of this code
-    delete[] summary;
-    delete[] experience;
-    delete[] education;
-    delete[] licenses;
-    delete[] skills;
-    delete[] awards;
+//    delete[] summary;
+//    delete[] experience;
+//    delete[] education;
+//    delete[] licenses;
+//    delete[] skills;
+//    delete[] awards;
 
-    char tmp [SIZE_STRING];
-    cout << "enter the following requests, if you dont want to- enter none"<<endl;
-
-    cout << "summary" << endl;
-    cin.getline(tmp,SIZE_STRING);
-    summary = new char[strlen(tmp) + 1];
-    strcpy(summary, tmp);
+//    char tmp [SIZE_STRING];
+    cout << "build your CV, to skip- enter none" << endl;
 
 
+    setSummary();
 
-    cout << "experience" << endl;
-    cin.getline(tmp,SIZE_STRING);
-    experience = new char[strlen(tmp) + 1];
-    strcpy(experience, tmp);
+    setExperience();
 
+    setEducation();
 
+    setLicenses();
 
-    cout << "education" << endl;
-    cin.getline(tmp,SIZE_STRING);
-    education = new char[strlen(tmp) + 1];
-    strcpy(education, tmp);
+    setSkills();
 
+    setAwards();
 
 
-    cout << "licenses" << endl;
-    cin.getline(tmp,SIZE_STRING);
-    licenses = new char[strlen(tmp) + 1];
-    strcpy(licenses, tmp);
-
-
-    cout << "skills" << endl;
-    cin.getline(tmp,SIZE_STRING);
-    skills = new char[strlen(tmp) + 1];
-    strcpy(skills, tmp);
-
-
-    cout << "awards" << endl;
-    cin.getline(tmp,SIZE_STRING);
-    awards = new char[strlen(tmp) + 1];
-    strcpy(awards, tmp);
+//    cout << "summary" << endl;
+//    cin.getline(tmp, SIZE_STRING);
+////    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+//
+//
+//
+//    summary = new char[strlen(tmp) + 1];
+//    strcpy(summary, tmp);
+//
+//
+//    if (cin.peek() == '\n') {
+//        cin.clear();
+//        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+//
+//    }
+//
+//    cout << "experience" << endl;
+//    cin.getline(tmp, SIZE_STRING);
+//
+//    experience = new char[strlen(tmp) + 1];
+//    strcpy(experience, tmp);
+////    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+//
+//
+//
+//    cout << "education" << endl;
+//    cin.getline(tmp, SIZE_STRING);
+//    if (cin.peek() == '\n') cin.ignore();
+//
+//    education = new char[strlen(tmp) + 1];
+//    strcpy(education, tmp);
+////    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+//
+//
+//    cout << "licenses" << endl;
+//    cin.getline(tmp, SIZE_STRING);
+//    licenses = new char[strlen(tmp) + 1];
+//    strcpy(licenses, tmp);
+//    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+//
+//
+//    cout << "skills" << endl;
+//    cin.getline(tmp, SIZE_STRING);
+//    skills = new char[strlen(tmp) + 1];
+//    strcpy(skills, tmp);
+//    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+//
+//
+//    cout << "awards" << endl;
+//    cin.getline(tmp, SIZE_STRING);
+//    awards = new char[strlen(tmp) + 1];
+//    strcpy(awards, tmp);
+//    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
 }
 
@@ -325,44 +353,55 @@ void CV::  change_cv()
 
         cin >> nav_edit_cv;
 
+        if (nav_edit_cv != '1' && nav_edit_cv != '2' && nav_edit_cv != '3' && nav_edit_cv != '4' && nav_edit_cv != '5' && nav_edit_cv != '6' && nav_edit_cv != '7') {
+            cin.clear(); // Clears the error flag on cin.
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        }
+
         switch (nav_edit_cv) {
             case SUMMARY: {
+                cin.ignore();
                 setSummary();
                 break;
 
             }
             case EXPERIENCE: {
+                cin.ignore();
                 setExperience();
                 break;
 
             }
             case EDUCATION: {
+                cin.ignore();
                 setEducation();
                 break;
 
             }
             case LICENSES: {
+                cin.ignore();
                 setLicenses();
                 break;
 
             }
             case SKILLS: {
+                cin.ignore();
                 setSkills();
                 break;
 
             }
             case AWARDS: {
+                cin.ignore();
                 setAwards();
                 break;
 
             }
             case BACK_E_P: {
-                cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+//                cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                 break;
 
             }
             default:{
-                cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+//                cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                 //if input is not one of the above - do nothing and print menu again
             };
 
@@ -375,25 +414,58 @@ void CV::  change_cv()
 
 
 
-void CV::setSummary() {
+void CV::setSummary() {//TODO handle when input above 600 chars
+
+
     char tmp [SIZE_STRING];
     delete[] summary;
-    cin.ignore();
+//    cin.ignore();
 
+    bool tooLong = false;
     cout << "summary" << endl;
-    cin.getline(tmp,SIZE_STRING);
+    while(!tooLong) {
+        cin.getline(tmp, 3100);
+
+        if (std::cin.fail()) {
+            std::cin.clear(); // Clears the error flags
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        }
+        if (strlen(tmp) > 3000)
+            cout << "summary is too long! try again\n";
+        else
+            tooLong = true;
+    }
+
+
     summary = new char[strlen(tmp) + 1];
     strcpy(summary, tmp);
+
+
 
 }
 
 void CV::setExperience() {
-    char tmp [SIZE_STRING];
-    delete[] experience;
-    cin.ignore();
 
+    char tmp [SIZE_STRING];
+    delete [] experience;
+//    cin.ignore();
+
+
+    bool tooLong = false;
     cout << "experience" << endl;
-    cin.getline(tmp,SIZE_STRING);
+    while(!tooLong) {
+        cin.getline(tmp, 3100);
+
+        if (std::cin.fail()) {
+            std::cin.clear(); // Clears the error flags
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        }
+        if (strlen(tmp) > 3000)
+            cout << "experience is too long! try again\n";
+        else
+            tooLong = true;
+    }
+
     experience = new char[strlen(tmp) + 1];
     strcpy(experience, tmp);
 
@@ -401,11 +473,25 @@ void CV::setExperience() {
 
 void CV::setEducation() {
     char tmp [SIZE_STRING];
-    delete[] education;
-    cin.ignore();
+    delete [] education;
+//    cin.ignore();
 
+
+    bool tooLong = false;
     cout << "education" << endl;
-    cin.getline(tmp,SIZE_STRING);
+    while(!tooLong) {
+        cin.getline(tmp, 3100);
+
+        if (std::cin.fail()) {
+            std::cin.clear(); // Clears the error flags
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        }
+        if (strlen(tmp) > 3000)
+            cout << "education is too long! try again\n";
+        else
+            tooLong = true;
+    }
+
     education = new char[strlen(tmp) + 1];
     strcpy(education, tmp);
 
@@ -413,11 +499,26 @@ void CV::setEducation() {
 
 void CV::setLicenses() {
     char tmp [SIZE_STRING];
-    delete[] licenses;
-    cin.ignore();
+    delete [] licenses;
+//    cin.ignore();
 
+
+
+    bool tooLong = false;
     cout << "licenses" << endl;
-    cin.getline(tmp,SIZE_STRING);
+    while(!tooLong) {
+        cin.getline(tmp, 3100);
+
+        if (std::cin.fail()) {
+            std::cin.clear(); // Clears the error flags
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        }
+        if (strlen(tmp) > 3000)
+            cout << "licenses is too long! try again\n";
+        else
+            tooLong = true;
+    }
+
     licenses = new char[strlen(tmp) + 1];
     strcpy(licenses, tmp);
 
@@ -426,10 +527,23 @@ void CV::setLicenses() {
 void CV::setSkills() {
     char tmp [SIZE_STRING];
     delete[] skills;
-    cin.ignore();
+//    cin.ignore();
 
+    bool tooLong = false;
     cout << "skills" << endl;
-    cin.getline(tmp,SIZE_STRING);
+    while(!tooLong) {
+        cin.getline(tmp, 3100);
+
+        if (std::cin.fail()) {
+            std::cin.clear(); // Clears the error flags
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        }
+        if (strlen(tmp) > 3000)
+            cout << "skills is too long! try again\n";
+        else
+            tooLong = true;
+    }
+
     skills = new char[strlen(tmp) + 1];
     strcpy(skills, tmp);
 
@@ -438,10 +552,23 @@ void CV::setSkills() {
 void CV::setAwards() {
     char tmp [SIZE_STRING];
     delete[] awards;
-    cin.ignore();
+//    cin.ignore();
 
+    bool tooLong = false;
     cout << "awards" << endl;
-    cin.getline(tmp,SIZE_STRING);
+    while(!tooLong) {
+        cin.getline(tmp, 3100);
+
+        if (std::cin.fail()) {
+            std::cin.clear(); // Clears the error flags
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        }
+        if (strlen(tmp) > 3000)
+            cout << "awards is too long! try again\n";
+        else
+            tooLong = true;
+    }
+
     awards = new char[strlen(tmp) + 1];
     strcpy(awards, tmp);
 }

@@ -16,33 +16,46 @@ Job :: Job():submitted(false),liked(false),jobApplicants(NULL),jobApplicantsSize
 
     //getting company name
     setCompanyName();
+//    clearInputBuffer();
 
 
     //getting role
     setRole();
+//    clearInputBuffer();
+
 
 
 
     //getting job description
     setJobDescription();
+//    clearInputBuffer();
+
 
 
 
     //getting job requirements
     setJobRequirements();
+//    clearInputBuffer();
+
 
 
     //job type
     setJobType();
+//    clearInputBuffer();
+
 
 
     //getting job conditions
     setJobCondition();
+//    clearInputBuffer();
+
 
 
 
     //getting job location
     setLocation();
+//    clearInputBuffer();
+
 
     //getting job date
     today();
@@ -164,6 +177,8 @@ Job& Job :: operator=(const Job& job)
 
     id = job.id;
 
+    return *this;
+
 }
 
 
@@ -250,10 +265,17 @@ void Job:: setUnLiked()
 void Job::setCompanyName() {
 
     char buffer[102];
+//    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
 
     //getting company name
+
+    Colors color;
+    color.setConsoleColor( FOREGROUND_BLUE );
     cout << "company name" << endl;
-    cin.ignore();
+    color.setConsoleColor(7);
+
+//    cin.clear();
     cin.getline(buffer,102);
     company_name = new char[strlen(buffer)+1];
     strcpy(company_name, buffer);
@@ -263,10 +285,13 @@ void Job::setCompanyName() {
 void Job::setRole() {
 
     bool validInput = false; // Flag to track if the input is valid
-
+    Colors color;
     char nav_role;
     while(!validInput) {
-        cout << "role" << endl << "choose from the following:" << endl;
+        color.setConsoleColor( FOREGROUND_BLUE );
+        cout << "role" << endl;
+        color.setConsoleColor(7);
+        cout << "choose from the following:" << endl;
         cout << "1- teaching \n";
         cout << "2- engineering \n";
         cout << "3- law \n";
@@ -334,7 +359,10 @@ void Job::setRole() {
                 break;
             }
             default: {
+                Colors color;
+                color.setConsoleColor( FOREGROUND_RED );
                 cout << "Invalid input. Please choose a valid option." << endl;
+                color.setConsoleColor(7);
                 // Optionally clear the input buffer in case of invalid input
                 cin.clear();
                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -350,25 +378,45 @@ void Job::setRole() {
 
 void Job::setJobDescription() {
 
-    char buffer[101];
+    char buffer[300];
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
-    cout << "job description. to skip, enter \"none\"" << endl;
-    cin.ignore();
-    cin.getline(buffer,101);
+    Colors color;
+    color.setConsoleColor( FOREGROUND_BLUE );
+    cout << "job description"<<endl;
+    color.setConsoleColor(7);
+    cout << "to skip, enter \"none\"" << endl;
+//    cin.ignore();
+    cin.getline(buffer,300);
     job_description = new char[strlen(buffer)+1];
     strcpy(job_description, buffer);
+
+
 
 }
 
 void Job::setJobRequirements() {
     char buffer[101];
+    Colors color;
+//    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
 //    cin.ignore();
 
-    cout << "job requirements. you might want to include the following suggestions: degree, languages, "
+    color.setConsoleColor( FOREGROUND_BLUE );
+    cout << "job requirements"<<endl;
+//    color.setConsoleColor(7);
+
+
+    color.setConsoleColor( FOREGROUND_INTENSITY );
+    cout << "you might want to include the following suggestions: degree, languages, "
             "experience,\n valid licence holder, personal skills...\n -to skip, enter \"none\"-" << endl;
+    color.setConsoleColor(7);
+
     cin.getline(buffer,101);
     job_requirements = new char[strlen(buffer)+1];
     strcpy(job_requirements, buffer);
+
+//    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
 
 }
@@ -376,11 +424,15 @@ void Job::setJobRequirements() {
 void Job::setJobType() {
 
     bool validInput = false;
-
+    Colors color;
     while(!validInput) {
 
         char nav_type;
-        cout << "job type" << endl << "choose from the following:" << endl;
+
+        color.setConsoleColor( FOREGROUND_BLUE );
+        cout << "job type" << endl;
+        color.setConsoleColor(7);
+        cout << "choose from the following:" << endl;
         cout << "1- full time \n";
         cout << "2- part time \n";
         cout << "3- student \n";
@@ -412,7 +464,11 @@ void Job::setJobType() {
                 break;
             }
             default: {
+
+                Colors color;
+                color.setConsoleColor( FOREGROUND_RED );
                 cout << "Invalid input. Please choose a valid option." << endl;
+                color.setConsoleColor(7);
                 // Optionally clear the input buffer in case of invalid input
                 cin.clear();
                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -427,12 +483,21 @@ void Job::setJobType() {
 }
 
 void Job::setJobCondition() {
+    Colors color;
+    char buffer[300];
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
-    char buffer[51];
-    cin.ignore();
-    cout << "job conditions. you might want to include the following suggestions: wage, transportation, "
+//    cin.ignore();
+
+    color.setConsoleColor( FOREGROUND_BLUE );
+    cout << "job conditions"<<endl;
+
+    color.setConsoleColor( FOREGROUND_INTENSITY );
+    cout << "you might want to include the following suggestions: wage, transportation, "
             " car job, \"TenBis \" discount. -to skip, enter \"none\"" << endl;
-    cin.getline(buffer,51);
+    color.setConsoleColor(7);
+
+    cin.getline(buffer,300);
 //    cin.ignore();
     job_condition = new char[strlen(buffer)+1];
     strcpy(job_condition, buffer);
@@ -446,10 +511,15 @@ void Job::setLocation() {
 
     char nav_location;
 
+    Colors color;
     bool validInput = false;
 
     while(!validInput) {
-        cout << "job location" << endl << "choose from the following:" << endl;
+        color.setConsoleColor( FOREGROUND_BLUE );
+        cout << "job location" << endl;
+        color.setConsoleColor(7);
+
+        cout << "choose from the following:" << endl;
         cout << "1- north \n";
         cout << "2- south \n";
         cout << "3- center \n";
@@ -495,7 +565,11 @@ void Job::setLocation() {
                 break;
             }
             default: {
+                Colors color;
+                color.setConsoleColor( FOREGROUND_RED );
                 cout << "Invalid input. Please choose a valid option." << endl;
+                color.setConsoleColor(7);
+
                 // Optionally clear the input buffer in case of invalid input
                 cin.clear();
                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -507,6 +581,19 @@ void Job::setLocation() {
     }
 
 }
+
+//void Job::clearInputBuffer() {
+//    // If cin fails or reaches EOF, clear its state to allow further operations.
+//    if (std::cin.fail() || std::cin.eof()) {
+//        std::cin.clear();
+//    }
+//
+//    // Peek the next character in the buffer
+//    if (std::cin.peek() != std::char_traits<char>::eof()) {
+//        // Ignore the rest of the line up to the maximum streamsize value
+//        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+//    }
+//}
 
 void Job::setJobApplicants(Candidate **jobApplicants) {
     this->jobApplicants = jobApplicants;
@@ -520,12 +607,15 @@ void Job::setJobApplicantsSize(int jobApplicantsSize) {
 //print functions
 void Job :: print() const
 {
+//    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+
     //TODO fix colors!!!!
     Colors color;
-    color.setConsoleColor(  FOREGROUND_INTENSITY );
+    color.setConsoleColor( FOREGROUND_INTENSITY );
     cout << "----------------------------------------- job id: "<< id << "------------------------------------------------------------ " << endl;
     color.setConsoleColor(7);
 
+    std::cout.flush();
 
     if(liked) {
         SetConsoleOutputCP(CP_UTF8);
@@ -541,16 +631,21 @@ void Job :: print() const
         cout << "♥  ";
 
         color.setConsoleColor(7);
+        std::cout.flush();
     } else {
         SetConsoleOutputCP(CP_UTF8);
         color.setConsoleColor(FOREGROUND_RED);
         cout << "\xE2\x99\xA1  ";// UTF-8 encoding for U+2661 ('♡') is E2 99 A1
         color.setConsoleColor(7);
+
+        std::cout.flush();
     }
     if(submitted) {
         color.setConsoleColor(FOREGROUND_GREEN);
         cout << "submitted  ";
         color.setConsoleColor(7);
+
+        std::cout.flush();
     }
     cout << "posted in: " << day << "." << month << "." << year << endl;
 
@@ -561,48 +656,88 @@ void Job :: print() const
     color.setConsoleColor( FOREGROUND_BLUE );
     cout << "\ncompany name: " << endl;
     color.setConsoleColor(7);
+    std::cout.flush();
     cout << company_name << endl << endl;
 
     color.setConsoleColor( FOREGROUND_BLUE );
     cout << "role: " << endl;
     color.setConsoleColor(7);
+    std::cout.flush();
     cout << role << endl << endl;
 
-    color.setConsoleColor( FOREGROUND_BLUE );
-    cout << "job description: " << endl;
-    color.setConsoleColor(7);
-    cout << job_description << endl << endl;
 
-    color.setConsoleColor( FOREGROUND_BLUE );
-    cout << "job requirements: " << endl;
-    color.setConsoleColor(7);
-    cout << job_requirements << endl << endl;
+    if(strcmp(job_description, "none ") != 0) {
+        color.setConsoleColor(FOREGROUND_BLUE);
+        cout << "job description: " << endl;
+        color.setConsoleColor(7);
+        std::cout.flush();
+        cout << job_description << endl << endl;
+    }
+
+    if(strcmp(job_requirements, "none ") != 0) {
+
+        color.setConsoleColor(FOREGROUND_BLUE);
+        cout << "job requirements: " << endl;
+        color.setConsoleColor(7);
+        std::cout.flush();
+        cout << job_requirements << endl << endl;
+    }
 
     color.setConsoleColor( FOREGROUND_BLUE );
     cout << "job type: " << endl;
     color.setConsoleColor(7);
+    std::cout.flush();
     cout << job_type << endl << endl;
 
-    color.setConsoleColor( FOREGROUND_BLUE );
-    cout << "job condition:" << endl;
-    color.setConsoleColor(7);
-    cout << job_condition << endl << endl;
+    if(strcmp(job_condition, "none ") != 0 ) {
+        color.setConsoleColor(FOREGROUND_BLUE);
+        cout << "job condition:" << endl;
+        color.setConsoleColor(7);
+        std::cout.flush();
+        cout << job_condition << endl << endl;
+    }
 
     color.setConsoleColor( FOREGROUND_BLUE );
     cout << "location: " << endl;
     color.setConsoleColor(7);
+    std::cout.flush();
     cout << location << endl << endl;
 
 
     color.setConsoleColor( FOREGROUND_INTENSITY );
     cout << "----------------------------------------------------------------------------------------------------------------- " << endl;
     color.setConsoleColor(7);
+    std::cout.flush();
+
+
 
 }
 
 void Job:: printJobApplicants() {
+    Colors color;
     for (int i = 0; i < jobApplicantsSize; ++i) {
+
+        color.setConsoleColor(FOREGROUND_INTENSITY);
+        cout << "----------------------------------------------------------------------------------\n";
+        color.setConsoleColor(7);
+
+        if(strcmp(jobApplicants[i]->getFreeTxt(),"none ") != 0) {
+            color.setConsoleColor(FOREGROUND_BLUE);
+            cout << "----------------------------------about me-------------------------------------\n";
+            color.setConsoleColor(7);
+
+            cout << jobApplicants[i]->getFreeTxt() << endl;
+
+            color.setConsoleColor(FOREGROUND_BLUE);
+            cout << "-------------------------------------------------------------------------------\n";
+            color.setConsoleColor(7);
+        }
+
         jobApplicants[i]->getCv()->print();//printing CV's of candidates
+
+        color.setConsoleColor(FOREGROUND_INTENSITY);
+        cout << "----------------------------------------------------------------------------------\n";
+        color.setConsoleColor(7);
 
     }
 }
@@ -626,7 +761,7 @@ void Job :: updateJob()
 
 
         cin >> nav_update_job;
-        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+//        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
 
         switch (nav_update_job) {
@@ -669,6 +804,12 @@ void Job :: updateJob()
                 //navigate user to all submitted jobs
                 break;
             }
+            default: {
+                //navigate user to all submitted jobs
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                break;
+            }
         }
     } while (nav_update_job != BACK_ALL_SUB_J); //keep showing options for adaptation until user back in all submitted jobs
 
@@ -684,9 +825,9 @@ void Job :: today() {
     tm *timeinfo;
     time(&rawtime);
     timeinfo = localtime(&rawtime);
-    int month = timeinfo->tm_mon + 1;
-    int day = timeinfo->tm_mday;
-    int year = timeinfo->tm_year + 1900;
+    month = timeinfo->tm_mon + 1;
+    day = timeinfo->tm_mday;
+    year = timeinfo->tm_year + 1900;
 
 }
 
@@ -719,3 +860,64 @@ void Job:: insertMaxIdToFiles() {
 
 }
 
+void Job:: printJobForEmployer()
+{
+
+    Colors color;
+    color.setConsoleColor( FOREGROUND_INTENSITY );
+    cout << "----------------------------------------- job id: "<< id << "------------------------------------------------------------ " << endl;
+    color.setConsoleColor(7);
+
+    cout << "posted in: " << day << "." << month << "." << year << endl;
+
+    color.setConsoleColor( FOREGROUND_BLUE );
+    cout << "\ncompany name: " << endl;
+    color.setConsoleColor(7);
+    std::cout.flush();
+    cout << company_name << endl << endl;
+
+    color.setConsoleColor( FOREGROUND_BLUE );
+    cout << "role: " << endl;
+    color.setConsoleColor(7);
+    std::cout.flush();
+    cout << role << endl << endl;
+
+    color.setConsoleColor( FOREGROUND_BLUE );
+    cout << "job description: " << endl;
+    color.setConsoleColor(7);
+    std::cout.flush();
+    cout << job_description << endl << endl;
+
+    color.setConsoleColor( FOREGROUND_BLUE );
+    cout << "job requirements: " << endl;
+    color.setConsoleColor(7);
+    std::cout.flush();
+    cout << job_requirements << endl << endl;
+
+    color.setConsoleColor( FOREGROUND_BLUE );
+    cout << "job type: " << endl;
+    color.setConsoleColor(7);
+    std::cout.flush();
+    cout << job_type << endl << endl;
+
+    color.setConsoleColor( FOREGROUND_BLUE );
+    cout << "job condition:" << endl;
+    color.setConsoleColor(7);
+    std::cout.flush();
+    cout << job_condition << endl << endl;
+
+    color.setConsoleColor( FOREGROUND_BLUE );
+    cout << "location: " << endl;
+    color.setConsoleColor(7);
+    std::cout.flush();
+    cout << location << endl << endl;
+
+
+    color.setConsoleColor( FOREGROUND_INTENSITY );
+    cout << "----------------------------------------------------------------------------------------------------------------- " << endl;
+    color.setConsoleColor(7);
+    std::cout.flush();
+
+
+
+}

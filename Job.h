@@ -104,6 +104,8 @@ public:
 
     void setJobApplicantsSize(int jobApplicantsSize);
 
+//    void clearInputBuffer();
+
 
     void print() const;
 
@@ -123,6 +125,8 @@ public:
     void today();
 
     void  updateJob();
+
+    void printJobForEmployer();
 
 
 

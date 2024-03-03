@@ -96,8 +96,12 @@ void Employer :: personalArea()
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
         // Check if the input is not one of the expected options
-        if (nav_personal_area < '1' || nav_personal_area > '4') {
-            cout << "Invalid input. Please enter a valid option (1-4)." << endl;
+        if (nav_personal_area < '1' || nav_personal_area > '4')
+        {
+            Colors color;
+            color.setConsoleColor(  FOREGROUND_RED );
+            cout<< "invalid input, try again\n";
+            color.setConsoleColor(7);
             continue; // Skip the rest of the loop and prompt again
         }
 
@@ -117,16 +121,21 @@ void Employer :: personalArea()
 
 
 
-                    // Clear buffer after getting single char
-                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+//                    // Clear buffer after getting single char
+//                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
                     // Check if the input is not one of the expected options
-                    if (nav_submission_history < '1' || nav_submission_history > '4') {
-                        cout << "Invalid input. Please enter a valid option (1-4)." << endl;
-                        continue; // Skip the rest of the loop and prompt again
+                    if (nav_submission_history != '1' && nav_submission_history != '2' && nav_submission_history != '3' && nav_submission_history != '4') {
+                        Colors color;
+
+                        color.setConsoleColor(  FOREGROUND_RED );
+                        cout<< "invalid input, try again\n";
+                        color.setConsoleColor(7);
+
+                        cin.clear(); // Clears the error flag on cin.
+                        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+//                        continue; // Skip the rest of the loop and prompt again
                     }
-
-
 
 
 
@@ -154,6 +163,9 @@ void Employer :: personalArea()
                             //navigate user to all submission history
                             break;
                         }
+                        default:{
+                            break;
+                        }
                     }
 
 
@@ -169,12 +181,12 @@ void Employer :: personalArea()
 
 
                 addNewJob();
-                cout << "------------------ghghgh------------------\n";
-                for (int i = 0; i < published_jobs_arr_size; ++i) {
-                    published_jobs_arr[i]->print();
-
-                }
-                cout << "------------------ghghgh------------------\n";
+//                cout << "------------------ghghgh------------------\n";
+//                for (int i = 0; i < published_jobs_arr_size; ++i) {
+//                    published_jobs_arr[i]->print();
+//
+//                }
+//                cout << "------------------ghghgh------------------\n";
 
 
                 break;
@@ -472,12 +484,12 @@ void Employer:: print() const {
 
 }
 
-void Employer :: printPublishedJobs() const
+void Employer :: printPublishedJobs() const///////////////
 {
     cout << "--------------printing published jobs in function-----------------------\n";
 
     for (int i = 0; i < published_jobs_arr_size; ++i) {
-        published_jobs_arr[i]->print();
+        published_jobs_arr[i]->printJobForEmployer();
 
     }
 }
@@ -649,6 +661,8 @@ void Employer :: edit_job()
 {
     //getting input of job to update
     char jobId[500];
+    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
     cout << "enter id of job you want to update \n";
     cin.getline(jobId,500);
     strcat(jobId," ");//id in field is a string that consist of a number and space in end
@@ -674,6 +688,8 @@ void Employer :: delete_a_job()
 
     //getting input of job to delete
     char jobId[500];
+    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
     cout << "enter id of job you want to delete \n";
     cin.getline(jobId,500);
 
@@ -687,6 +703,14 @@ void Employer :: delete_a_job()
 
     cout << "are you sure you want to delete this job? \n1- yes \n2- no \n";
     cin >> nav_delete;
+
+
+    if (nav_delete != '1' && nav_delete != '2') {
+        cin.clear(); // Clears the error flag on cin.
+        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    }
+
+
 
     if(nav_delete == '1') {
         //update job
@@ -750,7 +774,6 @@ bool Employer :: isValidNumber(char* jobId) {
 
 }
 
-////////TODO fix delete after publishing
 
 void Employer :: addNewJob()
 {
@@ -762,7 +785,12 @@ void Employer :: addNewJob()
     delete [] published_jobs_arr;
     published_jobs_arr = tempArr;
     ++published_jobs_arr_size;
-    cout << "job was successfully posted, to view job details go to submission history\n";
+
+    Colors color;
+    color.setConsoleColor( FOREGROUND_BLUE );
+    cout << "---job was successfully posted, to view job details go to submission history---\n";
+    color.setConsoleColor(7);
+
 }
 
 void Employer :: addJobToPublishJobs(Job* job) {
@@ -776,17 +804,24 @@ void Employer :: addJobToPublishJobs(Job* job) {
 }
 
 void Employer :: viewCandidateSubmission()
-{
-    for (int i = 0; i < published_jobs_arr_size; ++i)
-    {
-        cout << "candidate submission to job id: " << published_jobs_arr[i]->getId();
-        if(published_jobs_arr[i]->getJobApplicantsSize() == 0) cout << "--none--\n"; else cout << "\n";
+{//TODO ADD FREE TXT PRINTING
 
-        published_jobs_arr[i]->printJobApplicants();
+    Colors color;
+
+    for (int i = 0; i < published_jobs_arr_size; ++i) {
+        if (published_jobs_arr[i]->getJobApplicantsSize() != 0) {
+
+            color.setConsoleColor(FOREGROUND_RED);
+            cout << "--------------------------candidate submission to job id: " << published_jobs_arr[i]->getId()
+                 << "--------------------------\n";
+            color.setConsoleColor(7);
+
+            published_jobs_arr[i]->printJobApplicants();
 //        for (int j = 0; j < published_jobs_arr[i]->getJobApplicantsSize(); ++j) {
 //            published_jobs_arr[i]->printJobApplicants();
 //        }
 
+        }
     }
 
 

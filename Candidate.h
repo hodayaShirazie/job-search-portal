@@ -72,6 +72,8 @@ public:
 
     Job **getAllJobsArr() const;
 
+    char *getFreeTxt() const;
+
     int getAllJobsArrSize() const;
 
     char *getPassword() const;
