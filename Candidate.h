@@ -137,6 +137,19 @@ private:
     char* password;
     char* freeTxt;
     CV *cv;
+    bool wasCVcopied;
+    bool wasPDcopied;
+//public:
+//    void setPointerJobApplicants(Candidate ***pointerJobApplicants);
+//
+//    void setPointerJobApplicantsSize(int pointerJobApplicantsSize);
+
+private:
+    bool wasLikedCopied;
+    bool wasSubmittedCopied;
+
+//    Candidate*** pointerJobApplicants;//pointer to array of candidate to every job
+//    int pointerJobApplicantsSize;//size of array of candidate of every job
 
     Job** all_jobs_arr;
     int all_jobs_arr_size;

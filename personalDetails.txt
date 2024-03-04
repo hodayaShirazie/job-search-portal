@@ -1,6 +1,6 @@
 
-c 098765432 9909 HODAYA SHIR shira@12.il 0987654321 7.8.1995 this is about me  #endl#
-c 123456789 Ww112233 gimi h @.il 0987654321 5.6.2000 none  #endl#
-c 123456789 123456Aa GG G @.il 0987654399 5.6.2000 ttt ttttttttttttttt  #endl#
+c 098765432 Aa112234 jane doe jane-doe@fictivemail.com 0786657645 7.8.1995 Innovative software developer with expertise in Java and Python. Excels in team collaboration and problem-solving. Committed to continuous learning and technological advancement.  #endl#
+c 765457789 Ss112233 john smith john.smith@example.org 0877865534 5.2.1996 I'm John Smith, a software engineer with a knack for solving complex problems through innovative Java and Python solutions. I thrive on teamwork and am always eager to learn and apply the latest tech trends to ensure our projects lead the way in efficiency and user experience.  #endl#
 e 098765432 1123 adam levi adam@gmail.com 0987786755 3.3.2003
-e 111111111 Aa112233 liel noi liel@.il 0987654321 4.7.1997
+e 987787656 Qq112233 alex jones alex-jones10@gmail.org 0543223123 3.7.1988
+e 876566682 Zz112234 olivia martine olivia-martines@edu.il 0786654734 5.8.2000

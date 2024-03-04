@@ -8,8 +8,9 @@
 
 
 //constructor with no parameters
-Job :: Job():submitted(false),liked(false),jobApplicants(NULL),jobApplicantsSize(0)
+Job :: Job():submitted(false),liked(false),jobApplicants(NULL),jobApplicantsSize(0),wasCopied(false)
 {
+
     readMaxIdFromFiles();
     ++max_id;
     char buffer[80];
@@ -70,7 +71,7 @@ Job :: Job():submitted(false),liked(false),jobApplicants(NULL),jobApplicantsSize
 
 //constructor with parameters
 Job :: Job(char *company_name, char* role, char* job_description, char* job_requirements,
-    char* job_type, char* job_condition, char* location, string id, int day, int month,int year):submitted(false),liked(false),jobApplicants(NULL),jobApplicantsSize(0)
+    char* job_type, char* job_condition, char* location, string id, int day, int month,int year):submitted(false),liked(false),jobApplicants(NULL),jobApplicantsSize(0),wasCopied(false)
 {
 
     this->company_name = new char[strlen(company_name) + 1];
@@ -105,7 +106,8 @@ Job :: Job(char *company_name, char* role, char* job_description, char* job_requ
 
 }
 
-
+#include "Candidate.h" // Include Candidate class definition
+#include "Job.h"
 //distructor
 Job :: ~Job()
 {
@@ -117,9 +119,26 @@ Job :: ~Job()
     delete [] job_type;
     delete [] job_condition;
     delete [] location;
-    //TODO add deleting all dynamic fields
+
+    company_name = NULL;
+    role = NULL;
+    job_description = NULL;
+    job_requirements = NULL;
+    job_type = NULL;
+    job_condition = NULL;
+    location = NULL;
+
+    //TODO DIS HEREE  ---add deleting all dynamic fields
 
 
+
+//    for (int i = 0; i < jobApplicantsSize; ++i) {
+//        delete jobApplicants[i];
+//        jobApplicants[i] = NULL;
+//    }
+//    jobApplicantsSize = 0;
+//    delete jobApplicants;
+//    jobApplicants = NULL;
 
 }
 
@@ -396,7 +415,7 @@ void Job::setJobDescription() {
 }
 
 void Job::setJobRequirements() {
-    char buffer[101];
+    char buffer[1500];
     Colors color;
 //    cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
@@ -412,7 +431,7 @@ void Job::setJobRequirements() {
             "experience,\n valid licence holder, personal skills...\n -to skip, enter \"none\"-" << endl;
     color.setConsoleColor(7);
 
-    cin.getline(buffer,101);
+    cin.getline(buffer,1500);
     job_requirements = new char[strlen(buffer)+1];
     strcpy(job_requirements, buffer);
 
@@ -723,13 +742,13 @@ void Job:: printJobApplicants() {
 
         if(strcmp(jobApplicants[i]->getFreeTxt(),"none ") != 0) {
             color.setConsoleColor(FOREGROUND_BLUE);
-            cout << "----------------------------------about me-------------------------------------\n";
+            cout << "----------------------------------about me---------------------------------------------------------\n";
             color.setConsoleColor(7);
 
             cout << jobApplicants[i]->getFreeTxt() << endl;
 
             color.setConsoleColor(FOREGROUND_BLUE);
-            cout << "-------------------------------------------------------------------------------\n";
+            cout << "---------------------------------------------------------------------------------------------------\n";
             color.setConsoleColor(7);
         }
 
@@ -766,6 +785,7 @@ void Job :: updateJob()
 
         switch (nav_update_job) {
             case COMPANY_NAME: {
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
                 delete [] company_name;
                 setCompanyName();
                 break;
@@ -781,6 +801,7 @@ void Job :: updateJob()
                 break;
             }
             case JOB_REQUIREMENTS: {
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
                 delete [] job_requirements;
                 setJobRequirements();
                 break;
@@ -917,7 +938,5 @@ void Job:: printJobForEmployer()
     cout << "----------------------------------------------------------------------------------------------------------------- " << endl;
     color.setConsoleColor(7);
     std::cout.flush();
-
-
 
 }

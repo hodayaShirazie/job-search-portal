@@ -7,7 +7,7 @@
 
 
 //constructor with parameters
-Candidate :: Candidate(char* id, char* password, char* userName, char* email, char* phoneNumber, char* birthDate, char* freeTxt):cv(NULL),all_jobs_arr(NULL), all_jobs_arr_size(0)
+Candidate :: Candidate(char* id, char* password, char* userName, char* email, char* phoneNumber, char* birthDate, char* freeTxt):cv(NULL),all_jobs_arr(NULL), all_jobs_arr_size(0),wasCVcopied(false),wasPDcopied(false),wasLikedCopied(false),wasSubmittedCopied(false)
 {
     copyAllJobsFromFile();
 
@@ -39,7 +39,7 @@ Candidate :: Candidate(char* id, char* password, char* userName, char* email, ch
 
 
 //constructor with no parameters
- Candidate :: Candidate() : userName(NULL), id(NULL), email(NULL), phoneNumber(NULL), birthDate(NULL), password(NULL),freeTxt(NULL),all_jobs_arr_size(0), all_jobs_arr(NULL) {
+ Candidate :: Candidate() : userName(NULL), id(NULL), email(NULL), phoneNumber(NULL), birthDate(NULL), password(NULL),freeTxt(NULL),all_jobs_arr_size(0), all_jobs_arr(NULL),wasCVcopied(false),wasPDcopied(false),wasLikedCopied(false),wasSubmittedCopied(false) {
 
     //copy jobs from file
     copyAllJobsFromFile();
@@ -100,15 +100,31 @@ Candidate :: ~Candidate()
     delete [] freeTxt;
     delete cv;
 
-//    for (int i = 0; i < all_jobs_arr_size; ++i)
-//        delete [] all_jobs_arr[i];
+    userName = NULL;
+    id = NULL;
+    email = NULL;
+    phoneNumber = NULL;
+    birthDate = NULL;
+    password = NULL;
+    freeTxt = NULL;
+    cv = NULL;
 
+
+    //TODO DIS HEREE  ---
+
+//    for (int i = 0; i < all_jobs_arr_size; ++i) {
+//        delete all_jobs_arr[i];
+//        all_jobs_arr[i] = NULL;
+//    }
+//    delete [] all_jobs_arr;
+//    all_jobs_arr = NULL;
+//    all_jobs_arr_size = 0;
 
 }
 
 
 //copy constructor
-Candidate :: Candidate(const Candidate& candidate): userName(NULL), id(NULL), email(NULL), phoneNumber(NULL), birthDate(NULL), password(NULL), freeTxt(NULL)
+Candidate :: Candidate(const Candidate& candidate): userName(NULL), id(NULL), email(NULL), phoneNumber(NULL), birthDate(NULL), password(NULL), freeTxt(NULL),all_jobs_arr(NULL),all_jobs_arr_size(0)
 {
     *this = candidate;
 }
@@ -198,17 +214,20 @@ void Candidate :: personalArea()
 
                     switch (nav_edit_profile) {
                         case USER_NAME_C: {
+                            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                             set_user_name();
                             cv->setName(userName); //change name in cv
                             break;
                         }
                         case EMAIL_C: {
+                            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                             set_email();
                             cv->setEmail(email); //change email in cv
                             break;
 
                         }
                         case PHONE_NUMBER_C: {
+                            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                             set_phone_number();
                             break;
 
@@ -224,7 +243,7 @@ void Candidate :: personalArea()
 
                         }
                         case UPDATE_P_C: {
-//
+                            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                             break;
 
                         }
@@ -295,6 +314,7 @@ void Candidate :: personalArea()
                 break;
             }
             case Exit_C: {
+                cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                 //end program
                 break;
             }
@@ -320,7 +340,7 @@ void Candidate :: set_user_name()
 
 //    string newVal;
     char buffer[80];
-    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+//    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     bool validInput = true;
 
 
@@ -576,7 +596,7 @@ void Candidate:: set_password()
     char buffer[80];
     bool validInput = true;
 
-//    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     delete [] password;
 //    cin.ignore();
 
@@ -832,14 +852,14 @@ void Candidate :: copyAllJobsFromFile() {
 
     fstream file_jobs;
 
-    char company_name[200] = "\0";
-    char role[200] = "\0";
-    char job_description[200] = "\0";
-    char job_requirements[200] = "\0";
-    char job_type[200] = "\0";
-    char job_condition[200] = "\0";
-    char location[200] = "\0";
-    char date[200] = "\0";
+    char company_name[1000] = "\0";
+    char role[1000] = "\0";
+    char job_description[1000] = "\0";
+    char job_requirements[1000] = "\0";
+    char job_type[1000] = "\0";
+    char job_condition[1000] = "\0";
+    char location[1000] = "\0";
+    char date[1000] = "\0";
     char id_j[5] = "\0";
     int d=0,m=0,y=0;
 
@@ -1473,10 +1493,14 @@ void Candidate :: copyPersonalDetailsToFile()
     if(!file_personal_details.is_open())
         cout << "file could not be opened, check error" << endl;
     else {
-        //copy all candidate details to "personalDetails" file
-        file_personal_details << endl << "c " << id << " " << password << " " << userName << " " << email << " "
-                              << phoneNumber << " " << birthDate << " " << freeTxt << " #endl#";
-        file_personal_details.close();
+        if (id != NULL && password != NULL && userName != NULL && email != NULL && phoneNumber != NULL &&
+            birthDate != NULL && freeTxt != NULL && !wasPDcopied) {
+            //copy all candidate details to "personalDetails" file
+            file_personal_details << endl << "c " << id << " " << password << " " << userName << " " << email << " "
+                                  << phoneNumber << " " << birthDate << " " << freeTxt << " #endl#";
+            file_personal_details.close();
+            wasPDcopied = true; //personal details were copied
+        }
     }
 
 }
@@ -1492,13 +1516,17 @@ void Candidate :: copyCVToFile()
     if(!file_cv.is_open())
         cout << "file could not be opened, check error" << endl;
     else {
-        file_cv << id << " #summary# " << cv->getSummary() << " #experience# " << cv->getExperience()
-                << " #education# " << cv->getEducation() << " #licenses# " <<
-                cv->getLicenses() << " #skills# " << cv->getSkills() << " #awards# " << cv->getAwards()
-                << " #name# " <<
-                cv->getName() << " #email# " << cv->getEmail() << " #endl# " << endl;
+//        if (id != NULL && cv != NULL && !wasCVcopied) {
+            file_cv << id << " #summary# " << cv->getSummary() << " #experience# " << cv->getExperience()
+                    << " #education# " << cv->getEducation() << " #licenses# " <<
+                    cv->getLicenses() << " #skills# " << cv->getSkills() << " #awards# " << cv->getAwards()
+                    << " #name# " <<
+                    cv->getName() << " #email# " << cv->getEmail() << " #endl# " << endl;
 
-        file_cv.close();
+            file_cv.close();
+//            wasCVcopied = true; //CV details were copied
+
+//        }
     }
 
 }
@@ -1514,20 +1542,25 @@ void Candidate :: copySubmittedJobsToFile()
     else
     {
 
-        bool isSubmitExists = false;
-        for (int i = 0; i < all_jobs_arr_size; ++i)
-            if (all_jobs_arr[i]->isSubmitted())
-                isSubmitExists = true;
-
-        if (isSubmitExists) {
-            file_submitted_jobs << id << " ";
-            for (int i = 0; i < all_jobs_arr_size; ++i) {
-                if (all_jobs_arr[i]->isSubmitted()) { //if job was submitted, add its id to file
-                    file_submitted_jobs << all_jobs_arr[i]->getId() << " ";
+        if(all_jobs_arr != NULL) {
+            bool isSubmitExists = false;
+            for (int i = 0; i < all_jobs_arr_size; ++i)
+                if (all_jobs_arr[i] != NULL) {
+                    if (all_jobs_arr[i]->isSubmitted())
+                        isSubmitExists = true;
                 }
 
+            if (isSubmitExists) {
+                file_submitted_jobs << id << " ";
+                for (int i = 0; i < all_jobs_arr_size; ++i) {
+                    if (all_jobs_arr[i] != NULL)
+                        if (all_jobs_arr[i]->isSubmitted()) { //if job was submitted, add its id to file
+                            file_submitted_jobs << all_jobs_arr[i]->getId() << " ";
+                    }
+
+                }
+                file_submitted_jobs << "endl" << endl;
             }
-            file_submitted_jobs << "endl" << endl;
         }
         file_submitted_jobs.close();
 
@@ -1547,20 +1580,26 @@ void Candidate :: copyLikedJobsToFile() {
     else
     {
 
-        bool isLikedExists = false;
-        for (int i = 0; i < all_jobs_arr_size; ++i)
-            if (all_jobs_arr[i]->isLiked())
-                isLikedExists = true;
+        if(all_jobs_arr != NULL) {
 
-        if (isLikedExists) {
-            file_liked_jobs << id << " ";
-            for (int i = 0; i < all_jobs_arr_size; ++i) {
-                if (all_jobs_arr[i]->isLiked()) { //if job was submitted, add its id to file
-                    file_liked_jobs << all_jobs_arr[i]->getId() << " ";
+            bool isLikedExists = false;
+            for (int i = 0; i < all_jobs_arr_size; ++i)
+                if (all_jobs_arr[i] != NULL) {
+                    if (all_jobs_arr[i]->isLiked())
+                        isLikedExists = true;
                 }
 
+            if (isLikedExists) {
+                file_liked_jobs << id << " ";
+                for (int i = 0; i < all_jobs_arr_size; ++i) {
+                    if (all_jobs_arr[i] != NULL)
+                        if (all_jobs_arr[i]->isLiked()) { //if job was submitted, add its id to file
+                        file_liked_jobs << all_jobs_arr[i]->getId() << " ";
+                    }
+
+                }
+                file_liked_jobs << "endl" << endl;
             }
-            file_liked_jobs << "endl" << endl;
         }
         file_liked_jobs.close();
 
@@ -1575,3 +1614,11 @@ CV *Candidate::getCv() const {
 char *Candidate::getFreeTxt() const {
     return freeTxt;
 }
+
+//void Candidate::setPointerJobApplicants(Candidate ***pointerJobApplicants) {
+//    Candidate::pointerJobApplicants = pointerJobApplicants;
+//}
+//
+//void Candidate::setPointerJobApplicantsSize(int pointerJobApplicantsSize) {
+//    Candidate::pointerJobApplicantsSize = pointerJobApplicantsSize;
+//}

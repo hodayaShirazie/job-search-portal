@@ -654,8 +654,6 @@ void Administrator ::copySubFromFile() {
                                 candidate_arr[t]->getAllJobsArr()[i]->setSubmitted();
 
 
-
-                                //--------------added----------
                                 //update JobApplicants array
                                 Candidate **tmpArrC = new Candidate *[
                                 candidate_arr[t]->getAllJobsArr()[i]->getJobApplicantsSize() + 1];

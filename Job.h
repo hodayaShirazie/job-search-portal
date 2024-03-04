@@ -150,6 +150,7 @@ private:
     int max_id;
     bool submitted;
     bool liked;
+    bool wasCopied;
 
     Candidate **jobApplicants;
     int jobApplicantsSize;
