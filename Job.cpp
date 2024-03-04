@@ -296,6 +296,14 @@ void Job::setCompanyName() {
 
 //    cin.clear();
     cin.getline(buffer,102);
+    while ( std::cin.fail() || strlen(buffer) > 30) {
+        std::cin.clear(); // Clears the error flags
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        color.setConsoleColor( FOREGROUND_RED );
+        cout << "invalid input, try again" << endl;
+        color.setConsoleColor(7);
+        cin.getline(buffer,102);
+    }
     company_name = new char[strlen(buffer)+1];
     strcpy(company_name, buffer);
 
@@ -321,6 +329,26 @@ void Job::setRole() {
         cout << "8- cleaning \n";
         cout << "9- economy \n";
         cin >> nav_role;
+
+        while (std::cin.fail() ||(nav_role != '1' && nav_role != '2' && nav_role != '3' && nav_role != '4' && nav_role != '5' && nav_role != '6' && nav_role != '7' && nav_role != '8' && nav_role != '9')) {
+            std::cin.clear(); // Clears the error flags
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            color.setConsoleColor( FOREGROUND_RED );
+            cout << "invalid input, try again" << endl;
+            color.setConsoleColor(7);
+
+            cout << "choose from the following:" << endl;
+            cout << "1- teaching \n";
+            cout << "2- engineering \n";
+            cout << "3- law \n";
+            cout << "4- medicine \n";
+            cout << "5- research \n";
+            cout << "6- sales \n";
+            cout << "7- restaurants \n";
+            cout << "8- cleaning \n";
+            cout << "9- economy \n";
+            cin >> nav_role;
+        }
 
         switch (nav_role) {
             case TEACHING: {
@@ -378,14 +406,14 @@ void Job::setRole() {
                 break;
             }
             default: {
-                Colors color;
-                color.setConsoleColor( FOREGROUND_RED );
-                cout << "Invalid input. Please choose a valid option." << endl;
-                color.setConsoleColor(7);
-                // Optionally clear the input buffer in case of invalid input
-                cin.clear();
-                cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                // No need to set validInput to false as it's already false
+//                Colors color;
+//                color.setConsoleColor( FOREGROUND_RED );
+//                cout << "Invalid input. Please choose a valid option." << endl;
+//                color.setConsoleColor(7);
+//                // Optionally clear the input buffer in case of invalid input
+//                cin.clear();
+//                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+//                // No need to set validInput to false as it's already false
                 break;
             }
 
@@ -404,9 +432,23 @@ void Job::setJobDescription() {
     color.setConsoleColor( FOREGROUND_BLUE );
     cout << "job description"<<endl;
     color.setConsoleColor(7);
+
+    color.setConsoleColor( FOREGROUND_INTENSITY );
     cout << "to skip, enter \"none\"" << endl;
+    color.setConsoleColor(7);
+
 //    cin.ignore();
     cin.getline(buffer,300);
+    while ( std::cin.fail() || strlen(buffer) > 280) {
+        std::cin.clear(); // Clears the error flags
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        color.setConsoleColor( FOREGROUND_RED );
+        cout << "invalid input, try again" << endl;
+        color.setConsoleColor(7);
+        cin.getline(buffer,300);
+    }
+
+
     job_description = new char[strlen(buffer)+1];
     strcpy(job_description, buffer);
 
@@ -415,7 +457,7 @@ void Job::setJobDescription() {
 }
 
 void Job::setJobRequirements() {
-    char buffer[1500];
+    char buffer[200];
     Colors color;
 //    cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
@@ -431,7 +473,17 @@ void Job::setJobRequirements() {
             "experience,\n valid licence holder, personal skills...\n -to skip, enter \"none\"-" << endl;
     color.setConsoleColor(7);
 
-    cin.getline(buffer,1500);
+    cin.getline(buffer,200);
+    while ( std::cin.fail() || strlen(buffer) > 100) {
+        std::cin.clear(); // Clears the error flags
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        color.setConsoleColor( FOREGROUND_RED );
+        cout << "invalid input, try again" << endl;
+        color.setConsoleColor(7);
+        cin.getline(buffer,200);
+    }
+
+
     job_requirements = new char[strlen(buffer)+1];
     strcpy(job_requirements, buffer);
 
@@ -457,6 +509,22 @@ void Job::setJobType() {
         cout << "3- student \n";
         cout << "4- special needs \n";
         cin >> nav_type;
+
+        while (std::cin.fail() || (nav_type != '1' && nav_type != '2' && nav_type != '3' && nav_type != '4')) {
+            std::cin.clear(); // Clears the error flags
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            color.setConsoleColor( FOREGROUND_RED );
+            cout << "invalid input, try again" << endl;
+            color.setConsoleColor(7);
+            cout << "choose from the following:" << endl;
+            cout << "1- full time \n";
+            cout << "2- part time \n";
+            cout << "3- student \n";
+            cout << "4- special needs \n";
+            cin >> nav_type;
+        }
+
+
         switch (nav_type) {
             case FULL_TIME: {
                 job_type = new char[strlen("fullTime") + 1];
@@ -503,7 +571,7 @@ void Job::setJobType() {
 
 void Job::setJobCondition() {
     Colors color;
-    char buffer[300];
+    char buffer[100];
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
 //    cin.ignore();
@@ -516,7 +584,16 @@ void Job::setJobCondition() {
             " car job, \"TenBis \" discount. -to skip, enter \"none\"" << endl;
     color.setConsoleColor(7);
 
-    cin.getline(buffer,300);
+    cin.getline(buffer,100);
+    while ( std::cin.fail() || strlen(buffer) > 50) {
+        std::cin.clear(); // Clears the error flags
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        color.setConsoleColor( FOREGROUND_RED );
+        cout << "invalid input, try again" << endl;
+        color.setConsoleColor(7);
+        cin.getline(buffer,100);
+    }
+
 //    cin.ignore();
     job_condition = new char[strlen(buffer)+1];
     strcpy(job_condition, buffer);
@@ -546,6 +623,24 @@ void Job::setLocation() {
         cout << "5- Tel aviv \n";
         cout << "6- Judea and Samaria \n";
         cin >> nav_location;
+        while (std::cin.fail() || (nav_location != '1' && nav_location != '2' && nav_location != '3' && nav_location != '4' && nav_location != '5' && nav_location != '6')) {
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            color.setConsoleColor( FOREGROUND_RED );
+            cout << "invalid input, try again" << endl;
+            color.setConsoleColor(7);
+
+            cout << "choose from the following:" << endl;
+            cout << "1- north \n";
+            cout << "2- south \n";
+            cout << "3- center \n";
+            cout << "4- haifa \n";
+            cout << "5- Tel aviv \n";
+            cout << "6- Judea and Samaria \n";
+
+            cin >> nav_location;
+        }
+
         switch (nav_location) {
             case NORTH: {
                 location = new char[strlen("north") + 1];
