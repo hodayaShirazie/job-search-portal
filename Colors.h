@@ -9,9 +9,13 @@
 
 class Colors {
 public:
-    void setConsoleColor(WORD c);
 
-};
+    void setColorANSI(int colorCode);
+
+    void enableVirtualTerminalProcessing();
+
+
+    };
 
 
 #endif //ADMINISTRATOR_H_COLORS_H

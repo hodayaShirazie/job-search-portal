@@ -4,7 +4,6 @@
 #include "Employer.h"
 //#include "Candidate.h"
 
-//TODO handle "none" printing
 //constructor with parameters
 Employer :: Employer(char* id, char* password, char* userName, char* email, char* phoneNumber, char* birthDate):published_jobs_arr(NULL), published_jobs_arr_size(0)
 {
@@ -74,7 +73,7 @@ Employer :: ~Employer()
     for (int i = 0; i < Employer::published_jobs_arr_size; ++i)
         delete published_jobs_arr[i];
 
-    //TODO delete here or in candidate array of candidate applicants
+
 
 }
 
@@ -85,24 +84,25 @@ void Employer :: personalArea()
     do {
 
         Colors color;
-        color.setConsoleColor(  FOREGROUND_RED );
+
+        color.setColorANSI(33);
         cout << "1";
-        color.setConsoleColor(7);
+        color.setColorANSI(0);
         cout << "- submission history \n";
 
-        color.setConsoleColor(  FOREGROUND_RED );
+        color.setColorANSI(33);
         cout << "2";
-        color.setConsoleColor(7);
+        color.setColorANSI(0);
         cout << "- candidate submission\n";
 
-        color.setConsoleColor(  FOREGROUND_RED );
+        color.setColorANSI(33);
         cout << "3";
-        color.setConsoleColor(7);
+        color.setColorANSI(0);
         cout << "- publish a job \n";
 
-        color.setConsoleColor(  FOREGROUND_RED );
+        color.setColorANSI(33);
         cout << "4";
-        color.setConsoleColor(7);
+        color.setColorANSI(0);
         cout << "- log out \n";
 
         cin >> nav_personal_area;
@@ -116,9 +116,12 @@ void Employer :: personalArea()
         if (nav_personal_area < '1' || nav_personal_area > '4')
         {
             Colors color;
-            color.setConsoleColor(  FOREGROUND_RED );
+
+            color.setColorANSI(31);
             cout<< "invalid input, try again\n";
-            color.setConsoleColor(7);
+            color.setColorANSI(0);
+
+
             continue; // Skip the rest of the loop and prompt again
         }
 
@@ -131,44 +134,40 @@ void Employer :: personalArea()
                 do {
 
                     Colors color;
-                    color.setConsoleColor(  FOREGROUND_RED );
+
+                    color.setColorANSI(33);
                     cout << "\n1";
-                    color.setConsoleColor(7);
+                    color.setColorANSI(39);
                     cout << "- all submitted jobs \n";
 
-                    color.setConsoleColor(  FOREGROUND_RED );
+                    color.setColorANSI(33);
                     cout << "2";
-                    color.setConsoleColor(7);
+                    color.setColorANSI(39);
                     cout << "- update a job \n";
 
-                    color.setConsoleColor(  FOREGROUND_RED );
+                    color.setColorANSI(33);
                     cout << "3";
-                    color.setConsoleColor(7);
+                    color.setColorANSI(39);
                     cout << "- delete a job\n";
 
-                    color.setConsoleColor(  FOREGROUND_RED );
+                    color.setColorANSI(33);
                     cout << "4";
-                    color.setConsoleColor(7);
+                    color.setColorANSI(39);
                     cout << "- back to personal area \n";
 
                     cin >> nav_submission_history;
-
-
-
-//                    // Clear buffer after getting single char
-//                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
                     // Check if the input is not one of the expected options
                     if (nav_submission_history != '1' && nav_submission_history != '2' && nav_submission_history != '3' && nav_submission_history != '4') {
                         Colors color;
 
-                        color.setConsoleColor(  FOREGROUND_RED );
+                        color.setColorANSI(31);
                         cout<< "invalid input, try again\n";
-                        color.setConsoleColor(7);
+                        color.setColorANSI(0);
+
 
                         cin.clear(); // Clears the error flag on cin.
                         cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-//                        continue; // Skip the rest of the loop and prompt again
                     }
 
 
@@ -215,13 +214,6 @@ void Employer :: personalArea()
 
 
                 addNewJob();
-//                cout << "------------------ghghgh------------------\n";
-//                for (int i = 0; i < published_jobs_arr_size; ++i) {
-//                    published_jobs_arr[i]->print();
-//
-//                }
-//                cout << "------------------ghghgh------------------\n";
-
 
                 break;
             }
@@ -275,9 +267,11 @@ void Employer::set_user_name()
         std::cin.clear();
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
-        color.setConsoleColor(  FOREGROUND_RED );
-        cout << "invalid input"<<endl;
-        color.setConsoleColor(7);
+
+        color.setColorANSI(31);
+        cout<< "invalid input";
+        color.setColorANSI(0);
+
         validInput = false;
     }
 
@@ -292,9 +286,10 @@ void Employer::set_user_name()
             std::cin.clear();
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
-            color.setConsoleColor(  FOREGROUND_RED );
-            cout << "invalid input"<<endl;
-            color.setConsoleColor(7);
+            color.setColorANSI(31);
+            cout<< "invalid input";
+            color.setColorANSI(0);
+
             validInput = false;
         }
         else
@@ -324,9 +319,11 @@ void Employer ::set_id() {
         std::cin.clear();
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
-        color.setConsoleColor(  FOREGROUND_RED );
-        cout << "invalid input"<<endl;
-        color.setConsoleColor(7);
+        color.setColorANSI(31);
+        cout<< "invalid input";
+        color.setColorANSI(0);
+
+
         validInput = false;
     }
 
@@ -343,7 +340,12 @@ void Employer ::set_id() {
                 valid = true;
         }
         if(!validInput || !valid){
+            Colors color;
+            color.setColorANSI(31);
             cout << "invalid id, try again" << endl;
+            color.setColorANSI(0);
+
+
             cin.getline(buffer, 80);
 
             if (std::cin.fail()) {
@@ -352,9 +354,10 @@ void Employer ::set_id() {
                 std::cin.clear();
                 std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
-                color.setConsoleColor(  FOREGROUND_RED );
-                cout << "invalid input"<<endl;
-                color.setConsoleColor(7);
+                color.setColorANSI(31);
+                cout << "invalid id" << endl;
+                color.setColorANSI(0);
+
                 validInput = false;
             }
             else
@@ -371,9 +374,7 @@ void  Employer ::set_email() {
 
     char buffer[80];
     bool validInput = true;
-//    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
-//    cin.ignore();for register deleted
     delete [] email;
 
     cout << "email" << endl;
@@ -384,9 +385,10 @@ void  Employer ::set_email() {
         std::cin.clear();
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
-        color.setConsoleColor(  FOREGROUND_RED );
-        cout << "invalid input"<<endl;
-        color.setConsoleColor(7);
+        color.setColorANSI(31);
+        cout << "invalid id" << endl;
+        color.setColorANSI(0);
+
         validInput = false;
     }
 
@@ -433,9 +435,10 @@ void  Employer ::set_email() {
                 std::cin.clear();
                 std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
-                color.setConsoleColor(  FOREGROUND_RED );
-                cout << "invalid input"<<endl;
-                color.setConsoleColor(7);
+                color.setColorANSI(31);
+                cout << "invalid id" << endl;
+                color.setColorANSI(0);
+
                 validInput = false;
             }
             else
@@ -457,11 +460,9 @@ void Employer :: set_phone_number()
     char buffer[80];
     bool validInput = true;
 
-//    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
     delete[] phoneNumber;
 
-//    cin.ignore();
     bool valid = false;
 
     cout << "phone number" << endl;
@@ -472,9 +473,6 @@ void Employer :: set_phone_number()
         std::cin.clear();
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
-        color.setConsoleColor(FOREGROUND_RED);
-//        cout << "invalid input" << endl;
-        color.setConsoleColor(7);
         validInput = false;
     }
 
@@ -490,7 +488,12 @@ void Employer :: set_phone_number()
             if (strlen(buffer) == 10 && buffer[0] == '0' && onlyDigits)
                 valid = true;
         } if(!validInput || !valid){
+
+            Colors color;
+            color.setColorANSI(31);
             cout << "invalid phone number, enter again" << endl;
+            color.setColorANSI(0);
+
             cin.getline(buffer, 80);
 
             if (std::cin.fail()) {
@@ -499,9 +502,13 @@ void Employer :: set_phone_number()
                 std::cin.clear();
                 std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
-                color.setConsoleColor(FOREGROUND_RED);
+                color.setColorANSI(31);
                 cout << "invalid input" << endl;
-                color.setConsoleColor(7);
+                color.setColorANSI(0);
+
+//                color.setConsoleColor(FOREGROUND_RED);
+//                cout << "invalid input" << endl;
+//                color.setConsoleColor(7);
                 validInput = false;
             } else
                 validInput = true;
@@ -522,9 +529,7 @@ void Employer::set_password() {
     char buffer[80];
     bool validInput = true;
 
-//    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     delete [] password;
-//    cin.ignore();
 
     bool lowerCase = false;
     bool upperCase = false;
@@ -539,9 +544,11 @@ void Employer::set_password() {
         std::cin.clear();
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
-        color.setConsoleColor(FOREGROUND_RED);
+
+        color.setColorANSI(31);
         cout << "invalid input" << endl;
-        color.setConsoleColor(7);
+        color.setColorANSI(0);
+
         validInput = false;
     }
 
@@ -562,18 +569,22 @@ void Employer::set_password() {
         }
         if(!validInput || !valid)
         {
+            Colors color;
+            color.setColorANSI(31);
             cout << "password is not valid, try again" << endl;
+            color.setColorANSI(0);
+
             cin.getline(buffer, 80);
 
             if (std::cin.fail()) {
-                Colors color;
 
                 std::cin.clear();
                 std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
-                color.setConsoleColor(FOREGROUND_RED);
+                color.setColorANSI(31);
                 cout << "invalid input" << endl;
-                color.setConsoleColor(7);
+                color.setColorANSI(0);
+
                 validInput = false;
             } else
                 validInput = true;
@@ -587,7 +598,7 @@ void Employer::set_password() {
     strcpy(password, buffer);
 
 }
-
+//TODO print message when done deleting job
 void Employer::set_birth_date() {
 
     delete [] birthDate;
@@ -600,10 +611,13 @@ void Employer::set_birth_date() {
     while(!(cin >> m) || !(cin >> d) || !(cin >> y)) //if input is not integer
 
     {
+        Colors color;
+        color.setColorANSI(31);
         cout << "Invalid input.try again \n";
+        color.setColorANSI(0);
+
         cin.clear();// Clear the buffer
         cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');// Ignore the rest of the input line to avoid infinite loop
-//        validInput = false;
     }
 
     //validate date
@@ -612,11 +626,14 @@ void Employer::set_birth_date() {
         while(!(cin >> m) || !(cin >> d) || !(cin >> y)) //if input is not integer
 
         {
+            Colors color;
+            color.setColorANSI(31);
             cout << "Invalid input.try again \n";
+            color.setColorANSI(0);
+
             cin.clear();// Clear the buffer
             cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');// Ignore the rest of the input line to avoid infinite loop
         }
-//        cin >> m >> d >> y;
     }
     char buffer[10] = "";
     strcat(buffer, to_string(m).c_str());
@@ -701,9 +718,8 @@ void Employer:: print() const {
 
 }
 
-void Employer :: printPublishedJobs() const///////////////
+void Employer :: printPublishedJobs() const
 {
-//    cout << "--------------printing published jobs in function-----------------------\n";
 
     for (int i = 0; i < published_jobs_arr_size; ++i) {
         published_jobs_arr[i]->printJobForEmployer();
@@ -730,117 +746,6 @@ void Employer ::copyPersonalDetailsToFile() {
 
 }
 
-//
-//void Employer ::copyJobsFromFile()
-//{
-//    fstream file_jobs;
-//
-//    file_jobs.open("C:\\ObjectOrientedProgramming\\job-search-portal\\jobs.txt",ios::in);
-//    if(!file_jobs.is_open())
-//        cout << "file could not be opened, check error" << endl;
-//    else
-//    {
-//        char company_name[200] = "\0";
-//        char role[200] = "\0";
-//        char job_description[200] = "\0";
-//        char job_requirements[200] = "\0";
-//        char job_type[200] = "\0";
-//        char job_condition[200] = "\0";
-//        char location[200] = "\0";
-//        char date[200] = "\0";
-//        char id_j[5] =  "\0";
-//        int m=0,d=0,y=0;
-//
-//        while(!file_jobs.eof()) {
-//            char read_file_jobs[200];
-//            int readDateFromFile;
-//            file_jobs >> read_file_jobs;
-//            if (strcmp(read_file_jobs, id) == 0)
-//            {
-//                //coping company name
-//                file_jobs >> read_file_jobs >> read_file_jobs;
-//                while(!strcmp(read_file_jobs, "#role#") == 0)
-//                {
-//                    strcat(company_name,read_file_jobs);
-//                    strcat(company_name, " ");
-//                    file_jobs >> read_file_jobs;
-//                }
-//                file_jobs >> read_file_jobs;
-//                //
-//                while(!strcmp(read_file_jobs, "#jobDescription#") == 0)
-//                {
-//                    strcat(role,read_file_jobs);
-//                    strcat(role, " ");
-//                    file_jobs >> read_file_jobs;
-//                }
-//                file_jobs >> read_file_jobs;
-//
-//                while(!strcmp(read_file_jobs, "#jobRequirements#") == 0)
-//                {
-//                    strcat(job_description,read_file_jobs);
-//                    strcat(job_description, " ");
-//                    file_jobs >> read_file_jobs;
-//
-//                }
-//                file_jobs >> read_file_jobs;
-//
-//                while(!strcmp(read_file_jobs, "#jobType#") == 0)
-//                {
-//                    strcat(job_requirements,read_file_jobs);
-//                    strcat(job_requirements, " ");
-//                    file_jobs >> read_file_jobs;
-//                }
-//                file_jobs >> read_file_jobs;
-//
-//                while(!strcmp(read_file_jobs, "#jobCondition#") == 0)
-//                {
-//                    strcat(job_type,read_file_jobs);
-//                    strcat(job_type, " ");
-//                    file_jobs >> read_file_jobs;
-//                }
-//                file_jobs >> read_file_jobs;
-//
-//                while(!strcmp(read_file_jobs, "#location#") == 0)
-//                {
-//                    strcat(job_condition,read_file_jobs);
-//                    strcat(job_condition, " ");
-//                    file_jobs >> read_file_jobs;
-//                }
-//                file_jobs >> read_file_jobs;
-//
-//                while(!strcmp(read_file_jobs, "#date#") == 0)
-//                {
-//                    strcat(location,read_file_jobs);
-//                    strcat(location, " ");
-//                    file_jobs >> read_file_jobs;
-//                }
-//                file_jobs >> m >> d >> y;
-//                file_jobs >> read_file_jobs >> read_file_jobs;
-//
-//
-//                while(!strcmp(read_file_jobs, "#endl#") == 0)
-//                {
-//                    strcat(id_j,read_file_jobs);
-//                    strcat(id_j, " ");
-//                    file_jobs >> read_file_jobs;
-//                }
-//                file_jobs >> read_file_jobs;
-//
-//               // create new Job with details from file
-//                Job* job = new Job(company_name, role, job_description, job_requirements, job_type, job_condition, location, id,d,m,y);
-//
-//
-//
-//            }
-//        }
-//
-//        file_jobs.close();
-//    }
-//
-//
-//
-//
-//}
 
 void Employer :: copyAllJobsToFiles()
 {
@@ -872,18 +777,26 @@ void Employer :: copyAllJobsToFiles()
 void Employer :: edit_job()
 {
     //getting input of job to update
-    char jobId[500];
+    char jobId1[500];
+    string jobId2;
+    Colors color;
     cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
     cout << "enter id of job you want to update \n";
-    cin.getline(jobId,500);
-    strcat(jobId," ");//id in field is a string that consist of a number and space in end
+    cin.getline(jobId1,500);
+    jobId2 = jobId1;
+
+    strcat(jobId1," ");//id in field is a string that consist of a number and space in end
 
     //update job
     for (int i = 0; i < published_jobs_arr_size; ++i) {
-        if (jobId == published_jobs_arr[i]->getId()) {//if job is in array - update its details
+        if (jobId1 == published_jobs_arr[i]->getId() || jobId2 == published_jobs_arr[i]->getId()) {//if job is in array - update its details
             published_jobs_arr[i]->updateJob();
+
+            color.setColorANSI(34);
             cout << "job was successfully updated" << endl;
+            color.setColorANSI(0);
+
         }
 
     }
@@ -900,20 +813,34 @@ void Employer :: delete_a_job()
 
     //getting input of job to delete
     char jobId[500];
+    string jobId2;
     cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
     cout << "enter id of job you want to delete \n";
     cin.getline(jobId,500);
-
+    jobId2 = jobId;
 
     while(!isValidNumber(jobId))
     {
+        Colors color;
+        color.setColorANSI(34);
         cout << "input is not valid or job was not found, try again \n";
+        color.setColorANSI(0);
+
         cin.getline(jobId,500);
     }
+    Colors color;
 
+    cout << "are you sure you want to delete this job?\n";
 
-    cout << "are you sure you want to delete this job? \n1- yes \n2- no \n";
+    color.setColorANSI(33);
+    cout << "1";
+    color.setColorANSI(0);
+    cout<<"- yes \n";
+    color.setColorANSI(33);
+    cout << "2";
+    color.setColorANSI(0);
+    cout << "- no \n";
     cin >> nav_delete;
 
 
@@ -927,7 +854,7 @@ void Employer :: delete_a_job()
     if(nav_delete == '1') {
         //update job
         for (int i= 0; i < published_jobs_arr_size; ++i)
-            if (jobId == published_jobs_arr[i]->getId())//if job is in array - remove from array
+            if (jobId == published_jobs_arr[i]->getId() || jobId2 == published_jobs_arr[i]->getId())//if job is in array - remove from array
             {
                 Job **tmpArr = new Job *[published_jobs_arr_size - 1];
                 for (int k = 0; k < i; ++k)
@@ -939,8 +866,9 @@ void Employer :: delete_a_job()
                 published_jobs_arr = tmpArr;
                 published_jobs_arr_size--;
 
-
+                color.setColorANSI(34);
                 cout << "job is successfully deleted\n";
+                color.setColorANSI(39);
 
 
             }
@@ -991,9 +919,9 @@ void Employer :: addNewJob()
     ++published_jobs_arr_size;
 
     Colors color;
-    color.setConsoleColor( FOREGROUND_BLUE );
+    color.setColorANSI(34);
     cout << "---job was successfully posted, to view job details go to submission history---\n";
-    color.setConsoleColor(7);
+    color.setColorANSI(39);
 
 }
 
@@ -1014,10 +942,10 @@ void Employer :: viewCandidateSubmission()
     for (int i = 0; i < published_jobs_arr_size; ++i) {
         if (published_jobs_arr[i]->getJobApplicantsSize() != 0) {
 
-            color.setConsoleColor(FOREGROUND_RED);
+            color.setColorANSI(33);
             cout << "--------------------------candidate submission to job id: " << published_jobs_arr[i]->getId()
                  << "--------------------------\n";
-            color.setConsoleColor(7);
+            color.setColorANSI(39);
 
             published_jobs_arr[i]->printJobApplicants();
 

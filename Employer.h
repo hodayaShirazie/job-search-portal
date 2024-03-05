@@ -18,8 +18,7 @@ using std::ios;
 
 #include "Candidate.h"
 
-//TODO check why cant delete a job right after publishing
-//TODO WHEN employer delete a gob, add it as usual to files but add it to another file as deleted
+
 
 
 enum personalAreaEmployer{SUBMISSION_HISTORY_E = '1', CANDIDTE_SUBMISSION = '2', PUBLISH_JOB = '3', Exit_E = '4'};

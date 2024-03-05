@@ -140,12 +140,23 @@ CV& CV:: operator=(const CV& cv) {
 
     email = new char[strlen(cv.email) + 1];
     strcpy(email, cv.email);
+
+    return *this;
 }
 
 
 void CV:: createCV() {
 
-    cout << "build your CV, to skip- enter none" << endl;
+    Colors color;
+
+    color.setColorANSI(34);
+    cout << "--------------" << endl;
+    color.setColorANSI(0);
+    cout << "build your CV" << endl;
+    color.setColorANSI(34);
+    cout << "--------------" << endl;
+    color.setColorANSI(0);
+
 
 
     setSummary();
@@ -168,58 +179,59 @@ void CV:: print ()const
 {
 
     Colors color;
-    color.setConsoleColor( FOREGROUND_BLUE );
+
+    color.setColorANSI(34);
     cout << "name " << endl;
-    color.setConsoleColor(7);
+    color.setColorANSI(0);
     cout << name << endl;
 
-    color.setConsoleColor( FOREGROUND_BLUE);
+    color.setColorANSI(34);
     cout << "email " << endl;
-    color.setConsoleColor(7);
+    color.setColorANSI(0);
     cout << email << endl << endl << endl;
 
+
+
     if(strcmp(summary, "none") != 0) {
-        color.setConsoleColor(FOREGROUND_BLUE);
+        color.setColorANSI(34);
         cout << "summary " << endl;
-        color.setConsoleColor(7);
+        color.setColorANSI(0);
         cout << summary << endl << endl;
     }
 
     if(strcmp(experience, "none") != 0) {
-        color.setConsoleColor(FOREGROUND_BLUE);
+        color.setColorANSI(34);
         cout << "experience " << endl;
-        color.setConsoleColor(7);
+        color.setColorANSI(0);
         cout << experience << endl << endl;
     }
     if(strcmp(education, "none") != 0) {
-        color.setConsoleColor(FOREGROUND_BLUE);
+        color.setColorANSI(34);
         cout << "education " << endl;
-        color.setConsoleColor(7);
+        color.setColorANSI(0);
         cout << education << endl << endl;
     }
 
     if(strcmp(licenses, "none") != 0) {
-        color.setConsoleColor(FOREGROUND_BLUE);
+        color.setColorANSI(34);
         cout << "licenses " << endl;
-        color.setConsoleColor(7);
+        color.setColorANSI(0);
         cout << licenses << endl << endl;
     }
 
     if(strcmp(skills, "none") != 0) {
-        color.setConsoleColor(FOREGROUND_BLUE);
+        color.setColorANSI(34);
         cout << "skills " << endl;
-        color.setConsoleColor(7);
+        color.setColorANSI(0);
         cout << skills << endl << endl;
     }
 
     if(strcmp(awards, "none") != 0) {
-        color.setConsoleColor(FOREGROUND_BLUE);
+        color.setColorANSI(34);
         cout << "awards " << endl;
-        color.setConsoleColor(7);
+        color.setColorANSI(0);
         cout << awards << endl << endl;
     }
-
-
 
 }
 
@@ -280,42 +292,44 @@ void CV::  change_cv()
     char nav_edit_cv;
     do {
         Colors color;
-        color.setConsoleColor( FOREGROUND_RED );
+
+
+        color.setColorANSI(33);
         cout << "1";
-        color.setConsoleColor(7);
+        color.setColorANSI(0);
         cout << "- summary \n";
 
-        color.setConsoleColor( FOREGROUND_RED );
+        color.setColorANSI(33);
         cout << "2";
-        color.setConsoleColor(7);
+        color.setColorANSI(0);
         cout << "- experience \n";
 
-        color.setConsoleColor( FOREGROUND_RED );
+        color.setColorANSI(33);
         cout << "3";
-        color.setConsoleColor(7);
+        color.setColorANSI(0);
         cout << "- education \n";
 
 
-        color.setConsoleColor( FOREGROUND_RED );
+        color.setColorANSI(33);
         cout << "4";
-        color.setConsoleColor(7);
+        color.setColorANSI(0);
         cout << "- licenses \n";
 
 
-        color.setConsoleColor( FOREGROUND_RED );
+        color.setColorANSI(33);
         cout << "5";
-        color.setConsoleColor(7);
+        color.setColorANSI(0);
         cout << "- skills \n";
 
 
-        color.setConsoleColor( FOREGROUND_RED );
+        color.setColorANSI(33);
         cout << "6";
-        color.setConsoleColor(7);
+        color.setColorANSI(0);
         cout << "- awards \n";
 
-        color.setConsoleColor( FOREGROUND_RED );
+        color.setColorANSI(33);
         cout << "7";
-        color.setConsoleColor(7);
+        color.setColorANSI(0);
         cout << "- back to edit profile \n";
 
 
@@ -326,9 +340,10 @@ void CV::  change_cv()
             cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             {
                 Colors color;
-                color.setConsoleColor( FOREGROUND_RED);
+
+                color.setColorANSI(31);
                 cout << "invalid input, try again\n";
-                color.setConsoleColor(7);
+                color.setColorANSI(0);
             }
         }
 
@@ -370,13 +385,11 @@ void CV::  change_cv()
 
             }
             case BACK_E_P: {
-//                cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                 break;
 
             }
             default:{
-//                cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                //if input is not one of the above - do nothing and print menu again
+
             };
 
         }
@@ -388,23 +401,26 @@ void CV::  change_cv()
 
 
 
-void CV::setSummary() {//TODO handle when input above 600 chars
+void CV::setSummary() {
 
 
     char tmp [SIZE_STRING];
     delete[] summary;
-//    cin.ignore();
 
     bool tooLong = false;
 
     Colors color;
-    color.setConsoleColor( FOREGROUND_BLUE );
-    cout << "summary" << endl;
-    color.setConsoleColor(7);
 
-    color.setConsoleColor( FOREGROUND_INTENSITY );
+
+    color.setColorANSI(34);
+    cout << "summary" << endl;
+    color.setColorANSI(0);
+
+    color.setColorANSI(90);
     cout << "to skip, enter \"none\"" << endl;
-    color.setConsoleColor(7);
+    color.setColorANSI(0);
+
+
 
     while(!tooLong) {
         cin.getline(tmp, 3100);
@@ -415,9 +431,10 @@ void CV::setSummary() {//TODO handle when input above 600 chars
         }
         if (strlen(tmp) > 3000)
         {
-            color.setConsoleColor( FOREGROUND_RED);
+            color.setColorANSI(31);
             cout << "summary is too long! try again\n";
-            color.setConsoleColor(7);
+            color.setColorANSI(0);
+
         }
         else
             tooLong = true;
@@ -435,20 +452,22 @@ void CV::setExperience() {
 
     char tmp [SIZE_STRING];
     delete [] experience;
-//    cin.ignore();
 
 
     bool tooLong = false;
 
 
     Colors color;
-    color.setConsoleColor( FOREGROUND_BLUE );
-    cout << "experience" << endl;
-    color.setConsoleColor(7);
 
-    color.setConsoleColor( FOREGROUND_INTENSITY );
+    color.setColorANSI(34);
+    cout << "experience" << endl;
+    color.setColorANSI(0);
+
+    color.setColorANSI(90);
     cout << "to skip, enter \"none\"" << endl;
-    color.setConsoleColor(7);
+    color.setColorANSI(0);
+
+
 
     while(!tooLong) {
         cin.getline(tmp, 3100);
@@ -459,9 +478,10 @@ void CV::setExperience() {
         }
         if (strlen(tmp) > 3000)
         {
-            color.setConsoleColor( FOREGROUND_RED);
+            color.setColorANSI(31);
             cout << "experience is too long! try again\n";
-            color.setConsoleColor(7);
+            color.setColorANSI(0);
+
         }
         else
             tooLong = true;
@@ -475,19 +495,19 @@ void CV::setExperience() {
 void CV::setEducation() {
     char tmp [SIZE_STRING];
     delete [] education;
-//    cin.ignore();
-
 
     bool tooLong = false;
 
     Colors color;
-    color.setConsoleColor( FOREGROUND_BLUE );
-    cout << "education" << endl;
-    color.setConsoleColor(7);
 
-    color.setConsoleColor( FOREGROUND_INTENSITY );
+    color.setColorANSI(34);
+    cout << "education" << endl;
+    color.setColorANSI(0);
+
+    color.setColorANSI(90);
     cout << "to skip, enter \"none\"" << endl;
-    color.setConsoleColor(7);
+    color.setColorANSI(0);
+
 
     while(!tooLong) {
         cin.getline(tmp, 3100);
@@ -498,9 +518,9 @@ void CV::setEducation() {
         }
         if (strlen(tmp) > 3000)
         {
-            color.setConsoleColor( FOREGROUND_RED);
+            color.setColorANSI(31);
             cout << "education is too long! try again\n";
-            color.setConsoleColor(7);
+            color.setColorANSI(0);
         }
         else
             tooLong = true;
@@ -514,20 +534,20 @@ void CV::setEducation() {
 void CV::setLicenses() {
     char tmp [SIZE_STRING];
     delete [] licenses;
-//    cin.ignore();
-
 
 
     bool tooLong = false;
 
     Colors color;
-    color.setConsoleColor( FOREGROUND_BLUE );
-    cout << "licenses" << endl;
-    color.setConsoleColor(7);
 
-    color.setConsoleColor( FOREGROUND_INTENSITY );
+    color.setColorANSI(34);
+    cout << "licenses" << endl;
+    color.setColorANSI(0);
+
+
+    color.setColorANSI(90);
     cout << "to skip, enter \"none\"" << endl;
-    color.setConsoleColor(7);
+    color.setColorANSI(0);
 
     while(!tooLong) {
         cin.getline(tmp, 3100);
@@ -538,9 +558,11 @@ void CV::setLicenses() {
         }
         if (strlen(tmp) > 3000)
         {
-            color.setConsoleColor( FOREGROUND_RED);
+
+            color.setColorANSI(31);
             cout << "licenses is too long! try again\n";
-            color.setConsoleColor(7);
+            color.setColorANSI(0);
+
         }
         else
             tooLong = true;
@@ -554,17 +576,17 @@ void CV::setLicenses() {
 void CV::setSkills() {
     char tmp [SIZE_STRING];
     delete[] skills;
-//    cin.ignore();
 
     bool tooLong = false;
     Colors color;
-    color.setConsoleColor( FOREGROUND_BLUE );
+    color.setColorANSI(34);
     cout << "skills" << endl;
-    color.setConsoleColor(7);
+    color.setColorANSI(0);
 
-    color.setConsoleColor( FOREGROUND_INTENSITY );
+    color.setColorANSI(90);
     cout << "to skip, enter \"none\"" << endl;
-    color.setConsoleColor(7);
+    color.setColorANSI(0);
+
 
     while(!tooLong) {
         cin.getline(tmp, 3100);
@@ -575,9 +597,10 @@ void CV::setSkills() {
         }
         if (strlen(tmp) > 3000)
         {
-            color.setConsoleColor( FOREGROUND_RED);
+            color.setColorANSI(31);
             cout << "skills is too long! try again\n";
-            color.setConsoleColor(7);
+            color.setColorANSI(0);
+
         }
         else
             tooLong = true;
@@ -591,18 +614,20 @@ void CV::setSkills() {
 void CV::setAwards() {
     char tmp [SIZE_STRING];
     delete[] awards;
-//    cin.ignore();
 
     bool tooLong = false;
 
     Colors color;
-    color.setConsoleColor( FOREGROUND_BLUE );
-    cout << "awards" << endl;
-    color.setConsoleColor(7);
 
-    color.setConsoleColor( FOREGROUND_INTENSITY );
+    color.setColorANSI(34);
+    cout << "awards" << endl;
+    color.setColorANSI(0);
+
+    color.setColorANSI(90);
     cout << "to skip, enter \"none\"" << endl;
-    color.setConsoleColor(7);
+    color.setColorANSI(0);
+
+
 
     while(!tooLong) {
         cin.getline(tmp, 3100);
@@ -612,9 +637,10 @@ void CV::setAwards() {
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         }
         if (strlen(tmp) > 3000) {
-            color.setConsoleColor( FOREGROUND_RED);
+            color.setColorANSI(31);
             cout << "awards is too long! try again\n";
-            color.setConsoleColor(7);
+            color.setColorANSI(0);
+
 
         }
         else

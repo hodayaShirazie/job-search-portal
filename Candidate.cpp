@@ -60,8 +60,6 @@ Candidate :: Candidate(char* id, char* password, char* userName, char* email, ch
     //getting birthdate
     set_birth_date();
 
-    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-
     //getting password
     set_password();
 
@@ -111,11 +109,9 @@ Candidate :: ~Candidate()
     cv = NULL;
 
 
-    //TODO DIS HEREE  ---
 
     for (int i = 0; i < all_jobs_arr_size; ++i) {
         delete all_jobs_arr[i];
-        cout<<"im deleting jobs from candidate-------------------------------\n";
         all_jobs_arr[i] = NULL;
     }
     delete [] all_jobs_arr;
@@ -178,45 +174,48 @@ Candidate& Candidate :: operator=(const Candidate& candidate)
 void Candidate :: personalArea()
 {
 
-    char nav_personal_area = '\0'; //TODO change to do-while
+    char nav_personal_area = '\0';
 
 
     while(nav_personal_area != Exit_C) {
 
         Colors color;
-        color.setConsoleColor(  FOREGROUND_RED );
+
+        color.enableVirtualTerminalProcessing();
+
+        color.setColorANSI(33);
         cout << "1";
-        color.setConsoleColor(7);
+        color.setColorANSI(39);
         cout << "- edit profile \n";
 
-        color.setConsoleColor(  FOREGROUND_RED );
+        color.setColorANSI(33);
         cout << "2";
-        color.setConsoleColor(7);
+        color.setColorANSI(39);
         cout << "- all jobs \n";
 
-        color.setConsoleColor(  FOREGROUND_RED );
+        color.setColorANSI(33);
         cout << "3";
-        color.setConsoleColor(7);
+        color.setColorANSI(39);
         cout << "- filter jobs \n";
 
-        color.setConsoleColor(  FOREGROUND_RED );
+        color.setColorANSI(33);
         cout << "4";
-        color.setConsoleColor(7);
+        color.setColorANSI(39);
         cout << "- submit job \n";
 
-        color.setConsoleColor(  FOREGROUND_RED );
+        color.setColorANSI(33);
         cout << "5";
-        color.setConsoleColor(7);
+        color.setColorANSI(39);
         cout << "- like job \n";
 
-        color.setConsoleColor(  FOREGROUND_RED );
+        color.setColorANSI(33);
         cout << "6";
-        color.setConsoleColor(7);
+        color.setColorANSI(39);
         cout << "- submission history \n";
 
-        color.setConsoleColor(  FOREGROUND_RED );
+        color.setColorANSI(33);
         cout << "7";
-        color.setConsoleColor(7);
+        color.setColorANSI(39);
         cout << "- log out \n";
 
         cin >> nav_personal_area;
@@ -230,37 +229,41 @@ void Candidate :: personalArea()
                 char nav_edit_profile;
 
                 do {
+
                     Colors color;
-                    color.setConsoleColor(  FOREGROUND_RED );
+
+
+                    color.setColorANSI(33);
                     cout << "1";
-                    color.setConsoleColor(7);
+                    color.setColorANSI(0);
                     cout << "- user name \n";
 
-                    color.setConsoleColor(  FOREGROUND_RED );
+//TODO ADD TO FILTER JOBS MESSAGE WHEN JOBS WERENT PRINTED
+
+                    color.setColorANSI(33);
                     cout << "2";
-                    color.setConsoleColor(7);
+                    color.setColorANSI(0);
                     cout << "- email \n";
 
-                    color.setConsoleColor(  FOREGROUND_RED );
+                    color.setColorANSI(33);
                     cout << "3";
-                    color.setConsoleColor(7);
+                    color.setColorANSI(0);
                     cout << "- phone number \n";
 
-                    color.setConsoleColor(  FOREGROUND_RED );
+                    color.setColorANSI(33);
                     cout << "4";
-                    color.setConsoleColor(7);
+                    color.setColorANSI(0);
                     cout << "- password \n";
 
-                    color.setConsoleColor(  FOREGROUND_RED );
+                    color.setColorANSI(33);
                     cout << "5";
-                    color.setConsoleColor(7);
+                    color.setColorANSI(0);
                     cout << "- cv \n";
 
-                    color.setConsoleColor(  FOREGROUND_RED );
+                    color.setColorANSI(33);
                     cout << "6";
-                    color.setConsoleColor(7);
+                    color.setColorANSI(0);
                     cout << "- update \n";
-
 
                     cin >> nav_edit_profile;
 
@@ -307,9 +310,9 @@ void Candidate :: personalArea()
                         default:{
                             Colors color;
                             //if input is not one of the above - do nothing and print menu again
-                            color.setConsoleColor(  FOREGROUND_RED );
+                            color.setColorANSI(31);
                             cout<< "invalid input, try again\n";
-                            color.setConsoleColor(7);
+                            color.setColorANSI(0);
 
                         };
 
@@ -338,20 +341,24 @@ void Candidate :: personalArea()
 
                 char nav_like_job;
                 Colors color;
-                color.setConsoleColor(  FOREGROUND_RED );
+
+
+                color.setColorANSI(33);
                 cout << "1";
-                color.setConsoleColor(7);
+                color.setColorANSI(0);
                 cout << "- like a job \n";
 
-                color.setConsoleColor(  FOREGROUND_RED );
+                color.setColorANSI(33);
                 cout << "2";
-                color.setConsoleColor(7);
+                color.setColorANSI(0);
                 cout << "- un-like a job \n";
 
-                color.setConsoleColor(  FOREGROUND_RED );
+
+                color.setColorANSI(33);
                 cout << "3";
-                color.setConsoleColor(7);
+                color.setColorANSI(0);
                 cout << "- jobs i liked \n";
+
 
                 cin >> nav_like_job;
 
@@ -391,9 +398,10 @@ void Candidate :: personalArea()
             default:{
                 Colors color;
                 //if input is not one of the above - do nothing and print menu again
-                color.setConsoleColor(  FOREGROUND_RED );
+                color.setColorANSI(31);
                 cout<< "invalid input, try again\n";
-                color.setConsoleColor(7);
+                color.setColorANSI(0);
+
             };
         }
 
@@ -426,9 +434,11 @@ void Candidate :: set_user_name()
 
     while (!validInput || strlen(buffer) > 20 || !checkFirstNameAndLastName(buffer)) { //check validation of user name
         Colors color;
-        color.setConsoleColor(  FOREGROUND_RED );
+
+        color.setColorANSI(31);
         cout << "invalid input, enter a valid user name"<<endl;
-        color.setConsoleColor(7);
+        color.setColorANSI(0);
+
         cout << "" << endl;
         cin.getline(buffer, 80);
 
@@ -438,9 +448,10 @@ void Candidate :: set_user_name()
             std::cin.clear();
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
-            color.setConsoleColor(  FOREGROUND_RED );
+            color.setColorANSI(31);
             cout << "invalid input"<<endl;
-            color.setConsoleColor(7);
+            color.setColorANSI(0);
+
             validInput = false;
         }
         else
@@ -482,9 +493,11 @@ void  Candidate ::set_id() {
         }
          if(!validInput || !valid){
              Colors color;
-             color.setConsoleColor(  FOREGROUND_RED );
+
+             color.setColorANSI(31);
              cout << "invalid id, try again" << endl;
-             color.setConsoleColor(7);
+             color.setColorANSI(0);
+
             cin.getline(buffer, 80);
 
             if (std::cin.fail()) {
@@ -493,9 +506,7 @@ void  Candidate ::set_id() {
                 std::cin.clear();
                 std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
-//                color.setConsoleColor(  FOREGROUND_RED );
-//                cout << "invalid input"<<endl;
-//                color.setConsoleColor(7);
+
                 validInput = false;
             }
             else
@@ -514,9 +525,6 @@ void Candidate::set_email()
 {
     char buffer[80];
     bool validInput = true;
-//    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-
-//    cin.ignore();for register deleted
     delete [] email;
 
     cout << "email" << endl;
@@ -565,9 +573,10 @@ void Candidate::set_email()
         }
         if (!validInput || !validChar || !invalidProfix || !existsSign) {
             Colors color;
-            color.setConsoleColor(  FOREGROUND_RED );
+
+            color.setColorANSI(31);
             cout << "invalid email, enter again" << endl;
-            color.setConsoleColor(7);
+            color.setColorANSI(0);
 
             cin.getline(buffer, 80);
 
@@ -594,11 +603,9 @@ void Candidate :: set_phone_number() {
     char buffer[80];
     bool validInput = true;
 
-//    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
     delete[] phoneNumber;
 
-//    cin.ignore();
     bool valid = false;
 
     cout << "phone number" << endl;
@@ -625,9 +632,11 @@ void Candidate :: set_phone_number() {
                 valid = true;
         } if(!validInput || !valid){
             Colors color;
-            color.setConsoleColor(FOREGROUND_RED);
+
+            color.setColorANSI(31);
             cout << "invalid phone number, enter again" << endl;
-            color.setConsoleColor(7);
+            color.setColorANSI(0);
+
             cin.getline(buffer, 80);
 
             if (std::cin.fail()) {
@@ -635,9 +644,10 @@ void Candidate :: set_phone_number() {
                 std::cin.clear();
                 std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
-                color.setConsoleColor(FOREGROUND_RED);
+                color.setColorANSI(31);
                 cout << "invalid input" << endl;
-                color.setConsoleColor(7);
+                color.setColorANSI(0);
+
                 validInput = false;
             } else
                 validInput = true;
@@ -660,7 +670,6 @@ void Candidate:: set_password()
 
     cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     delete [] password;
-//    cin.ignore();
 
     bool lowerCase = false;
     bool upperCase = false;
@@ -675,9 +684,6 @@ void Candidate:: set_password()
         std::cin.clear();
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
-//        color.setConsoleColor(FOREGROUND_RED);
-//        cout << "invalid input" << endl;
-//        color.setConsoleColor(7);
         validInput = false;
     }
 
@@ -699,9 +705,11 @@ void Candidate:: set_password()
         if(!validInput || !valid)
         {
             Colors color;
-            color.setConsoleColor(FOREGROUND_RED);
+
+            color.setColorANSI(31);
             cout << "password is not valid, try again" << endl;
-            color.setConsoleColor(7);
+            color.setColorANSI(0);
+
 
             cin.getline(buffer, 80);
 
@@ -711,9 +719,6 @@ void Candidate:: set_password()
                 std::cin.clear();
                 std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
-//                color.setConsoleColor(FOREGROUND_RED);
-//                cout << "invalid input" << endl;
-//                color.setConsoleColor(7);
                 validInput = false;
             } else
                 validInput = true;
@@ -740,13 +745,14 @@ void Candidate:: set_birth_date()
     while(!(cin >> m) || !(cin >> d) || !(cin >> y)) //if input is not integer
     {
         Colors color;
-        color.setConsoleColor(FOREGROUND_RED);
+
+        color.setColorANSI(31);
         cout << "Invalid input.try again \n";
-        color.setConsoleColor(7);
+        color.setColorANSI(0);
+
 
         cin.clear();// Clear the buffer
         cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');// Ignore the rest of the input line to avoid infinite loop
-//        validInput = false;
     }
 
     //validate date
@@ -755,13 +761,14 @@ void Candidate:: set_birth_date()
         while(!(cin >> m) || !(cin >> d) || !(cin >> y)) //if input is not integer
         {
             Colors color;
-            color.setConsoleColor(FOREGROUND_RED);
+            color.setColorANSI(31);
             cout << "Invalid input.try again \n";
-            color.setConsoleColor(7);
+            color.setColorANSI(0);
+
+
             cin.clear();// Clear the buffer
             cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');// Ignore the rest of the input line to avoid infinite loop
         }
-//        cin >> m >> d >> y;
     }
     char buffer[10] = "";
     strcat(buffer, to_string(m).c_str());
@@ -780,8 +787,14 @@ void Candidate:: set_free_text()
 {
     char tempFt[501];
     bool validInput = true;
-//    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n') rermoved because of register
-    cout << "add free text to tell about yourself, if you dont want- enter 'none'" << endl;
+    Colors color;
+    cout << "add free text to tell about yourself\n";
+
+
+    color.setColorANSI(90);
+    cout << "--to skip, enter \"none\"--" << endl;
+    color.setColorANSI(0);
+
 
     do {
         cin.getline(tempFt, 501);
@@ -792,9 +805,11 @@ void Candidate:: set_free_text()
             std::cin.clear();
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
-            color.setConsoleColor(FOREGROUND_RED);
+
+            color.setColorANSI(31);
             cout << "invalid input, try again" << endl;
-            color.setConsoleColor(7);
+            color.setColorANSI(0);
+
             validInput = false;
         }
         else
@@ -873,44 +888,48 @@ int Candidate::getAllJobsArrSize() const {
 void Candidate:: print() const
 {
     Colors color;
-    color.setConsoleColor( FOREGROUND_INTENSITY );
+
+
+    color.setColorANSI(90);
     cout << "user name: " << endl;
-    color.setConsoleColor(7);
+    color.setColorANSI(0);
     cout << userName <<endl;
 
-    color.setConsoleColor( FOREGROUND_INTENSITY );
+    color.setColorANSI(90);
     cout << "id: " << endl;
-    color.setConsoleColor(7);
+    color.setColorANSI(0);
     cout << id <<endl;
 
-    color.setConsoleColor( FOREGROUND_INTENSITY );
+    color.setColorANSI(90);
     cout << "email: " << endl;
-    color.setConsoleColor(7);
+    color.setColorANSI(0);
     cout << email <<endl;
 
-    color.setConsoleColor( FOREGROUND_INTENSITY );
+    color.setColorANSI(90);
     cout << "phoneNumber: " << endl;
-    color.setConsoleColor(7);
+    color.setColorANSI(0);
     cout << phoneNumber <<endl;
 
-    color.setConsoleColor( FOREGROUND_INTENSITY );
+    color.setColorANSI(90);
     cout << "birthDate: " << endl;
-    color.setConsoleColor(7);
+    color.setColorANSI(0);
     cout << birthDate <<endl;
 
-    color.setConsoleColor( FOREGROUND_INTENSITY );
+    color.setColorANSI(90);
     cout << "password: " << endl;
-    color.setConsoleColor(7);
+    color.setColorANSI(0);
     cout << password <<endl;
 
-    color.setConsoleColor( FOREGROUND_INTENSITY );
+    color.setColorANSI(90);
     cout << "freeTxt: " << endl;
-    color.setConsoleColor(7);
+    color.setColorANSI(0);
     cout << freeTxt <<endl;
 
     //printing CV's
-    color.setConsoleColor( FOREGROUND_INTENSITY );
+    color.setColorANSI(90);
     cout << "printing CV's \n";
+    color.setColorANSI(0);
+
     cv->print();
 
 
@@ -1029,8 +1048,6 @@ void Candidate :: copyAllJobsFromFile() {
         }
 
         file_jobs.close();
-//    }
-
 
 }
 
@@ -1076,6 +1093,7 @@ bool Candidate :: checkFirstNameAndLastName(char* str)
 
 void Candidate :: submit_job()
 {
+    Colors color;
     bool validInput = true;
     bool is_job_found_in_file = false;
     char tmpID[500] = "";
@@ -1088,9 +1106,11 @@ void Candidate :: submit_job()
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
         Colors color;
-        color.setConsoleColor(  FOREGROUND_RED );
+
+        color.setColorANSI(31);
         cout << "invalid input"<<endl;
-        color.setConsoleColor(7);
+        color.setColorANSI(0);
+
 
         validInput = false;
     }
@@ -1100,24 +1120,33 @@ void Candidate :: submit_job()
         for (int i = 0; i < all_jobs_arr_size; ++i) {
             if (all_jobs_arr[i]->getId().compare(tmpID) == 0) {
                 is_job_found_in_file = true;
+
+
+                color.setColorANSI(94);
                 cout << "job was -SUBMITTED- successfully\n";
+                color.setColorANSI(0);
+
                 all_jobs_arr[i]->setSubmitted();
             }
 
         }
         if (!is_job_found_in_file)
+        {
+            color.setColorANSI(31);
             cout << "----------could not find job---------\n";
+            color.setColorANSI(0);
+
+
+        }
 
 
     }
 
 }
 
-////////TODO fix herer
+
 void Candidate :: filterJobsByFeatures() {
 
-//    cin.clear(); // Clears the error flag on cin
-//    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
     bool isInputValid = true;
 
@@ -1130,32 +1159,33 @@ void Candidate :: filterJobsByFeatures() {
 
 
     char nav_filter_job;
-
-//    cin.clear();
-
     Colors color;
-    color.setConsoleColor(  FOREGROUND_RED );
+
+    color.setColorANSI(33);
     cout << "1";
-    color.setConsoleColor(7);
+    color.setColorANSI(0);
     cout << "- location \n";
 
-    color.setConsoleColor(  FOREGROUND_RED );
+    color.setColorANSI(33);
     cout << "2";
-    color.setConsoleColor(7);
+    color.setColorANSI(0);
     cout << "- job type \n";
 
-    color.setConsoleColor(  FOREGROUND_RED );
+    color.setColorANSI(33);
     cout << "3";
-    color.setConsoleColor(7);
+    color.setColorANSI(0);
     cout << "- role \n";
+
 
     cin >> nav_filter_job;
     while (std::cin.fail()) {
         std::cin.clear();
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        color.setConsoleColor(FOREGROUND_RED);
+
+        color.setColorANSI(31);
         cout << "invalid input, try again" << endl;
-        color.setConsoleColor(7);
+        color.setColorANSI(0);
+
         cin >> nav_filter_job;
         isInputValid = false;
     }
@@ -1179,47 +1209,55 @@ void Candidate :: filterJobsByFeatures() {
                 do {
 
                     Colors color;
-                    color.setConsoleColor(  FOREGROUND_BLUE );
+                    color.setColorANSI(33);
+                    cout << "3";
+                    color.setColorANSI(0);
+                    cout << "- role \n";
+
+
+
+                    color.setColorANSI(34);
                     cout << "job location\n";
-                    color.setConsoleColor(7);
+                    color.setColorANSI(0);
                     cout<< "choose from the following:" << endl;
 
 
-                    color.setConsoleColor( FOREGROUND_RED );
+                    color.setColorANSI(33);
                     cout << "1";
-                    color.setConsoleColor(7);
+                    color.setColorANSI(0);
                     cout << "- north \n";
 
-                    color.setConsoleColor( FOREGROUND_RED );
+                    color.setColorANSI(33);
                     cout << "2";
-                    color.setConsoleColor(7);
+                    color.setColorANSI(0);
                     cout << "- south \n";
 
-                    color.setConsoleColor( FOREGROUND_RED );
+                    color.setColorANSI(33);
                     cout << "3";
-                    color.setConsoleColor(7);
+                    color.setColorANSI(0);
                     cout << "- center \n";
 
-                    color.setConsoleColor( FOREGROUND_RED );
+                    color.setColorANSI(33);
                     cout << "4";
-                    color.setConsoleColor(7);
+                    color.setColorANSI(0);
                     cout << "- haifa \n";
 
-                    color.setConsoleColor( FOREGROUND_RED );
+                    color.setColorANSI(33);
                     cout << "5";
-                    color.setConsoleColor(7);
+                    color.setColorANSI(0);
                     cout << "- Tel aviv \n";
 
 
-                    color.setConsoleColor( FOREGROUND_RED );
+                    color.setColorANSI(33);
                     cout << "6";
-                    color.setConsoleColor(7);
+                    color.setColorANSI(0);
                     cout << "- Judea and Samaria \n";
 
-                    color.setConsoleColor( FOREGROUND_RED );
+                    color.setColorANSI(33);
                     cout << "7";
-                    color.setConsoleColor(7);
+                    color.setColorANSI(0);
                     cout << "- to filter chosen location \n";
+
 
 
                     cin >> nav_location;
@@ -1227,9 +1265,11 @@ void Candidate :: filterJobsByFeatures() {
                     while (std::cin.fail()) {
                         std::cin.clear();
                         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                        color.setConsoleColor(FOREGROUND_RED);
+
+                        color.setColorANSI(31);
                         cout << "invalid input, try again" << endl;
-                        color.setConsoleColor(7);
+                        color.setColorANSI(0);
+
                         cin >> nav_filter_job;
                         isInputValid = false;
                     }
@@ -1283,35 +1323,35 @@ void Candidate :: filterJobsByFeatures() {
                 char nav_job_type;
                 do {
                     Colors color;
-                    color.setConsoleColor(  FOREGROUND_BLUE );
+
+                    color.setColorANSI(34);
                     cout << "job type\n";
-                    color.setConsoleColor(7);
+                    color.setColorANSI(0);
 
-                    cout << "choose from the following:" << endl;
 
-                    color.setConsoleColor( FOREGROUND_RED );
+                    color.setColorANSI(33);
                     cout << "1";
-                    color.setConsoleColor(7);
+                    color.setColorANSI(0);
                     cout << "- full time \n";
 
-                    color.setConsoleColor( FOREGROUND_RED );
+                    color.setColorANSI(33);
                     cout << "2";
-                    color.setConsoleColor(7);
+                    color.setColorANSI(0);
                     cout << "- part time \n";
 
-                    color.setConsoleColor( FOREGROUND_RED );
+                    color.setColorANSI(33);
                     cout << "3";
-                    color.setConsoleColor(7);
+                    color.setColorANSI(0);
                     cout << "- student \n";
 
-                    color.setConsoleColor( FOREGROUND_RED );
+                    color.setColorANSI(33);
                     cout << "4";
-                    color.setConsoleColor(7);
+                    color.setColorANSI(0);
                     cout << "- special needs \n";
 
-                    color.setConsoleColor( FOREGROUND_RED );
+                    color.setColorANSI(33);
                     cout << "5";
-                    color.setConsoleColor(7);
+                    color.setColorANSI(0);
                     cout << "- to filter chosen job type \n";
 
 
@@ -1319,9 +1359,11 @@ void Candidate :: filterJobsByFeatures() {
                     while (std::cin.fail()) {
                         std::cin.clear();
                         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                        color.setConsoleColor(FOREGROUND_RED);
+
+                        color.setColorANSI(31);
                         cout << "invalid input, try again" << endl;
-                        color.setConsoleColor(7);
+                        color.setColorANSI(0);
+
                         cin >> nav_filter_job;
                     }
 
@@ -1360,72 +1402,77 @@ void Candidate :: filterJobsByFeatures() {
 
                 do {
                     Colors color;
-                    color.setConsoleColor(  FOREGROUND_BLUE );
+
+
+                    color.setColorANSI(34);
                     cout << "role\n";
-                    color.setConsoleColor(7);
+                    color.setColorANSI(0);
 
                     cout << "choose from the following:" << endl;
 
 
 
-                    color.setConsoleColor( FOREGROUND_RED );
+                    color.setColorANSI(33);
                     cout << "1";
-                    color.setConsoleColor(7);
+                    color.setColorANSI(0);
                     cout << "- teaching \n";
 
-                    color.setConsoleColor( FOREGROUND_RED );
+                    color.setColorANSI(33);
                     cout << "2";
-                    color.setConsoleColor(7);
+                    color.setColorANSI(0);
                     cout << "- engineering \n";
 
-                    color.setConsoleColor( FOREGROUND_RED );
+                    color.setColorANSI(33);
                     cout << "3";
-                    color.setConsoleColor(7);
+                    color.setColorANSI(0);
                     cout << "- law \n";
 
-                    color.setConsoleColor( FOREGROUND_RED );
+                    color.setColorANSI(33);
                     cout << "4";
-                    color.setConsoleColor(7);
+                    color.setColorANSI(0);
                     cout << "- medicine \n";
 
-                    color.setConsoleColor( FOREGROUND_RED );
+                    color.setColorANSI(33);
                     cout << "5";
-                    color.setConsoleColor(7);
+                    color.setColorANSI(0);
                     cout << "- research \n";
 
-                    color.setConsoleColor( FOREGROUND_RED );
+                    color.setColorANSI(33);
                     cout << "6";
-                    color.setConsoleColor(7);
+                    color.setColorANSI(0);
                     cout << "- sales \n";
 
-                    color.setConsoleColor( FOREGROUND_RED );
+                    color.setColorANSI(33);
                     cout << "7";
-                    color.setConsoleColor(7);
+                    color.setColorANSI(0);
                     cout << "- restaurants \n";
 
-                    color.setConsoleColor( FOREGROUND_RED );
+                    color.setColorANSI(33);
                     cout << "8";
-                    color.setConsoleColor(7);
+                    color.setColorANSI(0);
                     cout << "- cleaning \n";
 
-                    color.setConsoleColor( FOREGROUND_RED );
+                    color.setColorANSI(33);
                     cout << "9";
-                    color.setConsoleColor(7);
+                    color.setColorANSI(0);
                     cout << "- economy \n";
 
-                    color.setConsoleColor( FOREGROUND_RED );
+                    color.setColorANSI(33);
                     cout << "0";
-                    color.setConsoleColor(7);
+                    color.setColorANSI(0);
                     cout << "- to filter chosen job type \n";
+
 
 
                     cin >> nav_role;
                     while (std::cin.fail()) {
                         std::cin.clear();
                         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                        color.setConsoleColor(FOREGROUND_RED);
+
+                        color.setColorANSI(31);
                         cout << "invalid input, try again" << endl;
-                        color.setConsoleColor(7);
+                        color.setColorANSI(0);
+
                         cin >> nav_filter_job;
                     }
 
@@ -1486,6 +1533,7 @@ void Candidate :: filterJobsByFeatures() {
         if (!isInputValid)
             return;
 
+        bool existsJobToPrint = false;
         for (int i = 0; i < all_jobs_arr_size; ++i) {
 
             bool match = true;
@@ -1518,9 +1566,19 @@ void Candidate :: filterJobsByFeatures() {
 
             //print job after filtration
             if (match == true)
+            {
                 all_jobs_arr[i]->print();
+                existsJobToPrint = true;
+            }
 
 
+
+        }
+        if(!existsJobToPrint)
+        {
+            color.setColorANSI(34);
+            cout << "not found the job your'e looking for, try expand search" << endl;
+            color.setColorANSI(0);
         }
     }
 
@@ -1532,7 +1590,7 @@ void Candidate :: updateLikedStatusFromFile()
 
     fstream file_liked_jobs;
 
-    char readFile[500];//TODO  you can open file and define in length that is bigger in 1 fro, file
+    char readFile[500];
 
     file_liked_jobs.open("C:\\ObjectOrientedProgramming\\job-search-portal\\likedJobs",ios::in);
     if(!file_liked_jobs.is_open())
@@ -1601,13 +1659,13 @@ void Candidate :: viewSubmissionHistory() {
 
 //return true if date of first job is earlier than second and false otherwise
 bool Candidate :: compareJobsByDate(Job* a, Job* b) {
-    // First compare by year
+    // first compare by year
     if (a->getYear() != b->getYear())
         return a->getYear() > b->getYear();
-    // Then by month
+    // then by month
     if (a->getMonth() != b->getMonth())
         return a->getMonth() > b->getMonth();
-    // Finally by day
+    // finally by day
     return a->getDay() > b->getDay();
 }
 
@@ -1615,7 +1673,8 @@ bool Candidate :: compareJobsByDate(Job* a, Job* b) {
 
 
 void Candidate :: likeJob() {
-    char tmpID[500] = "";//TODO  you can open file and define in length that is bigger in 1 fro, file
+    Colors color;
+    char tmpID[500] = "";
     cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     bool validInput = true;
 
@@ -1627,9 +1686,11 @@ void Candidate :: likeJob() {
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
         Colors color;
-        color.setConsoleColor(FOREGROUND_RED);
-        cout << "invalid input" << endl;
-        color.setConsoleColor(7);
+
+        color.setColorANSI(31);
+        cout << "invalid input, try again" << endl;
+        color.setColorANSI(0);
+
 
         validInput = false;
     }
@@ -1638,7 +1699,11 @@ void Candidate :: likeJob() {
         strcat(tmpID, " ");
         for (int i = 0; i < all_jobs_arr_size; ++i) {
             if (all_jobs_arr[i]->getId().compare(tmpID) == 0) {//cmp between strings
+
+                color.setColorANSI(34);
                 cout << "job was -LIKED- successfully\n";
+                color.setColorANSI(0);
+
                 all_jobs_arr[i]->setLiked();
             }
         }
@@ -1663,9 +1728,10 @@ void Candidate :: unLikeJob()
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
         Colors color;
-        color.setConsoleColor(FOREGROUND_RED);
+
+        color.setColorANSI(31);
         cout << "invalid input" << endl;
-        color.setConsoleColor(7);
+        color.setColorANSI(0);
 
         validInput = false;
     }
@@ -1676,7 +1742,10 @@ void Candidate :: unLikeJob()
         for (int i = 0; i < all_jobs_arr_size; ++i) {
             if (all_jobs_arr[i]->getId().compare(tmpID) == 0) {//job is found
                 all_jobs_arr[i]->setUnLiked();
-                cout << "job " << tmpID << " is marked as liked\n";
+                color.setColorANSI(34);
+                cout << "job " << tmpID << " is marked as UN-LIKED\n";
+                color.setColorANSI(0);
+
 
             }
         }
@@ -1697,9 +1766,11 @@ void Candidate :: viewLikedJobs()
         }
     if(!existsLikedJob) {
         Colors color;
-        color.setConsoleColor( FOREGROUND_RED );
+
+        color.setColorANSI(31);
         cout << "--havn't like a job yet--\n";
-        color.setConsoleColor(7);
+        color.setColorANSI(0);
+
     }
 }
 
@@ -1734,7 +1805,6 @@ void Candidate :: copyCVToFile()
     if(!file_cv.is_open())
         cout << "file could not be opened, check error" << endl;
     else {
-//        if (id != NULL && cv != NULL && !wasCVcopied) {
             file_cv << id << " #summary# " << cv->getSummary() << " #experience# " << cv->getExperience()
                     << " #education# " << cv->getEducation() << " #licenses# " <<
                     cv->getLicenses() << " #skills# " << cv->getSkills() << " #awards# " << cv->getAwards()
@@ -1742,9 +1812,7 @@ void Candidate :: copyCVToFile()
                     cv->getName() << " #email# " << cv->getEmail() << " #endl# " << endl;
 
             file_cv.close();
-//            wasCVcopied = true; //CV details were copied
 
-//        }
     }
 
 }
@@ -1833,10 +1901,3 @@ char *Candidate::getFreeTxt() const {
     return freeTxt;
 }
 
-//void Candidate::setPointerJobApplicants(Candidate ***pointerJobApplicants) {
-//    Candidate::pointerJobApplicants = pointerJobApplicants;
-//}
-//
-//void Candidate::setPointerJobApplicantsSize(int pointerJobApplicantsSize) {
-//    Candidate::pointerJobApplicantsSize = pointerJobApplicantsSize;
-//}

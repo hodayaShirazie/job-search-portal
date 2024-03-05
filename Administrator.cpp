@@ -11,8 +11,6 @@ using std::cout;
 using std::cin;
 using std::endl;
 
-//TODO update a job not working when i update right after register/////fixx
-
 enum userType{CANDIDATE = '1', EMPLOYER = '2'};
 enum navEnter {LOGIN = 'A'   ,REGISTER = 'B'};
 
@@ -56,13 +54,14 @@ void Administrator :: enterSystem()
     char enteringChoice;
     Colors color;
 
-    color.setConsoleColor(  FOREGROUND_RED );
+
+    color.setColorANSI(33);
     cout << "\nA";
-    color.setConsoleColor(7);
+    color.setColorANSI(39);
     cout << "-log in" << endl;
-    color.setConsoleColor(  FOREGROUND_RED );
+    color.setColorANSI(33);
     cout << "B";
-    color.setConsoleColor(7);
+    color.setColorANSI(39);
     cout << "-register\n";
 
 
@@ -70,9 +69,9 @@ void Administrator :: enterSystem()
     if (std::cin.fail()) {
         std::cin.clear(); // Clears the error flags
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        color.setConsoleColor(  FOREGROUND_RED );
+        color.setColorANSI(31);
         cout << "invalid input"<<endl;
-        color.setConsoleColor(7);
+        color.setColorANSI(39);
 
     }
 
@@ -93,9 +92,10 @@ void Administrator :: enterSystem()
             if (std::cin.fail()) {
                 std::cin.clear(); // Clears the error flags
                 std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                color.setConsoleColor(  FOREGROUND_RED );
+                color.setColorANSI(31);
                 cout << "invalid input"<<endl;
-                color.setConsoleColor(7);
+                color.setColorANSI(39);
+
                 return;
             }
 
@@ -105,9 +105,10 @@ void Administrator :: enterSystem()
             if (std::cin.fail()) {
                 std::cin.clear(); // Clears the error flags
                 std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                color.setConsoleColor(  FOREGROUND_RED );
+                color.setColorANSI(31);
                 cout << "invalid input"<<endl;
-                color.setConsoleColor(7);
+                color.setColorANSI(39);
+
                 return;
             }
 
@@ -138,18 +139,22 @@ void Administrator :: enterSystem()
                     }
                 }
                 if (!userExists) {//if user is not in system--
-                    color.setConsoleColor(  FOREGROUND_RED );
+
+                    color.setColorANSI(31);
                     cout << "1 or more details are incorrect, please try again" << endl;
-                    color.setConsoleColor(7);
+                    color.setColorANSI(39);
+
 
                     cout << "id" << endl;
                     cin.getline(temp_id, 20);
                     if (std::cin.fail()) {
                         std::cin.clear(); // Clears the error flags
                         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                        color.setConsoleColor(FOREGROUND_RED);
-                        cout << "invalid input" << endl;
-                        color.setConsoleColor(7);
+
+                        color.setColorANSI(31);
+                        cout << "invalid input"<<endl;
+                        color.setColorANSI(39);
+
                         return;
                     }
 
@@ -159,9 +164,10 @@ void Administrator :: enterSystem()
                     if (std::cin.fail()) {
                         std::cin.clear(); // Clears the error flags
                         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                        color.setConsoleColor(FOREGROUND_RED);
-                        cout << "invalid input" << endl;
-                        color.setConsoleColor(7);
+                        color.setColorANSI(31);
+                        cout << "invalid input"<<endl;
+                        color.setColorANSI(39);
+
                         return;
                     }
 
@@ -175,22 +181,24 @@ void Administrator :: enterSystem()
         case REGISTER: {
             char typeChoice;
 
-            color.setConsoleColor(  FOREGROUND_RED );
+            color.setColorANSI(33);
             cout << "1";
-            color.setConsoleColor(7);
+            color.setColorANSI(39);
             cout <<"-candidate" << endl;
 
+            color.setColorANSI(33);
             cout << "2";
-            color.setConsoleColor(7);
+            color.setColorANSI(39);
             cout <<"-employer" << endl;
+
             cin >> typeChoice;
 
             if (std::cin.fail()) {
                 std::cin.clear();
                 std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                color.setConsoleColor(  FOREGROUND_RED );
+                color.setColorANSI(31);
                 cout << "invalid input"<<endl;
-                color.setConsoleColor(7);
+                color.setColorANSI(39);
                 return;
             }
             switch (typeChoice){
@@ -228,9 +236,10 @@ void Administrator :: enterSystem()
 
                 }
                 default: {
-                    color.setConsoleColor(FOREGROUND_RED);
-                    cout << "invalid input" << endl;
-                    color.setConsoleColor(7);
+                    color.setColorANSI(31);
+                    cout << "invalid input"<<endl;
+                    color.setColorANSI(39);
+
                 }
 
             }
@@ -630,7 +639,7 @@ void Administrator ::copySubFromFile() {
 
     fstream file_submitted_jobs;
 
-    char readFile[500];//TODO  you can open file and define in length that is bigger in 1 fro, file
+    char readFile[500];
 
     file_submitted_jobs.open("C:\\ObjectOrientedProgramming\\job-search-portal\\submittedJobs",ios::in);
     if(!file_submitted_jobs.is_open())
@@ -657,8 +666,6 @@ void Administrator ::copySubFromFile() {
 
 
 
-
-//TODO HEREEEEEEEEEEEEEEEEEEEEEEEEE
                                 //update JobApplicants array
                                 Candidate **tmpArrC = new Candidate *[
                                 candidate_arr[t]->getAllJobsArr()[i]->getJobApplicantsSize() + 1];
@@ -670,23 +677,6 @@ void Administrator ::copySubFromFile() {
                                 candidate_arr[t]->getAllJobsArr()[i]->setJobApplicants(tmpArrC);
                                 candidate_arr[t]->getAllJobsArr()[i]->setJobApplicantsSize(
                                         candidate_arr[t]->getAllJobsArr()[i]->getJobApplicantsSize() + 1);
-
-
-
-
-//                                //update JobApplicants array
-//                                Candidate **tmpArrC = new Candidate *[
-//                                candidate_arr[t]->getAllJobsArr()[i]->getJobApplicantsSize() + 1];
-//                                for (int j = 0; j < candidate_arr[t]->getAllJobsArr()[i]->getJobApplicantsSize(); ++j) {
-//                                    tmpArrC[j] = candidate_arr[t]->getAllJobsArr()[i]->getJobApplicants()[j];
-//                                }
-//                                tmpArrC[candidate_arr[t]->getAllJobsArr()[i]->getJobApplicantsSize()] = candidate_arr[t]; //put in last cell - pointer to current candidate
-//                                delete[] candidate_arr[t]->getAllJobsArr()[i]->getJobApplicants();
-//                                candidate_arr[t]->getAllJobsArr()[i]->setJobApplicants(tmpArrC);
-//                                candidate_arr[t]->getAllJobsArr()[i]->setJobApplicantsSize(
-//                                        candidate_arr[t]->getAllJobsArr()[i]->getJobApplicantsSize() + 1);
-
-
 
 
 
