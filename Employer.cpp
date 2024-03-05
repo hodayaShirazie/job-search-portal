@@ -83,10 +83,27 @@ void Employer :: personalArea()
 {
     char nav_personal_area;
     do {
-        cout << "1- submission history \n";
-        cout << "2- candidate submission\n";
-        cout << "3- publish a job \n";
-        cout << "4- log out \n";
+
+        Colors color;
+        color.setConsoleColor(  FOREGROUND_RED );
+        cout << "1";
+        color.setConsoleColor(7);
+        cout << "- submission history \n";
+
+        color.setConsoleColor(  FOREGROUND_RED );
+        cout << "2";
+        color.setConsoleColor(7);
+        cout << "- candidate submission\n";
+
+        color.setConsoleColor(  FOREGROUND_RED );
+        cout << "3";
+        color.setConsoleColor(7);
+        cout << "- publish a job \n";
+
+        color.setConsoleColor(  FOREGROUND_RED );
+        cout << "4";
+        color.setConsoleColor(7);
+        cout << "- log out \n";
 
         cin >> nav_personal_area;
 
@@ -112,10 +129,27 @@ void Employer :: personalArea()
                 char nav_submission_history;
 
                 do {
-                    cout << "\n1- all submitted jobs \n";
-                    cout << "2- update a job \n";
-                    cout << "3- delete a job\n";
-                    cout << "4- back to personal area \n";
+
+                    Colors color;
+                    color.setConsoleColor(  FOREGROUND_RED );
+                    cout << "\n1";
+                    color.setConsoleColor(7);
+                    cout << "- all submitted jobs \n";
+
+                    color.setConsoleColor(  FOREGROUND_RED );
+                    cout << "2";
+                    color.setConsoleColor(7);
+                    cout << "- update a job \n";
+
+                    color.setConsoleColor(  FOREGROUND_RED );
+                    cout << "3";
+                    color.setConsoleColor(7);
+                    cout << "- delete a job\n";
+
+                    color.setConsoleColor(  FOREGROUND_RED );
+                    cout << "4";
+                    color.setConsoleColor(7);
+                    cout << "- back to personal area \n";
 
                     cin >> nav_submission_history;
 
@@ -696,122 +730,117 @@ void Employer ::copyPersonalDetailsToFile() {
 
 }
 
-void Employer ::copyJobsFromFile()
-{
-    fstream file_jobs;
-
-    file_jobs.open("C:\\ObjectOrientedProgramming\\job-search-portal\\jobs.txt",ios::in);
-    if(!file_jobs.is_open())
-        cout << "file could not be opened, check error" << endl;
-    else
-    {
-        char company_name[200] = "\0";
-        char role[200] = "\0";
-        char job_description[200] = "\0";
-        char job_requirements[200] = "\0";
-        char job_type[200] = "\0";
-        char job_condition[200] = "\0";
-        char location[200] = "\0";
-        char date[200] = "\0";
-        char id_j[5] =  "\0";
-        int m=0,d=0,y=0;
-
-        while(!file_jobs.eof()) {
-            char read_file_jobs[200];
-            int readDateFromFile;
-            file_jobs >> read_file_jobs;
-            if (strcmp(read_file_jobs, id) == 0)
-            {
-                //coping company name
-                file_jobs >> read_file_jobs >> read_file_jobs;
-                while(!strcmp(read_file_jobs, "#role#") == 0)
-                {
-                    strcat(company_name,read_file_jobs);
-                    strcat(company_name, " ");
-                    file_jobs >> read_file_jobs;
-                }
-                file_jobs >> read_file_jobs;
-                //
-                while(!strcmp(read_file_jobs, "#jobDescription#") == 0)
-                {
-                    strcat(role,read_file_jobs);
-                    strcat(role, " ");
-                    file_jobs >> read_file_jobs;
-                }
-                file_jobs >> read_file_jobs;
-
-                while(!strcmp(read_file_jobs, "#jobRequirements#") == 0)
-                {
-                    strcat(job_description,read_file_jobs);
-                    strcat(job_description, " ");
-                    file_jobs >> read_file_jobs;
-
-                }
-                file_jobs >> read_file_jobs;
-
-                while(!strcmp(read_file_jobs, "#jobType#") == 0)
-                {
-                    strcat(job_requirements,read_file_jobs);
-                    strcat(job_requirements, " ");
-                    file_jobs >> read_file_jobs;
-                }
-                file_jobs >> read_file_jobs;
-
-                while(!strcmp(read_file_jobs, "#jobCondition#") == 0)
-                {
-                    strcat(job_type,read_file_jobs);
-                    strcat(job_type, " ");
-                    file_jobs >> read_file_jobs;
-                }
-                file_jobs >> read_file_jobs;
-
-                while(!strcmp(read_file_jobs, "#location#") == 0)
-                {
-                    strcat(job_condition,read_file_jobs);
-                    strcat(job_condition, " ");
-                    file_jobs >> read_file_jobs;
-                }
-                file_jobs >> read_file_jobs;
-
-                while(!strcmp(read_file_jobs, "#date#") == 0)
-                {
-                    strcat(location,read_file_jobs);
-                    strcat(location, " ");
-                    file_jobs >> read_file_jobs;
-                }
-                file_jobs >> m >> d >> y;
-                file_jobs >> read_file_jobs >> read_file_jobs;
-//                while(!strcmp(read_file_jobs, "#id#") == 0)
+//
+//void Employer ::copyJobsFromFile()
+//{
+//    fstream file_jobs;
+//
+//    file_jobs.open("C:\\ObjectOrientedProgramming\\job-search-portal\\jobs.txt",ios::in);
+//    if(!file_jobs.is_open())
+//        cout << "file could not be opened, check error" << endl;
+//    else
+//    {
+//        char company_name[200] = "\0";
+//        char role[200] = "\0";
+//        char job_description[200] = "\0";
+//        char job_requirements[200] = "\0";
+//        char job_type[200] = "\0";
+//        char job_condition[200] = "\0";
+//        char location[200] = "\0";
+//        char date[200] = "\0";
+//        char id_j[5] =  "\0";
+//        int m=0,d=0,y=0;
+//
+//        while(!file_jobs.eof()) {
+//            char read_file_jobs[200];
+//            int readDateFromFile;
+//            file_jobs >> read_file_jobs;
+//            if (strcmp(read_file_jobs, id) == 0)
+//            {
+//                //coping company name
+//                file_jobs >> read_file_jobs >> read_file_jobs;
+//                while(!strcmp(read_file_jobs, "#role#") == 0)
 //                {
-//                    strcat(date,read_file_jobs);
-//                    strcat(date, " ");
+//                    strcat(company_name,read_file_jobs);
+//                    strcat(company_name, " ");
 //                    file_jobs >> read_file_jobs;
 //                }
-
-                while(!strcmp(read_file_jobs, "#endl#") == 0)
-                {
-                    strcat(id_j,read_file_jobs);
-                    strcat(id_j, " ");
-                    file_jobs >> read_file_jobs;
-                }
-                file_jobs >> read_file_jobs;
-
-//                            create new Job with details from file
-                Job* job = new Job(company_name, role, job_description, job_requirements, job_type, job_condition, location, id,d,m,y);
-//                ;
-
-
-
-            }
-        }
-
-        file_jobs.close();
-    }
-
-
-
-
-}
+//                file_jobs >> read_file_jobs;
+//                //
+//                while(!strcmp(read_file_jobs, "#jobDescription#") == 0)
+//                {
+//                    strcat(role,read_file_jobs);
+//                    strcat(role, " ");
+//                    file_jobs >> read_file_jobs;
+//                }
+//                file_jobs >> read_file_jobs;
+//
+//                while(!strcmp(read_file_jobs, "#jobRequirements#") == 0)
+//                {
+//                    strcat(job_description,read_file_jobs);
+//                    strcat(job_description, " ");
+//                    file_jobs >> read_file_jobs;
+//
+//                }
+//                file_jobs >> read_file_jobs;
+//
+//                while(!strcmp(read_file_jobs, "#jobType#") == 0)
+//                {
+//                    strcat(job_requirements,read_file_jobs);
+//                    strcat(job_requirements, " ");
+//                    file_jobs >> read_file_jobs;
+//                }
+//                file_jobs >> read_file_jobs;
+//
+//                while(!strcmp(read_file_jobs, "#jobCondition#") == 0)
+//                {
+//                    strcat(job_type,read_file_jobs);
+//                    strcat(job_type, " ");
+//                    file_jobs >> read_file_jobs;
+//                }
+//                file_jobs >> read_file_jobs;
+//
+//                while(!strcmp(read_file_jobs, "#location#") == 0)
+//                {
+//                    strcat(job_condition,read_file_jobs);
+//                    strcat(job_condition, " ");
+//                    file_jobs >> read_file_jobs;
+//                }
+//                file_jobs >> read_file_jobs;
+//
+//                while(!strcmp(read_file_jobs, "#date#") == 0)
+//                {
+//                    strcat(location,read_file_jobs);
+//                    strcat(location, " ");
+//                    file_jobs >> read_file_jobs;
+//                }
+//                file_jobs >> m >> d >> y;
+//                file_jobs >> read_file_jobs >> read_file_jobs;
+//
+//
+//                while(!strcmp(read_file_jobs, "#endl#") == 0)
+//                {
+//                    strcat(id_j,read_file_jobs);
+//                    strcat(id_j, " ");
+//                    file_jobs >> read_file_jobs;
+//                }
+//                file_jobs >> read_file_jobs;
+//
+//               // create new Job with details from file
+//                Job* job = new Job(company_name, role, job_description, job_requirements, job_type, job_condition, location, id,d,m,y);
+//
+//
+//
+//            }
+//        }
+//
+//        file_jobs.close();
+//    }
+//
+//
+//
+//
+//}
 
 void Employer :: copyAllJobsToFiles()
 {
@@ -924,14 +953,6 @@ bool Employer :: isValidNumber(char* jobId) {
     bool exists = false;
     bool allDigits = true;
 
-//    cout << "inside is-invalid\n";
-//
-//    cout << "------------------g----------gh------------------\n";
-//    for (int i = 0; i < published_jobs_arr_size; ++i) {
-//        cout<< "id=" <<published_jobs_arr[i]->getId()<<endl;
-//
-//    }
-//    cout << "------------------gh---------gh------------------\n";
 
     // Check each character to ensure it's a digit
     for (int i = 0; jobId[i] != '\0'; ++i) { // Loop until the end of the string
@@ -987,8 +1008,7 @@ void Employer :: addJobToPublishJobs(Job* job) {
 }
 
 void Employer :: viewCandidateSubmission()
-{//TODO ADD FREE TXT PRINTING
-
+{
     Colors color;
 
     for (int i = 0; i < published_jobs_arr_size; ++i) {
@@ -1009,32 +1029,3 @@ void Employer :: viewCandidateSubmission()
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-//char *Employer::getUserName() const {
-//    return userName;
-//}
-//
-//
-//char *Employer::getEmail() const {
-//    return email;
-//}
-//
-//char *Employer::getPhoneNumber() const {
-//    return phoneNumber;
-//}
-//
-//char *Employer::getBirthDate() const {
-//    return birthDate;
-//}

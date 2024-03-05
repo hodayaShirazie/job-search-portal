@@ -144,15 +144,7 @@ CV& CV:: operator=(const CV& cv) {
 
 
 void CV:: createCV() {
-    //TODO call setters instead of this code
-//    delete[] summary;
-//    delete[] experience;
-//    delete[] education;
-//    delete[] licenses;
-//    delete[] skills;
-//    delete[] awards;
 
-//    char tmp [SIZE_STRING];
     cout << "build your CV, to skip- enter none" << endl;
 
 
@@ -169,66 +161,11 @@ void CV:: createCV() {
     setAwards();
 
 
-//    cout << "summary" << endl;
-//    cin.getline(tmp, SIZE_STRING);
-////    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-//
-//
-//
-//    summary = new char[strlen(tmp) + 1];
-//    strcpy(summary, tmp);
-//
-//
-//    if (cin.peek() == '\n') {
-//        cin.clear();
-//        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-//
-//    }
-//
-//    cout << "experience" << endl;
-//    cin.getline(tmp, SIZE_STRING);
-//
-//    experience = new char[strlen(tmp) + 1];
-//    strcpy(experience, tmp);
-////    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-//
-//
-//
-//    cout << "education" << endl;
-//    cin.getline(tmp, SIZE_STRING);
-//    if (cin.peek() == '\n') cin.ignore();
-//
-//    education = new char[strlen(tmp) + 1];
-//    strcpy(education, tmp);
-////    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-//
-//
-//    cout << "licenses" << endl;
-//    cin.getline(tmp, SIZE_STRING);
-//    licenses = new char[strlen(tmp) + 1];
-//    strcpy(licenses, tmp);
-//    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-//
-//
-//    cout << "skills" << endl;
-//    cin.getline(tmp, SIZE_STRING);
-//    skills = new char[strlen(tmp) + 1];
-//    strcpy(skills, tmp);
-//    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-//
-//
-//    cout << "awards" << endl;
-//    cin.getline(tmp, SIZE_STRING);
-//    awards = new char[strlen(tmp) + 1];
-//    strcpy(awards, tmp);
-//    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-
 }
 
 //print cv
 void CV:: print ()const
 {
-    //TODO// print only if field is not "none"
 
     Colors color;
     color.setConsoleColor( FOREGROUND_BLUE );
@@ -342,13 +279,44 @@ void CV::  change_cv()
 
     char nav_edit_cv;
     do {
-        cout << "1- summary \n";
-        cout << "2- experience \n";
-        cout << "3- education \n";
-        cout << "4- licenses \n";
-        cout << "5- skills \n";
-        cout << "6- awards \n";
-        cout << "7- back to edit profile \n";
+        Colors color;
+        color.setConsoleColor( FOREGROUND_RED );
+        cout << "1";
+        color.setConsoleColor(7);
+        cout << "- summary \n";
+
+        color.setConsoleColor( FOREGROUND_RED );
+        cout << "2";
+        color.setConsoleColor(7);
+        cout << "- experience \n";
+
+        color.setConsoleColor( FOREGROUND_RED );
+        cout << "3";
+        color.setConsoleColor(7);
+        cout << "- education \n";
+
+
+        color.setConsoleColor( FOREGROUND_RED );
+        cout << "4";
+        color.setConsoleColor(7);
+        cout << "- licenses \n";
+
+
+        color.setConsoleColor( FOREGROUND_RED );
+        cout << "5";
+        color.setConsoleColor(7);
+        cout << "- skills \n";
+
+
+        color.setConsoleColor( FOREGROUND_RED );
+        cout << "6";
+        color.setConsoleColor(7);
+        cout << "- awards \n";
+
+        color.setConsoleColor( FOREGROUND_RED );
+        cout << "7";
+        color.setConsoleColor(7);
+        cout << "- back to edit profile \n";
 
 
         cin >> nav_edit_cv;
@@ -356,6 +324,12 @@ void CV::  change_cv()
         if (nav_edit_cv != '1' && nav_edit_cv != '2' && nav_edit_cv != '3' && nav_edit_cv != '4' && nav_edit_cv != '5' && nav_edit_cv != '6' && nav_edit_cv != '7') {
             cin.clear(); // Clears the error flag on cin.
             cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            {
+                Colors color;
+                color.setConsoleColor( FOREGROUND_RED);
+                cout << "invalid input, try again\n";
+                color.setConsoleColor(7);
+            }
         }
 
         switch (nav_edit_cv) {
@@ -422,7 +396,16 @@ void CV::setSummary() {//TODO handle when input above 600 chars
 //    cin.ignore();
 
     bool tooLong = false;
+
+    Colors color;
+    color.setConsoleColor( FOREGROUND_BLUE );
     cout << "summary" << endl;
+    color.setConsoleColor(7);
+
+    color.setConsoleColor( FOREGROUND_INTENSITY );
+    cout << "to skip, enter \"none\"" << endl;
+    color.setConsoleColor(7);
+
     while(!tooLong) {
         cin.getline(tmp, 3100);
 
@@ -431,7 +414,11 @@ void CV::setSummary() {//TODO handle when input above 600 chars
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         }
         if (strlen(tmp) > 3000)
+        {
+            color.setConsoleColor( FOREGROUND_RED);
             cout << "summary is too long! try again\n";
+            color.setConsoleColor(7);
+        }
         else
             tooLong = true;
     }
@@ -452,7 +439,17 @@ void CV::setExperience() {
 
 
     bool tooLong = false;
+
+
+    Colors color;
+    color.setConsoleColor( FOREGROUND_BLUE );
     cout << "experience" << endl;
+    color.setConsoleColor(7);
+
+    color.setConsoleColor( FOREGROUND_INTENSITY );
+    cout << "to skip, enter \"none\"" << endl;
+    color.setConsoleColor(7);
+
     while(!tooLong) {
         cin.getline(tmp, 3100);
 
@@ -461,7 +458,11 @@ void CV::setExperience() {
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         }
         if (strlen(tmp) > 3000)
+        {
+            color.setConsoleColor( FOREGROUND_RED);
             cout << "experience is too long! try again\n";
+            color.setConsoleColor(7);
+        }
         else
             tooLong = true;
     }
@@ -478,7 +479,16 @@ void CV::setEducation() {
 
 
     bool tooLong = false;
+
+    Colors color;
+    color.setConsoleColor( FOREGROUND_BLUE );
     cout << "education" << endl;
+    color.setConsoleColor(7);
+
+    color.setConsoleColor( FOREGROUND_INTENSITY );
+    cout << "to skip, enter \"none\"" << endl;
+    color.setConsoleColor(7);
+
     while(!tooLong) {
         cin.getline(tmp, 3100);
 
@@ -487,7 +497,11 @@ void CV::setEducation() {
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         }
         if (strlen(tmp) > 3000)
+        {
+            color.setConsoleColor( FOREGROUND_RED);
             cout << "education is too long! try again\n";
+            color.setConsoleColor(7);
+        }
         else
             tooLong = true;
     }
@@ -505,7 +519,16 @@ void CV::setLicenses() {
 
 
     bool tooLong = false;
+
+    Colors color;
+    color.setConsoleColor( FOREGROUND_BLUE );
     cout << "licenses" << endl;
+    color.setConsoleColor(7);
+
+    color.setConsoleColor( FOREGROUND_INTENSITY );
+    cout << "to skip, enter \"none\"" << endl;
+    color.setConsoleColor(7);
+
     while(!tooLong) {
         cin.getline(tmp, 3100);
 
@@ -514,7 +537,11 @@ void CV::setLicenses() {
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         }
         if (strlen(tmp) > 3000)
+        {
+            color.setConsoleColor( FOREGROUND_RED);
             cout << "licenses is too long! try again\n";
+            color.setConsoleColor(7);
+        }
         else
             tooLong = true;
     }
@@ -530,7 +557,15 @@ void CV::setSkills() {
 //    cin.ignore();
 
     bool tooLong = false;
+    Colors color;
+    color.setConsoleColor( FOREGROUND_BLUE );
     cout << "skills" << endl;
+    color.setConsoleColor(7);
+
+    color.setConsoleColor( FOREGROUND_INTENSITY );
+    cout << "to skip, enter \"none\"" << endl;
+    color.setConsoleColor(7);
+
     while(!tooLong) {
         cin.getline(tmp, 3100);
 
@@ -539,7 +574,11 @@ void CV::setSkills() {
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         }
         if (strlen(tmp) > 3000)
+        {
+            color.setConsoleColor( FOREGROUND_RED);
             cout << "skills is too long! try again\n";
+            color.setConsoleColor(7);
+        }
         else
             tooLong = true;
     }
@@ -555,7 +594,16 @@ void CV::setAwards() {
 //    cin.ignore();
 
     bool tooLong = false;
+
+    Colors color;
+    color.setConsoleColor( FOREGROUND_BLUE );
     cout << "awards" << endl;
+    color.setConsoleColor(7);
+
+    color.setConsoleColor( FOREGROUND_INTENSITY );
+    cout << "to skip, enter \"none\"" << endl;
+    color.setConsoleColor(7);
+
     while(!tooLong) {
         cin.getline(tmp, 3100);
 
@@ -563,8 +611,12 @@ void CV::setAwards() {
             std::cin.clear(); // Clears the error flags
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         }
-        if (strlen(tmp) > 3000)
+        if (strlen(tmp) > 3000) {
+            color.setConsoleColor( FOREGROUND_RED);
             cout << "awards is too long! try again\n";
+            color.setConsoleColor(7);
+
+        }
         else
             tooLong = true;
     }

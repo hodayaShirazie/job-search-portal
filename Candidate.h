@@ -13,6 +13,7 @@
 #include "Colors.h"
 #include <algorithm>
 
+
 class Job; //forward declaration
 
 
@@ -44,6 +45,7 @@ public:
     Candidate(const Candidate& candidate);
 
     Candidate& operator=(const Candidate& candidate);
+
 
     void personalArea();
 
@@ -81,12 +83,13 @@ public:
     CV *getCv() const;
 
 
-
-
+    //print functions
     void print() const;
 
     void printAllJobsArr() const;
 
+
+    //general functions
     bool checkValidDate(int day, int month, int year);
 
     bool checkFirstNameAndLastName(char* str);

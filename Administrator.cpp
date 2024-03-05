@@ -19,13 +19,10 @@ enum navEnter {LOGIN = 'A'   ,REGISTER = 'B'};
 //constructor
 Administrator :: Administrator() : candidate_arr(NULL), employers_arr(NULL), candidate_arr_size(0),employers_arr_size(0)
 {
-
     copyPersonalDetailsFromFile(); //build candidate and employer arrays without cv and published job fields(respectively)
     copyCVfromFile(); //build cv field to candidate array
     copyJobsFromFile(); //build published job field of employer array
     copySubFromFile();
-
-
 
 }
 
@@ -141,17 +138,32 @@ void Administrator :: enterSystem()
                     }
                 }
                 if (!userExists) {//if user is not in system--
+                    color.setConsoleColor(  FOREGROUND_RED );
                     cout << "1 or more details are incorrect, please try again" << endl;
-                    color.setConsoleColor( FOREGROUND_RED );
-                    cout << "id" << endl;
                     color.setConsoleColor(7);
-                    cin.getline(temp_id, 20);
 
-                    color.setConsoleColor( FOREGROUND_RED );
+                    cout << "id" << endl;
+                    cin.getline(temp_id, 20);
+                    if (std::cin.fail()) {
+                        std::cin.clear(); // Clears the error flags
+                        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                        color.setConsoleColor(FOREGROUND_RED);
+                        cout << "invalid input" << endl;
+                        color.setConsoleColor(7);
+                        return;
+                    }
+
                     cout << "password" << endl;
-                    color.setConsoleColor(7);
 
                     cin.getline(temp_password, 20);
+                    if (std::cin.fail()) {
+                        std::cin.clear(); // Clears the error flags
+                        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                        color.setConsoleColor(FOREGROUND_RED);
+                        cout << "invalid input" << endl;
+                        color.setConsoleColor(7);
+                        return;
+                    }
 
                 }
             }
@@ -162,7 +174,15 @@ void Administrator :: enterSystem()
 
         case REGISTER: {
             char typeChoice;
-            cout << "1-CANDIDATE" << endl << "2-EMPLOYER" << endl;
+
+            color.setConsoleColor(  FOREGROUND_RED );
+            cout << "1";
+            color.setConsoleColor(7);
+            cout <<"-candidate" << endl;
+
+            cout << "2";
+            color.setConsoleColor(7);
+            cout <<"-employer" << endl;
             cin >> typeChoice;
 
             if (std::cin.fail()) {
@@ -304,7 +324,6 @@ void Administrator :: copyJobsFromFile() {
             char id_j[5] = "\0";
             int d = 0,m = 0,y = 0;
 
-            //TODO copy list of jobs
             file_jobs.open("C:\\ObjectOrientedProgramming\\job-search-portal\\jobs.txt", ios::in);
             if (!file_jobs.is_open())
                 cout << "file could not be opened, check error" << endl;
@@ -372,17 +391,6 @@ void Administrator :: copyJobsFromFile() {
                         file_jobs >> read_file_jobs >> read_file_jobs;
 
 
-
-
-
-//                        while (!strcmp(read_file_jobs, "#id#") == 0) {
-//                            strcat(date, read_file_jobs);
-//                            strcat(date, " ");
-//                            file_jobs >> read_file_jobs;
-//                        }
-//                        file_jobs >> read_file_jobs;
-
-
                         while (!strcmp(read_file_jobs, "#endl#") == 0) {
                             strcat(id_j, read_file_jobs);
                             strcat(id_j, " ");
@@ -437,7 +445,6 @@ void Administrator ::copyPersonalDetailsFromFile() {
             char phoneNumber[30];
             char birthDate[30];
             char password[30];
-//            char tmpFreeTxt [400];
 
             if (strcmp(readFile, "c") == 0)//copy as candide
             {
@@ -495,9 +502,6 @@ void Administrator ::copyPersonalDetailsFromFile() {
                 ++employers_arr_size;
 
 
-
-
-
             }
         }
         file_personal_details.close();
@@ -508,7 +512,7 @@ void Administrator ::copyPersonalDetailsFromFile() {
 
 void Administrator ::copyCVfromFile() {
 
-    char file_content[30];///////////TODO SIZE
+    char file_content[30];
     fstream file_cv,file_jobs;
 
     for (int i = 0; i < candidate_arr_size; ++i) {
@@ -610,8 +614,6 @@ void Administrator ::copyCVfromFile() {
 
                     //set cv in cv field
                     candidate_arr[i]->set_cv(cv);
-
-
                 }
 
 
@@ -654,6 +656,9 @@ void Administrator ::copySubFromFile() {
                                 candidate_arr[t]->getAllJobsArr()[i]->setSubmitted();
 
 
+
+
+//TODO HEREEEEEEEEEEEEEEEEEEEEEEEEE
                                 //update JobApplicants array
                                 Candidate **tmpArrC = new Candidate *[
                                 candidate_arr[t]->getAllJobsArr()[i]->getJobApplicantsSize() + 1];
@@ -669,6 +674,22 @@ void Administrator ::copySubFromFile() {
 
 
 
+//                                //update JobApplicants array
+//                                Candidate **tmpArrC = new Candidate *[
+//                                candidate_arr[t]->getAllJobsArr()[i]->getJobApplicantsSize() + 1];
+//                                for (int j = 0; j < candidate_arr[t]->getAllJobsArr()[i]->getJobApplicantsSize(); ++j) {
+//                                    tmpArrC[j] = candidate_arr[t]->getAllJobsArr()[i]->getJobApplicants()[j];
+//                                }
+//                                tmpArrC[candidate_arr[t]->getAllJobsArr()[i]->getJobApplicantsSize()] = candidate_arr[t]; //put in last cell - pointer to current candidate
+//                                delete[] candidate_arr[t]->getAllJobsArr()[i]->getJobApplicants();
+//                                candidate_arr[t]->getAllJobsArr()[i]->setJobApplicants(tmpArrC);
+//                                candidate_arr[t]->getAllJobsArr()[i]->setJobApplicantsSize(
+//                                        candidate_arr[t]->getAllJobsArr()[i]->getJobApplicantsSize() + 1);
+
+
+
+
+
                                 // find job in published job arr of employer
                                 for (int e = 0; e < employers_arr_size; ++e) {
                                     for (int y = 0; y < employers_arr[e]->getPublishedJobsArrSize(); ++y) {
@@ -679,8 +700,7 @@ void Administrator ::copySubFromFile() {
                                         {
                                             Candidate **tmpArrE = new Candidate *[
                                             employers_arr[e]->getPublishedJobsArr()[y]->getJobApplicantsSize() + 1];
-                                            for (int j = 0; j <
-                                                            employers_arr[e]->getPublishedJobsArr()[y]->getJobApplicantsSize(); ++j) {
+                                            for (int j = 0; j < employers_arr[e]->getPublishedJobsArr()[y]->getJobApplicantsSize(); ++j) {
                                                 tmpArrE[j] = employers_arr[e]->getPublishedJobsArr()[y]->getJobApplicants()[j];
                                             }
                                             tmpArrE[employers_arr[e]->getPublishedJobsArr()[y]->getJobApplicantsSize()] = candidate_arr[t]; //put in last cell pointer to current candidate

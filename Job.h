@@ -55,6 +55,7 @@ public:
     Job& operator=(const Job& job);
 
 
+    //getters
     string getId() const;
 
     char *getCompanyName() const;
@@ -80,6 +81,7 @@ public:
     int getJobApplicantsSize() const;
 
 
+    //setters
     void setSubmitted();
 
     void setLiked();
@@ -104,13 +106,9 @@ public:
 
     void setJobApplicantsSize(int jobApplicantsSize);
 
-//    void clearInputBuffer();
-
-
     void print() const;
 
     void printJobApplicants();
-
 
     void readMaxIdFromFiles();
 
