@@ -140,15 +140,17 @@ private:
     char* job_type;
     char* job_condition;
     char* location;
-    int month;
-    int day;
-    int year;
+    int publishedMonth;
+    int publishedDay;
+    int publishedYear;
+
+
 
     string id;
     int max_id;
     bool submitted;
     bool liked;
-    bool wasCopied;
+
 
     Candidate **jobApplicants;
     int jobApplicantsSize;

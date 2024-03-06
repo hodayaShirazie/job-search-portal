@@ -603,7 +603,7 @@ void Employer::set_birth_date() {
 
     delete [] birthDate;
     int d,m,y;
-    cout<<"date: enter month, day and year"<<endl;
+    cout<<"birth-date: enter month, day and year"<<endl;
     bool validInput = true;
 
 
@@ -622,7 +622,7 @@ void Employer::set_birth_date() {
 
     //validate date
     while(!checkValidDate(d,m,y)) {
-        cout<<"invalid date, enter: month, day and year"<<endl;
+        cout<<"invalid date, enter: publishedMonth, publishedDay and publishedYear"<<endl;
         while(!(cin >> m) || !(cin >> d) || !(cin >> y)) //if input is not integer
 
         {

@@ -6,9 +6,8 @@
 
 
 
-
 //constructor with no parameters
-Job :: Job():submitted(false),liked(false),jobApplicants(NULL),jobApplicantsSize(0),wasCopied(false)
+Job :: Job():submitted(false),liked(false),jobApplicants(NULL),jobApplicantsSize(0)
 {
 
     readMaxIdFromFiles();
@@ -62,7 +61,7 @@ Job :: Job():submitted(false),liked(false),jobApplicants(NULL),jobApplicantsSize
 
 //constructor with parameters
 Job :: Job(char *company_name, char* role, char* job_description, char* job_requirements,
-    char* job_type, char* job_condition, char* location, string id, int day, int month,int year):submitted(false),liked(false),jobApplicants(NULL),jobApplicantsSize(0),wasCopied(false)
+    char* job_type, char* job_condition, char* location, string id, int day, int month,int year):submitted(false),liked(false),jobApplicants(NULL),jobApplicantsSize(0)
 {
 
     this->company_name = new char[strlen(company_name) + 1];
@@ -88,11 +87,11 @@ Job :: Job(char *company_name, char* role, char* job_description, char* job_requ
 
     this->id = id;
 
-    this->day = day;
+    this->publishedDay = day;
 
-    this->month = month;
+    this->publishedMonth = month;
 
-    this->year = year;
+    this->publishedYear = year;
 
 
 }
@@ -169,9 +168,9 @@ Job& Job :: operator=(const Job& job)
     location = new char[strlen(job.location)+1];
     strcpy(location, job.location);
 
-    day = job.day;
-    month = job.month;
-    year = job.year;
+    publishedDay = job.publishedDay;
+    publishedMonth = job.publishedMonth;
+    publishedYear = job.publishedYear;
 
 
     id = job.id;
@@ -232,15 +231,15 @@ int Job::getJobApplicantsSize() const {
 }
 
 int Job::getMonth() const {
-    return month;
+    return publishedMonth;
 }
 
 int Job::getDay() const {
-    return day;
+    return publishedDay;
 }
 
 int Job::getYear() const {
-    return year;
+    return publishedYear;
 }
 
 
@@ -800,7 +799,7 @@ void Job :: print() const
 
         std::cout.flush();
     }
-    cout << "posted in: " << day << "." << month << "." << year << endl;
+    cout << "posted in: " << publishedDay << "." << publishedMonth << "." << publishedYear << endl;
 
 
 
@@ -1012,9 +1011,9 @@ void Job :: today() {
     tm *timeinfo;
     time(&rawtime);
     timeinfo = localtime(&rawtime);
-    month = timeinfo->tm_mon + 1;
-    day = timeinfo->tm_mday;
-    year = timeinfo->tm_year + 1900;
+    publishedMonth = timeinfo->tm_mon + 1;
+    publishedDay = timeinfo->tm_mday;
+    publishedYear = timeinfo->tm_year + 1900;
 
 }
 
@@ -1055,7 +1054,7 @@ void Job:: printJobForEmployer()
     cout << "----------------------------------------- job id: "<< id << "------------------------------------------------------------ " << endl;
     color.setColorANSI(39);
 
-    cout << "posted in: " << day << "." << month << "." << year << endl;
+    cout << "posted in: " << publishedDay << "." << publishedMonth << "." << publishedYear << endl;
 
     color.setColorANSI(34);
     cout << "\ncompany name: " << endl;
@@ -1069,17 +1068,20 @@ void Job:: printJobForEmployer()
     std::cout.flush();
     cout << role << endl << endl;
 
-    color.setColorANSI(34);
-    cout << "job description: " << endl;
-    color.setColorANSI(39);
-    std::cout.flush();
-    cout << job_description << endl << endl;
-
-    color.setColorANSI(34);
-    cout << "job requirements: " << endl;
-    color.setColorANSI(39);
-    std::cout.flush();
-    cout << job_requirements << endl << endl;
+    if(strcmp(job_description, "none ") != 0 && strcmp(job_description, "none") != 0) {
+        color.setColorANSI(34);
+        cout << "job description: " << endl;
+        color.setColorANSI(39);
+        std::cout.flush();
+        cout << job_description << endl << endl;
+    }
+    if(strcmp(job_requirements, "none ") != 0 && strcmp(job_requirements, "none") != 0) {
+        color.setColorANSI(34);
+        cout << "job requirements: " << endl;
+        color.setColorANSI(39);
+        std::cout.flush();
+        cout << job_requirements << endl << endl;
+    }
 
     color.setColorANSI(34);
     cout << "job type: " << endl;
@@ -1087,11 +1089,13 @@ void Job:: printJobForEmployer()
     std::cout.flush();
     cout << job_type << endl << endl;
 
-    color.setColorANSI(34);
-    cout << "job condition:" << endl;
-    color.setColorANSI(39);
-    std::cout.flush();
-    cout << job_condition << endl << endl;
+    if(strcmp(job_condition, "none ") != 0 && strcmp(job_condition, "none") != 0) {
+        color.setColorANSI(34);
+        cout << "job condition:" << endl;
+        color.setColorANSI(39);
+        std::cout.flush();
+        cout << job_condition << endl << endl;
+    }
 
     color.setColorANSI(34);
     cout << "location: " << endl;

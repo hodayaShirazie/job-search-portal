@@ -299,13 +299,13 @@ void Administrator :: emptyFiles()
     else
         file.close();
 
-    file.open("C:\\ObjectOrientedProgramming\\job-search-portal\\submittedJobs",ios::out);
+    file.open("C:\\ObjectOrientedProgramming\\job-search-portal\\submittedJobs.txt",ios::out);
     if(!file.is_open())
         cout << "file could not be opened, check error" << endl;
     else
         file.close();
 
-    file.open("C:\\ObjectOrientedProgramming\\job-search-portal\\likedJobs",ios::out);
+    file.open("C:\\ObjectOrientedProgramming\\job-search-portal\\likedJobs.txt",ios::out);
 
     if(!file.is_open())
         cout << "file could not be opened, check error" << endl;
@@ -432,7 +432,6 @@ void Administrator :: copyJobsFromFile() {
                 file_jobs.close();
             }
         }
-
 }
 
 void Administrator ::copyPersonalDetailsFromFile() {
@@ -641,7 +640,7 @@ void Administrator ::copySubFromFile() {
 
     char readFile[500];
 
-    file_submitted_jobs.open("C:\\ObjectOrientedProgramming\\job-search-portal\\submittedJobs",ios::in);
+    file_submitted_jobs.open("C:\\ObjectOrientedProgramming\\job-search-portal\\submittedJobs.txt",ios::in);
     if(!file_submitted_jobs.is_open())
         cout << "file could not be opened, check error" << endl;
     else {
