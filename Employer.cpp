@@ -598,7 +598,6 @@ void Employer::set_password() {
     strcpy(password, buffer);
 
 }
-//TODO print message when done deleting job
 void Employer::set_birth_date() {
 
     delete [] birthDate;

@@ -2420,6 +2420,8 @@ CMakeFiles/jobSearch.dir/Job.cpp.obj: ../Job.cpp \
   C:/Program\ Files/JetBrains/CLion\ 2022.1.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/pstl/execution_defs.h
 
 CMakeFiles/jobSearch.dir/main.cpp.obj: ../main.cpp \
+  ../Administrator.h \
+  ../Candidate.h \
   C:/Program\ Files/JetBrains/CLion\ 2022.1.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/iostream \
   C:/Program\ Files/JetBrains/CLion\ 2022.1.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32/bits/c++config.h \
   C:/Program\ Files/JetBrains/CLion\ 2022.1.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32/bits/os_defines.h \
@@ -2569,8 +2571,6 @@ CMakeFiles/jobSearch.dir/main.cpp.obj: ../main.cpp \
   C:/Program\ Files/JetBrains/CLion\ 2022.1.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/istream.tcc \
   ../CV.h \
   C:/Program\ Files/JetBrains/CLion\ 2022.1.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/limits \
-  ../Administrator.h \
-  ../Candidate.h \
   C:/Program\ Files/JetBrains/CLion\ 2022.1.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/fstream \
   C:/Program\ Files/JetBrains/CLion\ 2022.1.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/codecvt.h \
   C:/Program\ Files/JetBrains/CLion\ 2022.1.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32/bits/basic_file.h \
