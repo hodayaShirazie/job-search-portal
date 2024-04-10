@@ -1,5 +1,5 @@
 
-c 098765432 Aa112234 jane doe jane-doe@fictivemail.com 0786657645 7.8.1995 Innovative software developer with expertise in Java and Python. Excels in team collaboration and problem-solving. Committed to continuous learning and technological advancement.  #endl#
+c 098765432 Aa112234 Amanda wing jane-doe@fictivemail.com 0786657645 7.8.1995 Innovative software developer with expertise in Java and Python. Excels in team collaboration and problem-solving. Committed to continuous learning and technological advancement.  #endl#
 c 765457789 Ss112233 john smith john.smith@example.org 0877865534 5.2.1996 Dedicated legal professional with a strong foundation in law and a passion for corporate law. Committed to leveraging my skills to contribute to a dynamic legal team. Known for meticulous research, effective communication, and a collaborative spirit.  #endl#
 c 456348871 79090OPop emily taylor emily.taylor@example.com 0987781275 5.7.1998 Passionate environmental law graduate, eager to apply my analytical skills and sustainability knowledge in a dynamic legal setting. Dedicated to making a meaningful impact.  #endl#
 e 098765432 qw1212QW adam levi adam@gmail.com 0987786755 3.3.2003

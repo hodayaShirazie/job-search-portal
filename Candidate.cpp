@@ -513,6 +513,7 @@ void  Candidate ::set_id() {
         }
 
     }
+
     id = new char[strlen(buffer) + 1];
     strcpy(id, buffer);
 

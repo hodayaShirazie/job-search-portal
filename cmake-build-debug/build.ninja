@@ -39,7 +39,7 @@ include CMakeFiles/rules.ninja
 #############################################
 # Logical path to working directory; prefix for absolute paths.
 
-cmake_ninja_workdir = C$:/ObjectOrientedProgramming/jobSearch/cmake-build-debug/
+cmake_ninja_workdir = C$:/ObjectOrientedProgramming/job-search-portal/cmake-build-debug/
 # =============================================================================
 # Object build statements for EXECUTABLE target jobSearch
 
@@ -49,43 +49,43 @@ cmake_ninja_workdir = C$:/ObjectOrientedProgramming/jobSearch/cmake-build-debug/
 
 build cmake_object_order_depends_target_jobSearch: phony || CMakeFiles/jobSearch.dir
 
-build CMakeFiles/jobSearch.dir/main.cpp.obj: CXX_COMPILER__jobSearch_Debug C$:/ObjectOrientedProgramming/jobSearch/main.cpp || cmake_object_order_depends_target_jobSearch
+build CMakeFiles/jobSearch.dir/main.cpp.obj: CXX_COMPILER__jobSearch_Debug C$:/ObjectOrientedProgramming/job-search-portal/main.cpp || cmake_object_order_depends_target_jobSearch
   DEP_FILE = CMakeFiles\jobSearch.dir\main.cpp.obj.d
   FLAGS = -g -std=gnu++23
   OBJECT_DIR = CMakeFiles\jobSearch.dir
   OBJECT_FILE_DIR = CMakeFiles\jobSearch.dir
 
-build CMakeFiles/jobSearch.dir/Employer.cpp.obj: CXX_COMPILER__jobSearch_Debug C$:/ObjectOrientedProgramming/jobSearch/Employer.cpp || cmake_object_order_depends_target_jobSearch
+build CMakeFiles/jobSearch.dir/Employer.cpp.obj: CXX_COMPILER__jobSearch_Debug C$:/ObjectOrientedProgramming/job-search-portal/Employer.cpp || cmake_object_order_depends_target_jobSearch
   DEP_FILE = CMakeFiles\jobSearch.dir\Employer.cpp.obj.d
   FLAGS = -g -std=gnu++23
   OBJECT_DIR = CMakeFiles\jobSearch.dir
   OBJECT_FILE_DIR = CMakeFiles\jobSearch.dir
 
-build CMakeFiles/jobSearch.dir/Candidate.cpp.obj: CXX_COMPILER__jobSearch_Debug C$:/ObjectOrientedProgramming/jobSearch/Candidate.cpp || cmake_object_order_depends_target_jobSearch
+build CMakeFiles/jobSearch.dir/Candidate.cpp.obj: CXX_COMPILER__jobSearch_Debug C$:/ObjectOrientedProgramming/job-search-portal/Candidate.cpp || cmake_object_order_depends_target_jobSearch
   DEP_FILE = CMakeFiles\jobSearch.dir\Candidate.cpp.obj.d
   FLAGS = -g -std=gnu++23
   OBJECT_DIR = CMakeFiles\jobSearch.dir
   OBJECT_FILE_DIR = CMakeFiles\jobSearch.dir
 
-build CMakeFiles/jobSearch.dir/CV.cpp.obj: CXX_COMPILER__jobSearch_Debug C$:/ObjectOrientedProgramming/jobSearch/CV.cpp || cmake_object_order_depends_target_jobSearch
+build CMakeFiles/jobSearch.dir/CV.cpp.obj: CXX_COMPILER__jobSearch_Debug C$:/ObjectOrientedProgramming/job-search-portal/CV.cpp || cmake_object_order_depends_target_jobSearch
   DEP_FILE = CMakeFiles\jobSearch.dir\CV.cpp.obj.d
   FLAGS = -g -std=gnu++23
   OBJECT_DIR = CMakeFiles\jobSearch.dir
   OBJECT_FILE_DIR = CMakeFiles\jobSearch.dir
 
-build CMakeFiles/jobSearch.dir/Administrator.cpp.obj: CXX_COMPILER__jobSearch_Debug C$:/ObjectOrientedProgramming/jobSearch/Administrator.cpp || cmake_object_order_depends_target_jobSearch
+build CMakeFiles/jobSearch.dir/Administrator.cpp.obj: CXX_COMPILER__jobSearch_Debug C$:/ObjectOrientedProgramming/job-search-portal/Administrator.cpp || cmake_object_order_depends_target_jobSearch
   DEP_FILE = CMakeFiles\jobSearch.dir\Administrator.cpp.obj.d
   FLAGS = -g -std=gnu++23
   OBJECT_DIR = CMakeFiles\jobSearch.dir
   OBJECT_FILE_DIR = CMakeFiles\jobSearch.dir
 
-build CMakeFiles/jobSearch.dir/Job.cpp.obj: CXX_COMPILER__jobSearch_Debug C$:/ObjectOrientedProgramming/jobSearch/Job.cpp || cmake_object_order_depends_target_jobSearch
+build CMakeFiles/jobSearch.dir/Job.cpp.obj: CXX_COMPILER__jobSearch_Debug C$:/ObjectOrientedProgramming/job-search-portal/Job.cpp || cmake_object_order_depends_target_jobSearch
   DEP_FILE = CMakeFiles\jobSearch.dir\Job.cpp.obj.d
   FLAGS = -g -std=gnu++23
   OBJECT_DIR = CMakeFiles\jobSearch.dir
   OBJECT_FILE_DIR = CMakeFiles\jobSearch.dir
 
-build CMakeFiles/jobSearch.dir/Colors.cpp.obj: CXX_COMPILER__jobSearch_Debug C$:/ObjectOrientedProgramming/jobSearch/Colors.cpp || cmake_object_order_depends_target_jobSearch
+build CMakeFiles/jobSearch.dir/Colors.cpp.obj: CXX_COMPILER__jobSearch_Debug C$:/ObjectOrientedProgramming/job-search-portal/Colors.cpp || cmake_object_order_depends_target_jobSearch
   DEP_FILE = CMakeFiles\jobSearch.dir\Colors.cpp.obj.d
   FLAGS = -g -std=gnu++23
   OBJECT_DIR = CMakeFiles\jobSearch.dir
@@ -114,7 +114,7 @@ build jobSearch.exe: CXX_EXECUTABLE_LINKER__jobSearch_Debug CMakeFiles/jobSearch
 # Utility command for edit_cache
 
 build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
-  COMMAND = cmd.exe /C "cd /D C:\ObjectOrientedProgramming\jobSearch\cmake-build-debug && "C:\Program Files\JetBrains\CLion 2022.1.1\bin\cmake\win\bin\cmake.exe" -E echo "No interactive CMake dialog available.""
+  COMMAND = cmd.exe /C "cd /D C:\ObjectOrientedProgramming\job-search-portal\cmake-build-debug && "C:\Program Files\JetBrains\CLion 2022.1.1\bin\cmake\win\bin\cmake.exe" -E echo "No interactive CMake dialog available.""
   DESC = No interactive CMake dialog available...
   restat = 1
 
@@ -125,7 +125,7 @@ build edit_cache: phony CMakeFiles/edit_cache.util
 # Utility command for rebuild_cache
 
 build CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
-  COMMAND = cmd.exe /C "cd /D C:\ObjectOrientedProgramming\jobSearch\cmake-build-debug && "C:\Program Files\JetBrains\CLion 2022.1.1\bin\cmake\win\bin\cmake.exe" --regenerate-during-build -SC:\ObjectOrientedProgramming\jobSearch -BC:\ObjectOrientedProgramming\jobSearch\cmake-build-debug"
+  COMMAND = cmd.exe /C "cd /D C:\ObjectOrientedProgramming\job-search-portal\cmake-build-debug && "C:\Program Files\JetBrains\CLion 2022.1.1\bin\cmake\win\bin\cmake.exe" --regenerate-during-build -SC:\ObjectOrientedProgramming\job-search-portal -BC:\ObjectOrientedProgramming\job-search-portal\cmake-build-debug"
   DESC = Running CMake to regenerate build system...
   pool = console
   restat = 1
@@ -143,7 +143,7 @@ build jobSearch: phony jobSearch.exe
 # =============================================================================
 
 #############################################
-# Folder: C:/ObjectOrientedProgramming/jobSearch/cmake-build-debug
+# Folder: C:/ObjectOrientedProgramming/job-search-portal/cmake-build-debug
 
 build all: phony jobSearch.exe
 

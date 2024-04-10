@@ -192,7 +192,7 @@ void CV:: print ()const
 
 
 
-    if(strcmp(summary, "none") != 0) {
+    if((strcmp(summary, "none") != 0)) {
         color.setColorANSI(34);
         cout << "summary " << endl;
         color.setColorANSI(0);
